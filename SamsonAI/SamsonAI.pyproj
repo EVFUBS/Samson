@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>cd68207b-466e-4dd7-b074-393ca2eb892a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>SamsonAI.py</StartupFile>
+    <StartupFile>Training\SamsonWake.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,8 +22,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classification\SamsonActions.py" />
-    <Compile Include="Classification\SamsonWake.py" />
+    <Compile Include="Training\SamsonActions.py" />
+    <Compile Include="Training\SamsonWake.py" />
     <Compile Include="SamsonAI.py" />
   </ItemGroup>
   <ItemGroup>
@@ -38,7 +38,7 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classification\" />
+    <Folder Include="Training\" />
     <Folder Include="Data\" />
     <Folder Include="Models\" />
     <Folder Include="Models\SamsonWake\" />
@@ -47,6 +47,8 @@
   <ItemGroup>
     <Content Include="Data\SamsonActions.csv" />
     <Content Include="Data\SamsonWake.csv" />
+    <Content Include="Models\SamsonActions\tokenizer.json" />
+    <Content Include="Models\SamsonWake\tokenizer.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

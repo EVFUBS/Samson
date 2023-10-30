@@ -13,7 +13,7 @@ namespace SamsonConsoleApp.Actions
         {
             var synthesizer = new SpeechSynthesizer();
             synthesizer.SetOutputToDefaultAudioDevice();
-            synthesizer.Speak("Hello");
+            synthesizer.Speak("Hello, these are my first words, nice to meet you, I'm Samson");
         }
     }
 }

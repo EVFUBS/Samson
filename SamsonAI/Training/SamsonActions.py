@@ -9,9 +9,9 @@ import pandas as pd
 import json
 import io
 
-model_save_path = 'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Models\SamsonWake'
+model_save_path = r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Models\SamsonActions//'
 
-df = pd.read_csv('C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Data\SamsonWake.csv')
+df = pd.read_csv(r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Data\SamsonActions.csv')
 rng = RandomState()
 
 x_train, x_test, y_train, y_test = train_test_split(df['text'], df['class'], test_size=.2, stratify=df['class'], random_state=42)
@@ -40,3 +40,8 @@ model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=
 history = model.fit(x_train, y_train, epochs=10, validation_data=(x_test, y_test), verbose=2)
 
 model.save(model_save_path, overwrite=True)
+
+# load
+# with open('tokenizer.json') as f:
+#     data = json.load(f)
+#     tokenizer = tokenizer_from_json(data)
