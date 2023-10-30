@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\clr.py" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="QuantConnect.pythonnet" Version="2.0.24" />
+    <PackageReference Include="System.Speech" Version="8.0.0-rc.2.23479.6" />
+  </ItemGroup>
+
+</Project>

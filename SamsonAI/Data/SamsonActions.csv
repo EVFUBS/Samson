@@ -1,0 +1,12 @@
+text, class
+#==================================
+# General Actions
+#==================================
+
+#==================================
+# Browser Actions
+#==================================
+open a browser, OpenWebBrowser
+open a web broser, OpenWebBrowser
+open google, OpenGoogleBrowser
+can you open google, OpenGoogleBrowser
