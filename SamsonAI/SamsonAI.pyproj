@@ -22,6 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Predictions\gpt4allQueries.py" />
     <Compile Include="Training\SamsonActions.py" />
     <Compile Include="Training\SamsonWake.py" />
     <Compile Include="SamsonAI.py" />
@@ -38,6 +39,7 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Predictions\" />
     <Folder Include="Training\" />
     <Folder Include="Data\" />
     <Folder Include="Models\" />

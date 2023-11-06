@@ -1,31 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using SamsonConsoleApp.Actions.Interfaces;
 
 namespace SamsonConsoleApp.Actions
 {
-    public class WebBrowser
+    public class WebBrowser : IWebBrowser
     {
-        public static void OpenDefaultWebBrowser()
+        public void OpenDefaultWebBrowser()
         {
+            // get this out of config
             string target = "http://www.google.com";
+            OpenUrl(target);
+        }
 
+        public void OpenDefaultWebBrowserToWebsite(string website)
+        {
+            OpenUrl(website);
+        }
+
+        private void OpenUrl(string url)
+        {
             try
             {
-                System.Diagnostics.Process.Start(target);
+                Process.Start(url);
             }
-            catch (System.ComponentModel.Win32Exception noBrowser)
+            catch
             {
-                // TODO: Have Samson reply here
-                if (noBrowser.ErrorCode == -2147467259)
-                    Console.WriteLine($"There is no browser installed! {noBrowser}");
-                
-            }
-            catch (System.Exception other)
-            {
-                Console.WriteLine($"Something really went wrong! {other}");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw new Exception("Could not open web browser!");
+                }
             }
         }
     }

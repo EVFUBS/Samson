@@ -31,7 +31,8 @@ with io.open(r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\Samson
     f.write(json.dumps(tokenizer_json, ensure_ascii=False))
 
 model = Sequential([
-    Dense(48, input_shape=[1], kernel_initializer='he_uniform', activation='relu'),
+    Dense(64, input_shape=(32, train_padded.shape), kernel_initializer='he_uniform', activation='relu'),
+    Dense(32, input_shape=(32, train_padded.shape), kernel_initializer='he_uniform', activation='relu'),
     Dense(df['encoded_class'].nunique(), activation='softmax')
 ])
 
