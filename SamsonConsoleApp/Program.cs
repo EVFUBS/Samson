@@ -11,16 +11,32 @@ using System.ComponentModel;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static void Main(string[] args)
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+        builder.Environment.EnvironmentName = "development";
 
-        IHostEnvironment env = builder.Environment;
-
+        // Read Config
         builder.Configuration
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{env.EnvironmentName},json", optional: true, reloadOnChange: true);
+            .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+        // Dependency Injection
         builder.Services.AddDependencies(builder.Configuration);
-        
+
+        var app = builder.Build();
+        var provider = builder.Services.BuildServiceProvider();
+        var speechRecognition = provider.GetService<ISpeechRecognition>();
+
+        if (speechRecognition != null)
+        {
+            Console.WriteLine("Samson is now listening");
+            speechRecognition.RecogniseSpeech();
+            app.Run();
+        }
+        else
+        {
+            throw new Exception("Error Occured attempting to start speech recognition");
+        }
     }
 }

@@ -3,6 +3,6 @@
     public interface IWebBrowser
     {
         void OpenDefaultWebBrowser();
-        void OpenDefaultWebBrowserToWebsite(string website);
+        void OpenDefaultWebBrowserToUrl(string website);
     }
 }

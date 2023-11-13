@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonConsoleApp", "SamsonC
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SamsonAI", "SamsonAI\SamsonAI.pyproj", "{CD68207B-466E-4DD7-B074-393CA2EB892A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamsonServer", "SamsonServer\SamsonServer.csproj", "{61D1E9DB-D292-46D3-96A0-A69D060DA80A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{9E34BD01-5FC1-4155-9B2A-ADC9AE788B63}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD68207B-466E-4DD7-B074-393CA2EB892A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD68207B-466E-4DD7-B074-393CA2EB892A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61D1E9DB-D292-46D3-96A0-A69D060DA80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61D1E9DB-D292-46D3-96A0-A69D060DA80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61D1E9DB-D292-46D3-96A0-A69D060DA80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61D1E9DB-D292-46D3-96A0-A69D060DA80A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

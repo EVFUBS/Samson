@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using SamsonConsoleApp.Actions.Interfaces;
 
 namespace SamsonConsoleApp.Actions
@@ -18,7 +13,7 @@ namespace SamsonConsoleApp.Actions
             OpenUrl(target);
         }
 
-        public void OpenDefaultWebBrowserToWebsite(string website)
+        public void OpenDefaultWebBrowserToUrl(string website)
         {
             OpenUrl(website);
         }

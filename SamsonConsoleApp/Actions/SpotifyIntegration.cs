@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,21 +16,18 @@ namespace SamsonConsoleApp.Actions
     public class SpotifyIntegration : ISpotifyIntegration
     {
         private readonly ISpotifyClientFactory _spotifyClientFactory;
-        private readonly SpotifyIntegrationOptions _spotifyOptions;
+        private readonly IWebBrowser _webBrowser;
+        private readonly ISpotifyCredentials _spotifyCredentials;
 
         public SpotifyIntegration(
             ISpotifyClientFactory spotifyClientFactory,
-            IConfiguration config
+            IWebBrowser webBrowser,
+            ISpotifyCredentials spotifyCredentials
             )
         {
             _spotifyClientFactory = spotifyClientFactory;
-            var SpotifyConfig = config.GetSection(nameof(SpotifyIntegration)).Get<SpotifyIntegrationOptions>();
-
-            if ( SpotifyConfig != null )
-            {
-                _spotifyOptions = SpotifyConfig;
-            }
-            throw new Exception("Could not get Spotify Config");
+            _webBrowser = webBrowser;
+            _spotifyCredentials = spotifyCredentials;
         }
 
         public async Task Login()
@@ -39,16 +37,25 @@ namespace SamsonConsoleApp.Actions
             var client = _spotifyClientFactory.CreateSpotifyClient();
 
             var queryParameters = new Dictionary<string, string> {
-                { "response_type", _spotifyOptions.ResponseType },
-                { "client_id", _spotifyOptions.SpotifyClientId },
-                { "scope", _spotifyOptions.Scope },
-                { "redirect_uri", _spotifyOptions.RedirectUri },
+                { "response_type", _spotifyCredentials.ResponseType },
+                { "client_id", _spotifyCredentials.SpotifyClientId },
+                { "scope", _spotifyCredentials.Scope },
+                { "redirect_uri", _spotifyCredentials.RedirectUri },
                 { "state", state },
             };
 
-            var queryString = buildQueryStringAsync(queryParameters);
-            var response = await client.GetAsync($"/https://accounts.spotify.com/authorize?{queryString}");
-            response.EnsureSuccessStatusCode();
+            var queryString = await buildQueryStringAsync(queryParameters);
+            var response = await client.GetAsync($"https://accounts.spotify.com/authorize?{queryString}");
+            var confirmedResponse = response.EnsureSuccessStatusCode();
+            
+            if ( confirmedResponse == null )
+            {
+                throw new Exception("Response was not confirmed");
+            }
+
+            _webBrowser.OpenDefaultWebBrowserToUrl(confirmedResponse.RequestMessage.RequestUri.ToString());
+            //var authResponse = await client.GetAsync(confirmedResponse.RequestMessage.RequestUri.ToString());
+
         }
 
         public static string GenerateState(int length)
