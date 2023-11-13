@@ -6,48 +6,49 @@ namespace SamsonConsoleApp.Speech
 {
     public class SpeechRecognition : ISpeechRecognition
     {
-        private readonly ISpotifyIntegration _integration;
+        private readonly ISpotifyIntegration _spotifyIntegration;
 
-        public SpeechRecognition(ISpotifyIntegration integration)
+        public SpeechRecognition(ISpotifyIntegration spotifyIntegration)
         {
-            _integration = integration;
+            _spotifyIntegration = spotifyIntegration;
         }
 
         public void RecogniseSpeech()
         {
+            _spotifyIntegration.Login();
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                using (
-               SpeechRecognitionEngine recognizer =
-                 new SpeechRecognitionEngine(
-                   new System.Globalization.CultureInfo("en-US")))
-                {
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //{
+            //    using (
+            //   SpeechRecognitionEngine recognizer =
+            //     new SpeechRecognitionEngine(
+            //       new System.Globalization.CultureInfo("en-US")))
+            //    {
 
-                    // Create and load a dictation grammar.  
-                    recognizer.LoadGrammar(new DictationGrammar());
+            //        // Create and load a dictation grammar.  
+            //        recognizer.LoadGrammar(new DictationGrammar());
 
-                    // Add a handler for the speech recognized event.  
-                    recognizer.SpeechRecognized +=
-                        new EventHandler<SpeechRecognizedEventArgs>(RecognizerSpeechRecognized);
+            //        // Add a handler for the speech recognized event.  
+            //        recognizer.SpeechRecognized +=
+            //            new EventHandler<SpeechRecognizedEventArgs>(RecognizerSpeechRecognized);
 
-                    // Configure input to the speech recognizer.  
-                    recognizer.SetInputToDefaultAudioDevice();
+            //        // Configure input to the speech recognizer.  
+            //        recognizer.SetInputToDefaultAudioDevice();
 
-                    // Start asynchronous, continuous speech recognition.  
-                    recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            //        // Start asynchronous, continuous speech recognition.  
+            //        recognizer.RecognizeAsync(RecognizeMode.Multiple);
 
-                    while (true)
-                    {
-                        Console.ReadLine();
-                    }
-                }
-            }
+            //        while (true)
+            //        {
+            //            Console.ReadLine();
+            //        }
+            //    }
+            //}
         }
 
         void RecognizerSpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            _integration.Login();
+            Console.WriteLine(e.ToString());
         }
     }
 }
