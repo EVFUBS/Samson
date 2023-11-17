@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Models;
+using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Options;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SamsonConsoleApp.Actions
+namespace SamsonConsoleApp.Actions.Spotify
 {
     public class SpotifyIntegration : ISpotifyIntegration
     {
@@ -30,7 +32,7 @@ namespace SamsonConsoleApp.Actions
             _spotifyCredentials = spotifyCredentials;
         }
 
-        public async Task Login()
+        public async Task AuthoriseSpotify()
         {
             // Spotify recommneds this
             var state = GenerateState(16);
@@ -47,15 +49,39 @@ namespace SamsonConsoleApp.Actions
             var queryString = await buildQueryStringAsync(queryParameters);
             var response = await client.GetAsync($"https://accounts.spotify.com/authorize?{queryString}");
             var confirmedResponse = response.EnsureSuccessStatusCode();
-            
-            if ( confirmedResponse == null )
+
+            if (confirmedResponse == null)
             {
                 throw new Exception("Response was not confirmed");
             }
 
             _webBrowser.OpenDefaultWebBrowserToUrl(confirmedResponse.RequestMessage.RequestUri.ToString());
-            //var authResponse = await client.GetAsync(confirmedResponse.RequestMessage.RequestUri.ToString());
+        }
 
+        public async Task Login(SpotifyUserAuthRequest spotifyUserAuthRequest)
+        {
+            var client = _spotifyClientFactory.CreateSpotifyClient();
+
+            var httpContent = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                { "code", spotifyUserAuthRequest.form.code },
+                { "redirect_uri", spotifyUserAuthRequest.form.redirect_uri },
+                { "grant_type", spotifyUserAuthRequest.form.grant_type },
+            });
+            httpContent.Headers.Add("Content-Type", spotifyUserAuthRequest.headers.content_type);
+            httpContent.Headers.Add("Authorization", spotifyUserAuthRequest.headers.Authorization);
+
+            var response = await client.PostAsync(spotifyUserAuthRequest.Url, httpContent);
+            var confirmedResponse = response.EnsureSuccessStatusCode();
+
+            if (confirmedResponse == null)
+            {
+                throw new Exception("Response was not confirmed");
+            }
+
+            var responseContent = await confirmedResponse.Content.ReadAsStringAsync();
+            var spotifyUserAuthResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<SpotifyUserAuthResponse>(responseContent);
+            Console.WriteLine(spotifyUserAuthResponse);
         }
 
         public static string GenerateState(int length)

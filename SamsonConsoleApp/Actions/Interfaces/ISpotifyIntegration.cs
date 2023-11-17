@@ -1,7 +1,10 @@
-﻿namespace SamsonConsoleApp.Actions.Interfaces
+﻿using SamsonConsoleApp.Models.Spotify;
+
+namespace SamsonConsoleApp.Actions.Interfaces
 {
     public interface ISpotifyIntegration
     {
-        Task Login();
+        Task AuthoriseSpotify();
+        Task Login(SpotifyUserAuthRequest spotifyUserAuthRequest);
     }
 }

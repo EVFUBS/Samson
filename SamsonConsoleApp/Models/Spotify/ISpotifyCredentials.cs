@@ -1,4 +1,4 @@
-﻿namespace SamsonConsoleApp.Models
+﻿namespace SamsonConsoleApp.Models.Spotify
 {
     public interface ISpotifyCredentials
     {

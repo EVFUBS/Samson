@@ -2,12 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SamsonConsoleApp;
-using SamsonConsoleApp.Actions;
-using SamsonConsoleApp.Actions.Interfaces;
-using SamsonConsoleApp.Client;
-using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Speech;
-using System.ComponentModel;
 
 internal class Program
 {

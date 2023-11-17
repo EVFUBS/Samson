@@ -15,7 +15,7 @@ namespace SamsonConsoleApp.Speech
 
         public void RecogniseSpeech()
         {
-            _spotifyIntegration.Login();
+            _spotifyIntegration.AuthoriseSpotify();
 
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //{

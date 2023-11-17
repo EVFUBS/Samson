@@ -1,28 +1,23 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Actions;
-using SamsonConsoleApp.Actions.Interfaces;
-using SamsonConsoleApp.Actions.Spotify;
 using SamsonConsoleApp.Client;
 using SamsonConsoleApp.Clients.Interfaces;
-using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Options;
 using SamsonConsoleApp.Speech;
+using SamsonConsoleApp.Models.Spotify;
+using SamsonConsoleApp.Actions.Spotify;
 
-namespace SamsonConsoleApp
+namespace SamsonServer
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddServerDependencies(this IServiceCollection services)
         {
-            services.Configure<SpotifyIntegrationOptions>(config.GetSection(nameof(SpotifyIntegrationOptions)));
-
             services.AddScoped<ISpotifyClientFactory, SpotifyClientFactory>();
             services.AddScoped<IWebBrowser, WebBrowser>();
             services.AddScoped<ISpotifyIntegration, SpotifyIntegration>();
             services.AddScoped<ISpeechRecognition, SpeechRecognition>();
             services.AddScoped<ISpotifyCredentials, SpotifyCredentials>();
-
             return services;
         }
     }
