@@ -4,7 +4,10 @@ using SamsonConsoleApp.Actions;
 using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Client;
 using SamsonConsoleApp.Clients.Interfaces;
+using SamsonConsoleApp.DAL;
+using SamsonConsoleApp.DAL.interfaces;
 using SamsonConsoleApp.Models;
+using SamsonConsoleApp.Models.Interfaces;
 using SamsonConsoleApp.Options;
 using SamsonConsoleApp.Speech;
 using System;
@@ -26,6 +29,7 @@ namespace SamsonConsoleApp
             services.AddScoped<ISpotifyIntegration, SpotifyIntegration>();
             services.AddScoped<ISpeechRecognition, SpeechRecognition>();
             services.AddScoped<ISpotifyCredentials, SpotifyCredentials>();
+            services.AddScoped<ISpotifyDAL, SpotifyDAL>();
 
             return services;
         }

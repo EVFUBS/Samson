@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SamsonConsoleApp.Actions;
+using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Models;
+using SamsonConsoleApp.Models.Interfaces;
 using System;
 using System.Text.Json.Nodes;
 
@@ -10,42 +12,49 @@ namespace SamsonServer.Controllers
     [Route("[controller]")]
     public class SpotifyController : Controller
     {
-        ISpotifyCredentials _spotifyCredentials;
-        public SpotifyController(ISpotifyCredentials spotifyCredentials)
+        private readonly ISpotifyCredentials _spotifyCredentials;
+        private readonly ISpotifyIntegration _spotifyIntegration;
+
+        public SpotifyController(ISpotifyCredentials spotifyCredentials, ISpotifyIntegration spotifyIntegration)
         {
             _spotifyCredentials = spotifyCredentials;
+            _spotifyIntegration = spotifyIntegration;
         }
 
         [HttpGet("callback")]
         public IActionResult SpotifyAuthoriseCallback([FromQuery] string code, [FromQuery] string state)
         {
-            Console.WriteLine("test");
-
             if (state == null)
             {
-                // Implement this properly later
                 throw new Exception("state_mismatch");
             }
 
-            var authOptions = new JsonObject
+            var authOptions = new SpotifyUserAuthRequest
             {
-                { "url", "https://accounts.spotify.com/api/token" },
-                { "form",  new JsonObject{ 
-                    { "code", code },
-                    { "redirect_uri", _spotifyCredentials.RedirectUri },
-                    { "grant_type", "authorisation_code" }
-                }},
-                { "headers", new JsonObject
+                Uri = "https://accounts.spotify.com/api/token",
+                Form = new SpotifyUserAuthForm
                 {
-                    { "content-type", "application/x-www-form-urlencoded" },
-                    { "Authorization", "Basic " + _spotifyCredentials.SpotifyClientId + ":" + _spotifyCredentials.SpotifyClientSecret }
-                }},
-                { "json", true }
+                    Code = code,
+                    RedirectUri = _spotifyCredentials.RedirectUri,
+                    GrantType = "authorization_code"
+                },
+                Headers = new SpotifyUserAuthHeaders
+                {
+                    ContentType = "application/x-www-form-urlencoded",
+                    Authorization = "Basic " + Base64Encode(_spotifyCredentials.SpotifyClientId + ":" + _spotifyCredentials.SpotifyClientSecret)
+                }
             };
 
-
+            _spotifyIntegration.Login(authOptions);
 
             return Json(authOptions);
         }
+
+        private static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
     }
 }
