@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SamsonConsoleApp.Actions;
+using SamsonConsoleApp.Models.Interfaces;
 using SamsonConsoleApp.Options;
 using System;
 using System.Collections.Generic;
