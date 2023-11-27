@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SamsonConsoleApp.Actions;
+using SamsonConsoleApp.Actions.Spotfiy;
 using SamsonConsoleApp.Models.Interfaces;
 using SamsonConsoleApp.Options;
 using System;
@@ -19,10 +19,11 @@ namespace SamsonConsoleApp.Models
         public string ResponseType { get; }
         public string RedirectUri { get; }
         public string Scope { get; }
+        public string BaseEndpoint { get; }
 
         public SpotifyCredentials(IConfiguration config)
         {
-            var SpotifyConfig = config.GetSection(nameof(SpotifyIntegration)).Get<SpotifyIntegrationOptions>();
+            var SpotifyConfig = config.GetSection(nameof(SpotifyAuthorisation)).Get<SpotifyIntegrationOptions>();
 
             if (SpotifyConfig != null)
             {

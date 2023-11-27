@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SamsonConsoleApp.Actions;
 using SamsonConsoleApp.Actions.Interfaces;
+using SamsonConsoleApp.Actions.Spotfiy;
 using SamsonConsoleApp.Client;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.DAL;
@@ -26,7 +27,7 @@ namespace SamsonConsoleApp
 
             services.AddScoped<ISpotifyClientFactory, SpotifyClientFactory>();
             services.AddScoped<IWebBrowser, WebBrowser>();
-            services.AddScoped<ISpotifyIntegration, SpotifyIntegration>();
+            services.AddScoped<ISpotifyIntegration, SpotifyAuthorisation>();
             services.AddScoped<ISpeechRecognition, SpeechRecognition>();
             services.AddScoped<ISpotifyCredentials, SpotifyCredentials>();
             services.AddScoped<ISpotifyDAL, SpotifyDAL>();

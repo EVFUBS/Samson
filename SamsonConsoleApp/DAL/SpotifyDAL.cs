@@ -1,4 +1,6 @@
-﻿using SamsonConsoleApp.Context;
+﻿using SamsonConsoleApp.Actions;
+using SamsonConsoleApp.Actions.Interfaces;
+using SamsonConsoleApp.Context;
 using SamsonConsoleApp.DAL.interfaces;
 using SamsonConsoleApp.Models;
 using System;
@@ -11,15 +13,29 @@ namespace SamsonConsoleApp.DAL
 {
     public class SpotifyDAL : ISpotifyDAL
     {
-        public SpotifyDAL() { }
+        public SpotifyDAL() { 
+        }
 
-        public void AddAccessToken(SpotifyUserAuth spotifyUserAuth)
+        public async void AddAccessToken(SpotifyUserAuth spotifyUserAuth)
         {
             using (var context = new SamsonContext())
             {
-                context.Add(spotifyUserAuth);
+                context.spotifyUserAuths.Add(spotifyUserAuth);
+                context.SaveChanges();
+            }
+        }
+
+        public async Task<SpotifyUserAuth> RetrieveAccessToken()
+        {
+            SpotifyUserAuth spotifyUser;
+
+            using (var context = new SamsonContext())
+            {
+                // move 1 to const
+                spotifyUser = await context.FindAsync<SpotifyUserAuth>(1);
             }
 
+            return spotifyUser;
         }
     }
 }

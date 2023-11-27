@@ -7,5 +7,6 @@
         string Scope { get; }
         string SpotifyClientId { get; }
         string SpotifyClientSecret { get; }
+        string BaseEndpoint { get; }
     }
 }
