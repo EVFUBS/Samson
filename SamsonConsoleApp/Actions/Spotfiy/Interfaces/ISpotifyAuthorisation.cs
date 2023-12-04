@@ -1,8 +1,8 @@
 ﻿using SamsonConsoleApp.Models;
 
-namespace SamsonConsoleApp.Actions.Interfaces
+namespace SamsonConsoleApp.Actions.Spotfiy.Interfaces
 {
-    public interface ISpotifyIntegration
+    public interface ISpotifyAuthorisation
     {
         Task Authorize();
         void Login(SpotifyUserAuthRequest request);

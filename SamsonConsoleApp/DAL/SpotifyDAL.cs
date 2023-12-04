@@ -16,26 +16,46 @@ namespace SamsonConsoleApp.DAL
         public SpotifyDAL() { 
         }
 
-        public async void AddAccessToken(SpotifyUserAuth spotifyUserAuth)
+        public SpotifyUserAuth AddAccessToken(SpotifyUserAuth spotifyUserAuth)
         {
             using (var context = new SamsonContext())
             {
                 context.spotifyUserAuths.Add(spotifyUserAuth);
                 context.SaveChanges();
             }
+
+            return spotifyUserAuth;
         }
 
-        public async Task<SpotifyUserAuth> RetrieveAccessToken()
+        public SpotifyUserAuth UpdateAccessToken(SpotifyUserAuth spotifyUserAuth)
+        {
+            using (var context = new SamsonContext())
+            {
+                context.spotifyUserAuths.Update(spotifyUserAuth);
+                context.SaveChanges();
+            }
+
+            return spotifyUserAuth;
+        }
+
+        public async Task<SpotifyUserAuth> GetAccessToken()
         {
             SpotifyUserAuth spotifyUser;
 
             using (var context = new SamsonContext())
             {
-                // move 1 to const
                 spotifyUser = await context.FindAsync<SpotifyUserAuth>(1);
             }
 
             return spotifyUser;
+        }
+
+        public void RemoveAccessToken(SpotifyUserAuth spotifyUserAuth)
+        {
+            using (var context = new SamsonContext())
+            {
+                context.Remove(spotifyUserAuth);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using SamsonConsoleApp.Actions.Interfaces;
+﻿using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using System.Runtime.InteropServices;
 using System.Speech.Recognition;
 
@@ -6,16 +6,19 @@ namespace SamsonConsoleApp.Speech
 {
     public class SpeechRecognition : ISpeechRecognition
     {
-        private readonly ISpotifyIntegration _spotifyIntegration;
+        private readonly ISpotifyAuthorisation _spotifyIntegration;
+        private readonly ISpotifyPlayer _spotifyPlayer;
 
-        public SpeechRecognition(ISpotifyIntegration spotifyIntegration)
+        public SpeechRecognition(ISpotifyAuthorisation spotifyIntegration, ISpotifyPlayer spotifyPlayer)
         {
             _spotifyIntegration = spotifyIntegration;
+            _spotifyPlayer = spotifyPlayer;
         }
 
         public void RecogniseSpeech()
         {
             _spotifyIntegration.Authorize();
+            _spotifyPlayer.PausePlayback();
 
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //{

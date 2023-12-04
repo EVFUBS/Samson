@@ -19,11 +19,10 @@ namespace SamsonConsoleApp.Models
         public string ResponseType { get; }
         public string RedirectUri { get; }
         public string Scope { get; }
-        public string BaseEndpoint { get; }
 
         public SpotifyCredentials(IConfiguration config)
         {
-            var SpotifyConfig = config.GetSection(nameof(SpotifyAuthorisation)).Get<SpotifyIntegrationOptions>();
+            var SpotifyConfig = config.GetSection("SpotifyIntegration").Get<SpotifyIntegrationOptions>();
 
             if (SpotifyConfig != null)
             {

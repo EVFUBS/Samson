@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SamsonConsoleApp.Context;
 
@@ -10,12 +11,33 @@ using SamsonConsoleApp.Context;
 namespace SamsonConsoleApp.Migrations
 {
     [DbContext(typeof(SamsonContext))]
-    partial class SamsonContextModelSnapshot : ModelSnapshot
+    [Migration("20231204160204_moreUserStuff")]
+    partial class moreUserStuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+
+            modelBuilder.Entity("SamsonConsoleApp.Models.SamsonUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("samsonUsers");
+                });
 
             modelBuilder.Entity("SamsonConsoleApp.Models.SpotifyUserAuth", b =>
                 {
@@ -37,6 +59,9 @@ namespace SamsonConsoleApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("SamsonUser")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Scope")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -47,7 +72,20 @@ namespace SamsonConsoleApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SamsonUser");
+
                     b.ToTable("spotifyUserAuths");
+                });
+
+            modelBuilder.Entity("SamsonConsoleApp.Models.SpotifyUserAuth", b =>
+                {
+                    b.HasOne("SamsonConsoleApp.Models.SamsonUser", "User")
+                        .WithMany()
+                        .HasForeignKey("SamsonUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

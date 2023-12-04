@@ -4,7 +4,9 @@ namespace SamsonConsoleApp.DAL.interfaces
 {
     public interface ISpotifyDAL
     {
-        void AddAccessToken(SpotifyUserAuth spotifyUserAuth);
-        Task<SpotifyUserAuth> RetrieveAccessToken();
+        SpotifyUserAuth AddAccessToken(SpotifyUserAuth spotifyUserAuth);
+        void RemoveAccessToken(SpotifyUserAuth spotifyUserAuth);
+        Task<SpotifyUserAuth> GetAccessToken();
+        SpotifyUserAuth UpdateAccessToken(SpotifyUserAuth spotifyUserAuth);
     }
 }

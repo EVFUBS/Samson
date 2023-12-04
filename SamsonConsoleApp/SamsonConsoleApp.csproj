@@ -38,8 +38,12 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	    </None>
 	    <None Update="samsonDB.db">
-	      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Actions\Login\" />
     </ItemGroup>
 
 </Project>
