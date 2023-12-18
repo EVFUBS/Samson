@@ -1,4 +1,4 @@
-﻿using SamsonConsoleApp.Models;
+﻿using SamsonConsoleApp.Models.Spotify;
 
 namespace SamsonConsoleApp.Actions.Spotfiy.Interfaces
 {

@@ -1,8 +1,8 @@
-﻿using SamsonConsoleApp.Models.Interfaces;
+﻿using SamsonConsoleApp.Models.Spotify.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SamsonConsoleApp.Models
+namespace SamsonConsoleApp.Models.Spotify
 {
     public class SpotifyUserAuth : ISpotifyUserAuth
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SamsonConsoleApp.Models
+namespace SamsonConsoleApp.Models.Spotify
 {
     public class SpotifyUserAuthRequest
     {
-        public string Uri {  get; set; }
+        public string Uri { get; set; }
         public SpotifyUserAuthForm Form { get; set; }
         public SpotifyUserAuthHeaders Headers { get; set; }
     }

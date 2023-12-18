@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SamsonConsoleApp.Actions.Spotfiy;
-using SamsonConsoleApp.Models.Interfaces;
+using SamsonConsoleApp.Models.Spotify.Interfaces;
 using SamsonConsoleApp.Options;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SamsonConsoleApp.Models
+namespace SamsonConsoleApp.Models.Spotify
 {
     public class SpotifyCredentials : ISpotifyCredentials
     {

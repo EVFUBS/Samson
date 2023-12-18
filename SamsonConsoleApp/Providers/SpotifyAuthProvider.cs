@@ -1,5 +1,5 @@
 ﻿using SamsonConsoleApp.DAL.interfaces;
-using SamsonConsoleApp.Models;
+using SamsonConsoleApp.Models.Spotify;
 
 namespace SamsonConsoleApp.Providers
 {

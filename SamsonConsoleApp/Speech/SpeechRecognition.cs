@@ -1,4 +1,5 @@
-﻿using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
+﻿using NAudio.Wave;
+using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using System.Runtime.InteropServices;
 using System.Speech.Recognition;
 
@@ -17,41 +18,40 @@ namespace SamsonConsoleApp.Speech
 
         public void RecogniseSpeech()
         {
-            _spotifyIntegration.Authorize();
-            _spotifyPlayer.PausePlayback();
-
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-            //    using (
-            //   SpeechRecognitionEngine recognizer =
-            //     new SpeechRecognitionEngine(
-            //       new System.Globalization.CultureInfo("en-US")))
-            //    {
-
-            //        // Create and load a dictation grammar.  
-            //        recognizer.LoadGrammar(new DictationGrammar());
-
-            //        // Add a handler for the speech recognized event.  
-            //        recognizer.SpeechRecognized +=
-            //            new EventHandler<SpeechRecognizedEventArgs>(RecognizerSpeechRecognized);
-
-            //        // Configure input to the speech recognizer.  
-            //        recognizer.SetInputToDefaultAudioDevice();
-
-            //        // Start asynchronous, continuous speech recognition.  
-            //        recognizer.RecognizeAsync(RecognizeMode.Multiple);
-
-            //        while (true)
-            //        {
-            //            Console.ReadLine();
-            //        }
-            //    }
-            //}
+            //_spotifyIntegration.Authorize();
+            //_spotifyPlayer.PausePlayback();
+            RecordAudio();
         }
 
         void RecognizerSpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             Console.WriteLine(e.ToString());
+        }
+
+        void RecordAudio()
+        {
+            var outputFolder = Path.Combine(Path.GetTempPath(), "SamsonRecording");
+            Directory.CreateDirectory(outputFolder);
+            var outputFilePath = Path.Combine(outputFolder, "recorded.wav");
+
+            var waveIn = new WaveInEvent();
+            WaveFileWriter writer = new WaveFileWriter(outputFilePath, waveIn.WaveFormat);
+            waveIn.StartRecording();
+
+            waveIn.DataAvailable += (s, a) =>
+            {
+                writer.Write(a.Buffer, 0, a.BytesRecorded);
+                if (writer.Position > waveIn.WaveFormat.AverageBytesPerSecond * 3)
+                {
+                    waveIn.StopRecording();
+                }
+            };
+
+            waveIn.RecordingStopped += (s, a) =>
+            {
+                writer?.Dispose();
+                waveIn.Dispose();
+            };
         }
     }
 }

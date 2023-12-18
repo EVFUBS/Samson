@@ -2,7 +2,7 @@
 using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Context;
 using SamsonConsoleApp.DAL.interfaces;
-using SamsonConsoleApp.Models;
+using SamsonConsoleApp.Models.Spotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;

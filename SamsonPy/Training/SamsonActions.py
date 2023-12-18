@@ -40,8 +40,3 @@ model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=
 history = model.fit(x_train, y_train, epochs=10, validation_data=(x_test, y_test), verbose=2)
 
 model.save(model_save_path, overwrite=True)
-
-# load
-# with open('tokenizer.json') as f:
-#     data = json.load(f)
-#     tokenizer = tokenizer_from_json(data)

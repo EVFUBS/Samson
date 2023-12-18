@@ -1,4 +1,4 @@
-﻿namespace SamsonConsoleApp.Models.Interfaces
+﻿namespace SamsonConsoleApp.Models.Spotify.Interfaces
 {
     public interface ISpotifyUserAuth
     {
