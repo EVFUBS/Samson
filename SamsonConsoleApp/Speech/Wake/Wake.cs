@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamsonConsoleApp.Speech.Wake
 {
-    public class Wake
+    public class Wake : IWake
     {
         private readonly IAudioRecorder _audioRecorder;
 
@@ -17,11 +17,9 @@ namespace SamsonConsoleApp.Speech.Wake
 
         public void WaitForWake()
         {
-            _audioRecorder.StartRecording();
-            while (true)
-            {
-                
-            }
+            // find a way to wake samson up and put code for waiting for it here
+            // will likely be something along the line of "Hey Samson" that will be listened for,
+            // should be able to implement that myself
         }
     }
 }

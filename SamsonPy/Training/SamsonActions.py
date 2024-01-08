@@ -9,7 +9,7 @@ import pandas as pd
 import json
 import io
 
-model_save_path = r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Models\SamsonActions//'
+model_save_path = r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Models\SamsonActions\\'
 
 df = pd.read_csv(r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Data\SamsonActions.csv')
 rng = RandomState()

@@ -1,6 +1,6 @@
 ﻿public interface IAudioRecorder
 {
-    byte[] GetBytesToSave();
+    byte[] GetBytes();
     void PlayRecorded();
     void Save(string fileName);
     void StartRecording();

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Deepgram;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SamsonConsoleApp.Actions;
 using SamsonConsoleApp.Actions.Interfaces;
@@ -13,6 +14,7 @@ using SamsonConsoleApp.Models.Spotify.Interfaces;
 using SamsonConsoleApp.Options;
 using SamsonConsoleApp.Providers;
 using SamsonConsoleApp.Speech;
+using SamsonConsoleApp.Speech.Deepgram;
 using SamsonConsoleApp.Speech.Wake;
 
 namespace SamsonConsoleApp
@@ -32,6 +34,8 @@ namespace SamsonConsoleApp
             services.AddScoped<ISpotifyPlayer, SpotifyPlayer>();
             services.AddScoped<ISpotifyAuthProvider, SpotifyAuthProvider>();
             services.AddScoped<IAudioRecorder, AudioRecorder>();
+            services.AddScoped<ISpeechDeepgram, SpeechDeepgram>();
+            services.AddScoped<IWake, Wake>();
 
             return services;
         }

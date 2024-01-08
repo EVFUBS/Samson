@@ -5,11 +5,11 @@ using SamsonConsoleApp.Options;
 
 namespace SamsonConsoleApp.Speech.Deepgram
 {
-    public class Deepgram
+    public class SpeechDeepgram : ISpeechDeepgram
     {
         private readonly DeepgramClient _deepgramClient;
 
-        public Deepgram(IConfiguration config)
+        public SpeechDeepgram(IConfiguration config)
         {
             var credentials = config.GetRequiredSection("DeepgramIntegration").Get<DeepgramIntegrationOptions>();
             _deepgramClient = new DeepgramClient(new Credentials
@@ -27,12 +27,19 @@ namespace SamsonConsoleApp.Speech.Deepgram
             using (FileStream stream = File.OpenRead(fileUrl))
             {
                 var response = await client.Transcription.Prerecorded.GetTranscriptionAsync(
-                    new StreamSource(stream, "audio/wav"), 
+                    new StreamSource(stream, "audio/wav"),
                     new PrerecordedTranscriptionOptions
                     {
                         Model = "nova-2",
+                        Language = "en",
                         Punctuate = true
                     });
+
+                if (response == null)
+                {
+                    throw new Exception("Response from Deepgram was null!");
+                }
+
                 return response;
             }
         }
