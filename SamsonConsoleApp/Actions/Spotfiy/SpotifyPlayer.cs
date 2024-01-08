@@ -1,17 +1,20 @@
 ﻿using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Actions.Spotfiy.Constants;
+using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.DAL.interfaces;
-using SamsonConsoleApp.Models.Interfaces;
+using SamsonConsoleApp.Models.Spotify.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SamsonConsoleApp.Actions.Spotfiy
 {
-    public class SpotifyPlayer
+    public class SpotifyPlayer : ISpotifyPlayer
     {
 
         private readonly ISpotifyClientFactory _spotifyClientFactory;
@@ -28,17 +31,28 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             _spotifyClientFactory = spotifyClientFactory;
             _spotifyCredentials = spotifyCredentials;
             _spotifyDAL = spotifyDAL;
-            _spotifyClient = _spotifyClientFactory.CreateSpotifyClient();
-        }
-        public async void PausePlayback(string? deviceId)
-        {
-            setDefaultHeaderAuth();
-            await _spotifyClient.PutAsync(_spotifyCredentials.BaseEndpoint + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PauseRoute, null);
+            _spotifyClient = _spotifyClientFactory.setDefaultHeaderAuth(_spotifyClientFactory.CreateSpotifyClient());
         }
 
-        public async void PlayOrResumePlayback(string? deviceId, Uri? songContext, Uri[] songsToPlay, string position)
+        public async Task<string> AvailableDevices()
         {
-            setDefaultHeaderAuth();
+            var response = await _spotifyClient.GetAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.DevicesRoute);
+            var devices = await response.Content.ReadAsAsync<string>();
+            return devices;
+        }
+
+        public async void PausePlayback(string? deviceId = null)
+        {
+            await _spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PauseRoute, null);
+        }
+
+        public async void PlayOrResumePlayback()
+        {
+            await _spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, null);
+        }
+
+        public async void PlayOrResumePlayback(string? deviceId = null, Uri? songContext = null, Uri[]? songsToPlay = null, string? position = null)
+        {
 
             var request = new Dictionary<string, string>
             {
@@ -48,13 +62,11 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             };
 
             var httpContent = new StringContent(request.ToString());
-            await _spotifyClient.PutAsync(_spotifyCredentials.BaseEndpoint + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, httpContent);
+            await _spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, httpContent);
         }
 
-        private async void setDefaultHeaderAuth()
+        public async void TransferDevices()
         {
-            var spotifyAuth = await _spotifyDAL.RetrieveAccessToken();
-            _spotifyClient.DefaultRequestHeaders.Add("Authorization", spotifyAuth.token_type + " " + spotifyAuth.access_token);
         }
     }
 }

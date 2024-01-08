@@ -55,7 +55,7 @@
 
     <ItemGroup>
       <Folder Include="Actions\Login\" />
-      <Folder Include="SamsonAI\" />
+      <Folder Include="Hubs\" />
     </ItemGroup>
 
 </Project>

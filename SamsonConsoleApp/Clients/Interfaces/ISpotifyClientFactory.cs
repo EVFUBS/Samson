@@ -3,5 +3,6 @@
     public interface ISpotifyClientFactory
     {
         HttpClient CreateSpotifyClient();
+        HttpClient setDefaultHeaderAuth(HttpClient spotifyClient);
     }
 }

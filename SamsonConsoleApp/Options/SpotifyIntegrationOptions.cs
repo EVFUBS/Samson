@@ -13,6 +13,5 @@ namespace SamsonConsoleApp.Options
         public string ResponseType { get; set; }
         public string RedirectUri { get; set; }
         public string Scope { get; set; }
-        public string SpotifyBaseEndpoint { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SamsonConsoleApp.Models;
+using SamsonConsoleApp.Models.Spotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;

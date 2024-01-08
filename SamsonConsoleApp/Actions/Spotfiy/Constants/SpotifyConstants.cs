@@ -9,6 +9,7 @@ namespace SamsonConsoleApp.Actions.Spotfiy.Constants
     public class SpotifyConstants
     {
         // Use: PlayerEndpoint + Route
+        public const string BaseUrl = "https://api.spotify.com/v1";
         public const string PlayerEndpoint = "/me/player";
         public const string PlayRoute = "/play";
         public const string PauseRoute = "/pause";

@@ -3,11 +3,13 @@ using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
 using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Actions.Spotfiy.Constants;
+using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.DAL.interfaces;
-using SamsonConsoleApp.Models;
-using SamsonConsoleApp.Models.Interfaces;
+using SamsonConsoleApp.Models.Spotify;
+using SamsonConsoleApp.Models.Spotify.Interfaces;
 using SamsonConsoleApp.Options;
+using SamsonConsoleApp.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,25 +21,25 @@ using System.Threading.Tasks;
 
 namespace SamsonConsoleApp.Actions.Spotfiy
 {
-    public class SpotifyAuthorisation : ISpotifyIntegration
+    public class SpotifyAuthorisation : ISpotifyAuthorisation
     {
         private readonly ISpotifyClientFactory _spotifyClientFactory;
         private readonly IWebBrowser _webBrowser;
         private readonly ISpotifyCredentials _spotifyCredentials;
-        private readonly ISpotifyDAL _spotifyDAL;
+        private readonly ISpotifyAuthProvider _spotifyAuthProvider;
         private readonly HttpClient _spotifyClient;
 
         public SpotifyAuthorisation(
             ISpotifyClientFactory spotifyClientFactory,
             IWebBrowser webBrowser,
             ISpotifyCredentials spotifyCredentials,
-            ISpotifyDAL spotifyDAL
+            ISpotifyAuthProvider spotifyAuthProvider
             )
         {
             _spotifyClientFactory = spotifyClientFactory;
             _webBrowser = webBrowser;
             _spotifyCredentials = spotifyCredentials;
-            _spotifyDAL = spotifyDAL;
+            _spotifyAuthProvider = spotifyAuthProvider;
             _spotifyClient = _spotifyClientFactory.CreateSpotifyClient();
         }
 
@@ -73,7 +75,7 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro opening web browser");
+                throw new Exception("Erro opening web browser, {ex}", ex);
             }
         }
 
@@ -118,7 +120,24 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             var response = await _spotifyClient.PostAsync(request.Uri, formData);
             var content = await response.Content.ReadAsAsync<SpotifyUserAuth>();
 
-            _spotifyDAL.AddAccessToken(content);
+            _spotifyAuthProvider.AddSpotifyAccessToken(content);
+            
+        }
+
+        public async void RefreshToken(SpotifyUserAuth spotifyUserAuth)
+        {
+            _spotifyAuthProvider.RemoveSpotifyAccessToken(spotifyUserAuth);
+
+            _spotifyClient.DefaultRequestHeaders.Add("Authorization", "Basic " + Base64Encode(_spotifyCredentials.SpotifyClientId + ":" + _spotifyCredentials.SpotifyClientSecret));
+            var formJson = new Dictionary<string, string> {
+                { "grant_type", "refresh_token"},
+                { "refresh_token", spotifyUserAuth.Refresh_token},
+            };
+            var formData = new FormUrlEncodedContent(formJson);
+            var response = await _spotifyClient.PostAsync("https://accounts.spotify.com/api/token", formData);
+            var content = await response.Content.ReadAsAsync<SpotifyUserAuth>();
+
+            _spotifyAuthProvider.AddSpotifyAccessToken(content);
         }
 
         public static string GenerateState(int length)
