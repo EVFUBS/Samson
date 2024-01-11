@@ -363,4 +363,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/SamsonAI/venv
+
+# Python Packages
+.venv
+
+appsettings.development.json
