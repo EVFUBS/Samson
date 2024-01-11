@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Actions\Login\**" />
+    <Compile Remove="SamsonAI\**" />
+    <EmbeddedResource Remove="Actions\Login\**" />
+    <EmbeddedResource Remove="SamsonAI\**" />
+    <None Remove="Actions\Login\**" />
+    <None Remove="SamsonAI\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\clr.py" />
     <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__init__.py" />
     <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__main__.py" />
@@ -16,6 +25,14 @@
     <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.pdb" />
     <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\util\__init__.py" />
     <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\__init__.py" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\clr.py" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__init__.py" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__main__.py" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.deps.json" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.dll" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.pdb" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\util\__init__.py" />
+    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\__init__.py" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,11 +68,6 @@
 	    <None Update="samsonDB.db">
 	      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Actions\Login\" />
-      <Folder Include="SamsonAI\" />
     </ItemGroup>
 
 </Project>
