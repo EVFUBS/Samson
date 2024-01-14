@@ -21,7 +21,15 @@ namespace SamsonConsoleApp.Speech
         {
             while (true) {
                 await Wake(Audio.WakeAudioFilePath);
-                await ListenAsync(Audio.ListenAudioFilePath, 5000);
+                await ListenAsync(Audio.ListenAudioFilePath, 5000, 1000);
+
+                // append wake and listen together
+                
+                // send to deepgram
+
+                // send to samsonAction endpoint
+
+                // call action based on what is returned
             }
         }
 
@@ -43,13 +51,14 @@ namespace SamsonConsoleApp.Speech
                     Console.WriteLine(response.Wake);
                     if (response.Wake == true)
                     {
+                        wakeRecorder.StopRecording();
                         break;
                     }
                 }
             }
         }
 
-        private async Task ListenAsync(string audioFilePath, int listenTimeInMilliseconds)
+        private async Task ListenAsync(string audioFilePath, int listenTimeInMilliseconds, double silenceDurationInMilliseconds)
         {
             var listening = true;
             var actionRecorder = new AudioRecorder(120);
@@ -65,7 +74,7 @@ namespace SamsonConsoleApp.Speech
                 {
                     TimeSpan silenceDuration = reader.GetSilenceDuration(AudioRecorder.SilenceLocation.Start);
 
-                    if (silenceDuration.TotalMilliseconds > listenTimeInMilliseconds)
+                    if (silenceDuration.TotalMilliseconds > silenceDurationInMilliseconds)
                     {
                         actionRecorder.StopRecording();
                         listening = false;

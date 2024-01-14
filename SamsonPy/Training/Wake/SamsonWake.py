@@ -1,6 +1,9 @@
 import tensorflow as tf
 import numpy as np
 from tensorflow.keras import layers
+from Training.Wake.ProcessData import process_data
+
+process_data()
 
 # Load the processed data
 X_train = np.load("TrainingData\X_train.npy")

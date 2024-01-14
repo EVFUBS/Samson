@@ -4,11 +4,16 @@ import tensorflow as tf
 import librosa
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+import os
+import tempfile
+import wave
+from Training.Wake.ProcessData import extract_features
 
 app = FastAPI()
 
 wakeModelPath = r"Training\Wake\WakeModel"
 actionModelPath = r""
+tempPath = os.getcwd() + r"\temp"
 
 class Transcript(BaseModel):
     content: str
@@ -28,28 +33,17 @@ async def GetSamsonAction(transcipt: Transcript):
     return {"message": "Hello World"}
 
 @app.post("/api/wake", response_model=SamsonWakeResponse)
-async def GetSamsonWake(file: UploadFile):
-    
-    async def preprocess_wake_data(file: UploadFile):
-        async def extract_features(file: UploadFile, mfcc_max_len=100):
-            audio_data, sample_rate = librosa.load(await file.read(), sr=None)
-            mfccs = librosa.feature.mfcc(y=audio_data, sr=sample_rate, n_mfcc=13, hop_length=512)
-            scaler = StandardScaler()
-            mfccs = scaler.fit_transform(mfccs)
-            if mfccs.shape[1] < mfcc_max_len:
-                mfccs = np.pad(mfccs, ((0, 0), (0, mfcc_max_len - mfccs.shape[1])), mode='constant')
-            else:
-                mfccs = mfccs[:, :mfcc_max_len]
-
-            return mfccs
+async def GetSamsonWake(file: UploadFile): 
+    file_path = os.path.join(os.getcwd() + r"\temp", "wake.wav")
+    with open(file_path, "wb") as temp_file:
+        temp_file.write(file.file.read())
         
-        input_data = []
-        mfccs = await extract_features(file)
-        input_data.append(mfccs)
-        return input_data
+    input_data = []
+    mfccs = extract_features(file_path)
+    input_data.append(mfccs)
+    input_data = np.array(input_data)
     
     model = tf.keras.models.load_model(wakeModelPath)
-    input_data = await preprocess_wake_data(file)
     prediction = model.predict(input_data)
     predicted_class = True if prediction[0, 0] > 0.5 else False
     return SamsonWakeResponse(wake=predicted_class)

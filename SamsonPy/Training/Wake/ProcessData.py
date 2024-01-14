@@ -22,40 +22,41 @@ def extract_features(file_path, mfcc_max_len=100):
         mfccs = mfccs[:, :mfcc_max_len]
 
     return mfccs
-    
-# Directory paths for positive and negative examples
-positive_dir = r'../../Data\Wake\negative'
-negative_dir = r'../../Data\Wake\positive'
 
-# List to store features and labels
-features = []
-labels = []
+def process_data():
+    # Directory paths for positive and negative examples
+    positive_dir = r'../../Data/Wake/negative'
+    negative_dir = r'../../Data/Wake/positive'
 
-# Process positive examples
-for filename in os.listdir(positive_dir):
-    if filename.endswith(".wav"):
-        file_path = os.path.join(positive_dir, filename)
-        mfccs = extract_features(file_path)
-        features.append(mfccs)
-        labels.append(1)  # Positive label
+    # List to store features and labels
+    features = []
+    labels = [] 
 
-# Process negative examples
-for filename in os.listdir(negative_dir):
-    if filename.endswith(".wav"):
-        file_path = os.path.join(negative_dir, filename)
-        mfccs = extract_features(file_path)
-        features.append(mfccs)
-        labels.append(0)  # Negative label
+    # Process positive examples
+    for filename in os.listdir(positive_dir):
+        if filename.endswith(".wav"):
+            file_path = os.path.join(positive_dir, filename)
+            mfccs = extract_features(file_path)
+            features.append(mfccs)
+            labels.append(1)  # Positive label
 
-# Convert lists to NumPy arrays
-features = np.array(features)
-labels = np.array(labels)
+    # Process negative examples
+    for filename in os.listdir(negative_dir):
+        if filename.endswith(".wav"):
+            file_path = os.path.join(negative_dir, filename)
+            mfccs = extract_features(file_path)
+            features.append(mfccs)
+            labels.append(0)  # Negative label
 
-# Split the data into training and validation sets
-X_train, X_val, y_train, y_val = train_test_split(features, labels, test_size=0.2, random_state=42)
+    # Convert lists to NumPy arrays
+    features = np.array(features)
+    labels = np.array(labels)
 
-# Save the processed data
-np.save("TrainingData\X_train.npy", X_train)
-np.save("TrainingData\X_val.npy", X_val)
-np.save("TrainingData\y_train.npy", y_train)
-np.save("TrainingData\y_val.npy", y_val)
+    # Split the data into training and validation sets
+    X_train, X_val, y_train, y_val = train_test_split(features, labels, test_size=0.2, random_state=42)
+
+    # Save the processed data
+    np.save("TrainingData\X_train.npy", X_train)
+    np.save("TrainingData\X_val.npy", X_val)
+    np.save("TrainingData\y_train.npy", y_train)
+    np.save("TrainingData\y_val.npy", y_val)
