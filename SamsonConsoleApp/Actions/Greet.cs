@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Speech.Synthesis;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Speech.Synthesis;
 
 namespace SamsonConsoleApp.Actions
 {

@@ -2,6 +2,6 @@
 {
     public interface ISpeechRecognition
     {
-        void RecogniseSpeech();
+        Task Start();
     }
 }

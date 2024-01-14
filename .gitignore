@@ -368,3 +368,5 @@ FodyWeavers.xsd
 .venv
 
 appsettings.development.json
+
+SamsonPy/Data/Wake

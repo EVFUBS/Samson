@@ -8,6 +8,7 @@ namespace SamsonConsoleApp.Constants
 {
     public class Audio
     {
-        public const string AudioFilePath = "audio.wav";
+        public const string WakeAudioFilePath = "wake.wav";
+        public const string ListenAudioFilePath = "listen.wav";
     }
 }

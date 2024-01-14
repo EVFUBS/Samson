@@ -6,6 +6,7 @@ using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Actions.Spotfiy;
 using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Client;
+using SamsonConsoleApp.Clients;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.DAL;
 using SamsonConsoleApp.DAL.interfaces;
@@ -33,10 +34,8 @@ namespace SamsonConsoleApp
             services.AddScoped<ISpotifyDAL, SpotifyDAL>();
             services.AddScoped<ISpotifyPlayer, SpotifyPlayer>();
             services.AddScoped<ISpotifyAuthProvider, SpotifyAuthProvider>();
-            services.AddScoped<IAudioRecorder, AudioRecorder>();
             services.AddScoped<ISpeechDeepgram, SpeechDeepgram>();
-            services.AddScoped<IWake, Wake>();
-
+            services.AddScoped<ISamsonAIClientFactory, SamsonAIClientFactory>();
             return services;
         }
     }

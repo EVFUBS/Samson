@@ -58,6 +58,10 @@
     <PackageReference Include="System.Text.Json" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SamsonAIClient\SamsonAIClient.csproj" />
+  </ItemGroup>
+
     <ItemGroup>
 	    <None Update="appsettings.development.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>

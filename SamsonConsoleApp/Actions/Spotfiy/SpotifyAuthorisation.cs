@@ -1,23 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Owin.Hosting;
-using Newtonsoft.Json;
-using SamsonConsoleApp.Actions.Interfaces;
-using SamsonConsoleApp.Actions.Spotfiy.Constants;
+﻿using SamsonConsoleApp.Actions.Interfaces;
 using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
-using SamsonConsoleApp.DAL.interfaces;
 using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Models.Spotify.Interfaces;
-using SamsonConsoleApp.Options;
 using SamsonConsoleApp.Providers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace SamsonConsoleApp.Actions.Spotfiy
 {

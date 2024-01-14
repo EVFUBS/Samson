@@ -29,7 +29,7 @@ internal class Program
         if (speechRecognition != null)
         {
             Console.WriteLine("Samson is now listening");
-            speechRecognition.RecogniseSpeech();
+            speechRecognition.Start();
             app.Run();
         }
         else

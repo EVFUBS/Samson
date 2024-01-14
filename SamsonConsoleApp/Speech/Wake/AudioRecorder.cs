@@ -1,5 +1,4 @@
-﻿using System;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using System.Diagnostics;
 
 namespace SamsonConsoleApp.Speech.Wake
