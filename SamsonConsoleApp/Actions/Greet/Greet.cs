@@ -1,6 +1,6 @@
 ﻿using System.Speech.Synthesis;
 
-namespace SamsonConsoleApp.Actions
+namespace SamsonConsoleApp.Actions.Greet
 {
     public class Greet
     {

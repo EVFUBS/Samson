@@ -1,5 +1,5 @@
-﻿using SamsonConsoleApp.Actions.Interfaces;
-using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
+﻿using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
+using SamsonConsoleApp.Actions.WebBrowser;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Models.Spotify.Interfaces;

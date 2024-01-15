@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SamsonConsoleApp.enums
+﻿namespace SamsonConsoleApp.enums
 {
     public enum SamsonActions
     {
         // general voice assistant capabilites
-        Greet,
-        Question,
+        Greet = 0,
+        Question = 1,
 
         // web browsers
-        WebBrowserOpenWebBrowser,
-        WebBrowserOpenGoogleBrowser,
+        WebBrowserOpenWebBrowser = 1000,
+        WebBrowserOpenGoogleBrowser = 1001,
 
         // spotify
-        SpotifyAvailableDevices,
-        SpotifyPlayOrResumePlayback,
-        SpotifyPausePlayback
+        SpotifyAvailableDevices = 2000,
+        SpotifyPlayOrResumePlayback = 2001,
+        SpotifyPausePlayback = 2002,
     }
 }

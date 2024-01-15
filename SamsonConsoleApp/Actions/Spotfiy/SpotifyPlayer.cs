@@ -56,9 +56,5 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             var httpContent = new StringContent(request.ToString());
             await _spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, httpContent);
         }
-
-        public async void TransferDevices()
-        {
-        }
     }
 }

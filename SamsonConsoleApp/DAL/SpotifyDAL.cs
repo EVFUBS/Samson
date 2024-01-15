@@ -1,13 +1,6 @@
-﻿using SamsonConsoleApp.Actions;
-using SamsonConsoleApp.Actions.Interfaces;
-using SamsonConsoleApp.Context;
+﻿using SamsonConsoleApp.Context;
 using SamsonConsoleApp.DAL.interfaces;
 using SamsonConsoleApp.Models.Spotify;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SamsonConsoleApp.DAL
 {

@@ -15,7 +15,6 @@ namespace SamsonConsoleApp.Speech.Wake
         private bool _isRecording = false;
         public enum SilenceLocation { Start, End }
 
-        // Creates a new recorder with a buffer
         public AudioRecorder(double recordTime)
         {
             RecordTime = recordTime;
@@ -24,7 +23,6 @@ namespace SamsonConsoleApp.Speech.Wake
             _buffer = new byte[(int)(MyWaveIn.WaveFormat.AverageBytesPerSecond * RecordTime)];
         }
 
-        // Starts recording
         public void StartRecording()
         {
             if (!_isRecording)
@@ -42,14 +40,12 @@ namespace SamsonConsoleApp.Speech.Wake
             _isRecording = true;
         }
 
-        // Stops recording
         public void StopRecording()
         {
             MyWaveIn.StopRecording();
             _isRecording = false;
         }
 
-        // Play currently recorded data
         public void PlayRecorded()
         {
             if (_wav.PlaybackState == PlaybackState.Stopped)
@@ -63,13 +59,11 @@ namespace SamsonConsoleApp.Speech.Wake
 
         }
 
-        // Stops replay
         public void StopReplay()
         {
             if (_wav != null) _wav.Stop();
         }
 
-        // Save to disk
         public void Save(string fileName)
         {
             var writer = new WaveFileWriter(fileName, MyWaveIn.WaveFormat);
@@ -106,7 +100,6 @@ namespace SamsonConsoleApp.Speech.Wake
             return bytesToSave;
         }
 
-        /// Starts recording if WaveIn stopped
         private void Stopped(object sender, StoppedEventArgs e)
         {
             Debug.WriteLine("Recording stopped!");
@@ -116,5 +109,47 @@ namespace SamsonConsoleApp.Speech.Wake
                 MyWaveIn.StartRecording();
             }
         }
+
+        public static void Concatenate(string outputFile, IEnumerable<string> sourceFiles)
+        {
+            byte[] buffer = new byte[1024];
+            WaveFileWriter waveFileWriter = null;
+
+            try
+            {
+                foreach (string sourceFile in sourceFiles)
+                {
+                    using (WaveFileReader reader = new WaveFileReader(sourceFile))
+                    {
+                        if (waveFileWriter == null)
+                        {
+                            waveFileWriter = new WaveFileWriter(outputFile, reader.WaveFormat);
+                        }
+                        else
+                        {
+                            if (!reader.WaveFormat.Equals(waveFileWriter.WaveFormat))
+                            {
+                                throw new InvalidOperationException("Can't concatenate WAV Files that don't share the same format");
+                            }
+                        }
+
+                        int read;
+                        while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            waveFileWriter.WriteData(buffer, 0, read);
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                if (waveFileWriter != null)
+                {
+                    waveFileWriter.Dispose();
+                }
+            }
+
+        }
+
     }
 }

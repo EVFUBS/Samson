@@ -63,9 +63,9 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ResponseMessage> Root_api__getAsync()
+        public virtual System.Threading.Tasks.Task<ResponseMessage> RootAsync()
         {
-            return Root_api__getAsync(System.Threading.CancellationToken.None);
+            return RootAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -74,7 +74,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ResponseMessage> Root_api__getAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ResponseMessage> RootAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = new System.Net.Http.HttpClient();
             var disposeClient_ = true;
@@ -147,9 +147,9 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ResponseMessage> GetSamsonAction_api_action_getAsync(Transcript body)
+        public virtual System.Threading.Tasks.Task<SamsonActionResponse> GetSamsonActionAsync(SamsonActionRequest body)
         {
-            return GetSamsonAction_api_action_getAsync(body, System.Threading.CancellationToken.None);
+            return GetSamsonActionAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -158,7 +158,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ResponseMessage> GetSamsonAction_api_action_getAsync(Transcript body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<SamsonActionResponse> GetSamsonActionAsync(SamsonActionRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -206,7 +206,7 @@ namespace SamsonAIClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ResponseMessage>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<SamsonActionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new SwaggerException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -248,9 +248,9 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<SamsonWakeResponse> GetSamsonWake_api_wake_postAsync(FileParameter file)
+        public virtual System.Threading.Tasks.Task<SamsonWakeResponse> GetSamsonWakeAsync(FileParameter file)
         {
-            return GetSamsonWake_api_wake_postAsync(file, System.Threading.CancellationToken.None);
+            return GetSamsonWakeAsync(file, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -259,7 +259,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<SamsonWakeResponse> GetSamsonWake_api_wake_postAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<SamsonWakeResponse> GetSamsonWakeAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = new System.Net.Http.HttpClient();
             var disposeClient_ = true;
@@ -623,6 +623,167 @@ namespace SamsonAIClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SamsonActionEnum
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      0
+    ]")]
+        _____0___ = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1
+    ]")]
+        _____1___ = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1000
+    ]")]
+        _____1000___ = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1001
+    ]")]
+        _____1001___ = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2000
+    ]")]
+        _____2000___ = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2001
+    ]")]
+        _____2001___ = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"2002")]
+        _2002 = 6,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SamsonActionRequest : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _summary;
+
+        [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Summary
+        {
+            get { return _summary; }
+
+            set
+            {
+                if (_summary != value)
+                {
+                    _summary = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static SamsonActionRequest FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonActionRequest>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SamsonActionResponse : System.ComponentModel.INotifyPropertyChanged
+    {
+        private SamsonActionEnum _action;
+        private System.Collections.Generic.ICollection<string> _parameters = new System.Collections.ObjectModel.Collection<string>();
+
+        [Newtonsoft.Json.JsonProperty("action", Required = Newtonsoft.Json.Required.Always)]
+        public SamsonActionEnum Action
+        {
+            get { return _action; }
+
+            set
+            {
+                if (_action != value)
+                {
+                    _action = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [Newtonsoft.Json.JsonProperty("parameters", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<string> Parameters
+        {
+            get { return _parameters; }
+
+            set
+            {
+                if (_parameters != value)
+                {
+                    _parameters = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static SamsonActionResponse FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonActionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class SamsonWakeResponse : System.ComponentModel.INotifyPropertyChanged
     {
         private bool _wake;
@@ -661,59 +822,6 @@ namespace SamsonAIClient
         {
 
             return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonWakeResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Transcript : System.ComponentModel.INotifyPropertyChanged
-    {
-        private string _content;
-
-        [Newtonsoft.Json.JsonProperty("content", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Content
-        {
-            get { return _content; }
-
-            set
-            {
-                if (_content != value)
-                {
-                    _content = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static Transcript FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Transcript>(data, new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 

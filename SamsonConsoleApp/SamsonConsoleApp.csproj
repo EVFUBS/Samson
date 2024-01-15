@@ -37,6 +37,8 @@
 
   <ItemGroup>
     <PackageReference Include="Deepgram" Version="3.4.0" />
+    <PackageReference Include="Google.Apis" Version="1.65.0" />
+    <PackageReference Include="Google.Cloud.TextToSpeech.V1" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
     <PackageReference Include="Microsoft.AspNet.SignalR.SelfHost" Version="2.4.3" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
@@ -72,6 +74,10 @@
 	    <None Update="samsonDB.db">
 	      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Actions\Question\" />
     </ItemGroup>
 
 </Project>

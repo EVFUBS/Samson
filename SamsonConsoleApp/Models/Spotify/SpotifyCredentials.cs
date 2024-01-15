@@ -1,12 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SamsonConsoleApp.Actions.Spotfiy;
 using SamsonConsoleApp.Models.Spotify.Interfaces;
 using SamsonConsoleApp.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SamsonConsoleApp.Models.Spotify
 {
