@@ -1,8 +1,6 @@
 ﻿using SamsonConsoleApp.Actions.Spotfiy.Constants;
 using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
-using SamsonConsoleApp.DAL.interfaces;
-using SamsonConsoleApp.Models.Spotify.Interfaces;
 
 namespace SamsonConsoleApp.Actions.Spotfiy
 {
@@ -10,41 +8,37 @@ namespace SamsonConsoleApp.Actions.Spotfiy
     {
 
         private readonly ISpotifyClientFactory _spotifyClientFactory;
-        private readonly ISpotifyCredentials _spotifyCredentials;
-        private readonly ISpotifyDAL _spotifyDAL;
-        private readonly HttpClient _spotifyClient;
 
         public SpotifyPlayer(
-            ISpotifyClientFactory spotifyClientFactory,
-            ISpotifyCredentials spotifyCredentials,
-            ISpotifyDAL spotifyDAL
+            ISpotifyClientFactory spotifyClientFactory
             )
         {
             _spotifyClientFactory = spotifyClientFactory;
-            _spotifyCredentials = spotifyCredentials;
-            _spotifyDAL = spotifyDAL;
-            _spotifyClient = _spotifyClientFactory.setDefaultHeaderAuth(_spotifyClientFactory.CreateSpotifyClient());
         }
 
         public async Task<string> AvailableDevices()
         {
-            var response = await _spotifyClient.GetAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.DevicesRoute);
+            var spotifyClient = await _spotifyClientFactory.CreateSpotifyClient();
+            var response = await spotifyClient.GetAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.DevicesRoute);
             var devices = await response.Content.ReadAsAsync<string>();
             return devices;
         }
 
         public async void PausePlayback(string? deviceId = null)
         {
-            await _spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PauseRoute, null);
+            var spotifyClient = await _spotifyClientFactory.CreateSpotifyClient();
+            await spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PauseRoute, null);
         }
 
         public async void PlayOrResumePlayback()
         {
-            await _spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, null);
+            var spotifyClient = await _spotifyClientFactory.CreateSpotifyClient();
+            await spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, null);
         }
 
         public async void PlayOrResumePlayback(string? deviceId = null, Uri? songContext = null, Uri[]? songsToPlay = null, string? position = null)
         {
+            var spotifyClient = await _spotifyClientFactory.CreateSpotifyClient();
 
             var request = new Dictionary<string, string>
             {
@@ -54,7 +48,7 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             };
 
             var httpContent = new StringContent(request.ToString());
-            await _spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, httpContent);
+            await spotifyClient.PutAsync(SpotifyConstants.BaseUrl + SpotifyConstants.PlayerEndpoint + SpotifyConstants.PlayRoute, httpContent);
         }
     }
 }

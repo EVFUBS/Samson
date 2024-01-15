@@ -6,5 +6,6 @@ namespace SamsonConsoleApp.Actions.Spotfiy.Interfaces
     {
         Task Authorize();
         void Login(SpotifyUserAuthRequest request);
+        void RefreshToken(SpotifyUserAuth spotifyUserAuth);
     }
 }

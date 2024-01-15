@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
-using SamsonConsoleApp.DAL.interfaces;
+using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Providers;
 
 namespace SamsonConsoleApp.Client
@@ -12,21 +8,37 @@ namespace SamsonConsoleApp.Client
     public class SpotifyClientFactory : ISpotifyClientFactory
     {
         private readonly ISpotifyAuthProvider _spotifyAuthProvider;
+        private readonly ISpotifyAuthorisation _spotifyAuthorisation;
 
-        public SpotifyClientFactory(ISpotifyAuthProvider spotifyAuthProvider) {
+        public SpotifyClientFactory(
+            ISpotifyAuthProvider spotifyAuthProvider,
+            ISpotifyAuthorisation spotifyAuthorisation
+            ) {
             _spotifyAuthProvider = spotifyAuthProvider;
+            _spotifyAuthorisation = spotifyAuthorisation;
         }
 
-        public HttpClient CreateSpotifyClient()
+        public async Task<HttpClient> CreateSpotifyClient()
         {
             var spotifyClient = new HttpClient();
-            return spotifyClient;
-        }
+            SpotifyUserAuth spotifyUserAuth;
 
-        public HttpClient setDefaultHeaderAuth(HttpClient spotifyClient)
-        {
-            var spotifyAuth = _spotifyAuthProvider.GetSpotifyAccessToken().Result;
-            spotifyClient.DefaultRequestHeaders.Add("Authorization", spotifyAuth.Token_type + " " + spotifyAuth.Access_token);
+            try
+            {
+                spotifyUserAuth = await _spotifyAuthProvider.GetSpotifyAccessToken();
+            } catch
+            {
+                await _spotifyAuthorisation.Authorize();
+                spotifyUserAuth = await _spotifyAuthProvider.GetSpotifyAccessToken();
+            }
+
+            if (spotifyUserAuth.Expires_at == DateTimeOffset.UtcNow)
+            {
+                _spotifyAuthorisation.RefreshToken(spotifyUserAuth);
+                spotifyUserAuth = await _spotifyAuthProvider.GetSpotifyAccessToken();
+            }
+
+            spotifyClient.DefaultRequestHeaders.Add("Authorization", spotifyUserAuth.Token_type + " " + spotifyUserAuth.Access_token);
             return spotifyClient;
         }
     }

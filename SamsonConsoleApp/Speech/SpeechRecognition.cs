@@ -8,6 +8,7 @@ using SamsonConsoleApp.Speech.Wake;
 using SamsonConsoleApp.Helpers;
 using SamsonConsoleApp.enums;
 using SamsonConsoleApp.Actions.Execute;
+using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 namespace SamsonConsoleApp.Speech
 {
     public class SpeechRecognition : ISpeechRecognition
@@ -28,12 +29,13 @@ namespace SamsonConsoleApp.Speech
 
         public async Task Start()
         {
-            while (true) {
+            while (true)
+            {
                 await Wake(Audio.WakeAudioFilePath, 5, 2000);
                 await Listen(Audio.ListenAudioFilePath, 120, 5000, 1000);
 
                 // append wake and listen together. - This should be done with one recorder, needs to change in the future
-                AudioRecorder.Concatenate(Audio.FullAudioFilePath, new List<string>{ Audio.ListenAudioFilePath, Audio.WakeAudioFilePath});
+                AudioRecorder.Concatenate(Audio.FullAudioFilePath, new List<string> { Audio.ListenAudioFilePath, Audio.WakeAudioFilePath });
 
                 var transcript = await _deepgram.SpeechToTextFromFile(Audio.FullAudioFilePath);
 

@@ -21,7 +21,6 @@ namespace SamsonConsoleApp.Actions.Execute
 
         public void Execute(SamsonActionResponse response)
         {
-            // call action based on what is returned
             switch (response.Action.ToEnum<SamsonActions>())
             {
                 case SamsonActions.Greet:

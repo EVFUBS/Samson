@@ -1,6 +1,6 @@
 ﻿namespace SamsonConsoleApp.Options
 {
-    public class SpotifyIntegrationOptions
+    public class SpotifyIntegrationOptions : ISpotifyIntegrationOptions
     {
         public string SpotifyClientId { get; set; }
         public string SpotifyClientSecret { get; set; }

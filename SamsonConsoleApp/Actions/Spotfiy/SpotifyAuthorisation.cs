@@ -1,8 +1,7 @@
 ﻿using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Actions.WebBrowser;
-using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Models.Spotify;
-using SamsonConsoleApp.Models.Spotify.Interfaces;
+using SamsonConsoleApp.Options;
 using SamsonConsoleApp.Providers;
 using System.Net;
 using System.Text;
@@ -11,40 +10,36 @@ namespace SamsonConsoleApp.Actions.Spotfiy
 {
     public class SpotifyAuthorisation : ISpotifyAuthorisation
     {
-        private readonly ISpotifyClientFactory _spotifyClientFactory;
         private readonly IWebBrowser _webBrowser;
-        private readonly ISpotifyCredentials _spotifyCredentials;
+        private readonly ISpotifyIntegrationOptions _spotifyIntegrationOptions;
         private readonly ISpotifyAuthProvider _spotifyAuthProvider;
-        private readonly HttpClient _spotifyClient;
 
         public SpotifyAuthorisation(
-            ISpotifyClientFactory spotifyClientFactory,
             IWebBrowser webBrowser,
-            ISpotifyCredentials spotifyCredentials,
+            ISpotifyIntegrationOptions spotifyIntegrationOptions,
             ISpotifyAuthProvider spotifyAuthProvider
             )
         {
-            _spotifyClientFactory = spotifyClientFactory;
             _webBrowser = webBrowser;
-            _spotifyCredentials = spotifyCredentials;
+            _spotifyIntegrationOptions = spotifyIntegrationOptions;
             _spotifyAuthProvider = spotifyAuthProvider;
-            _spotifyClient = _spotifyClientFactory.CreateSpotifyClient();
         }
 
         public async Task Authorize()
         {
+            var client = new HttpClient();
             var state = GenerateState(16);
 
             var queryParameters = new Dictionary<string, string> {
-                { "response_type", _spotifyCredentials.ResponseType },
-                { "client_id", _spotifyCredentials.SpotifyClientId },
-                { "scope", _spotifyCredentials.Scope },
-                { "redirect_uri", _spotifyCredentials.RedirectUri },
+                { "response_type", _spotifyIntegrationOptions.ResponseType },
+                { "client_id", _spotifyIntegrationOptions.SpotifyClientId },
+                { "scope", _spotifyIntegrationOptions.Scope },
+                { "redirect_uri", _spotifyIntegrationOptions.RedirectUri },
                 { "state", state },
             };
 
             var queryString = await buildQueryStringAsync(queryParameters);
-            var response = await _spotifyClient.GetAsync($"https://accounts.spotify.com/authorize?{queryString}");
+            var response = await client.GetAsync($"https://accounts.spotify.com/authorize?{queryString}");
             var confirmedResponse = response.EnsureSuccessStatusCode();
 
             if (confirmedResponse == null)
@@ -53,7 +48,7 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             }
 
             var spotifyListener = new HttpListener();
-            spotifyListener.Prefixes.Add(_spotifyCredentials.RedirectUri + '/');
+            spotifyListener.Prefixes.Add(_spotifyIntegrationOptions.RedirectUri + '/');
             spotifyListener.Start();
             try
             {
@@ -83,13 +78,13 @@ namespace SamsonConsoleApp.Actions.Spotfiy
                 Form = new SpotifyUserAuthForm
                 {
                     Code = code,
-                    RedirectUri = _spotifyCredentials.RedirectUri,
+                    RedirectUri = _spotifyIntegrationOptions.RedirectUri,
                     GrantType = "authorization_code"
                 },
                 Headers = new SpotifyUserAuthHeaders
                 {
                     ContentType = "application/x-www-form-urlencoded",
-                    Authorization = "Basic " + Base64Encode(_spotifyCredentials.SpotifyClientId + ":" + _spotifyCredentials.SpotifyClientSecret)
+                    Authorization = "Basic " + Base64Encode(_spotifyIntegrationOptions.SpotifyClientId + ":" + _spotifyIntegrationOptions.SpotifyClientSecret)
                 }
             };
 
@@ -98,34 +93,35 @@ namespace SamsonConsoleApp.Actions.Spotfiy
 
         public async void Login(SpotifyUserAuthRequest request)
         {
-            _spotifyClient.DefaultRequestHeaders.Add("Authorization", request.Headers.Authorization);
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", request.Headers.Authorization);
             var formJson = new Dictionary<string, string> {
                 { "grant_type", request.Form.GrantType},
                 { "code", request.Form.Code},
                 { "redirect_uri", request.Form.RedirectUri}
             };
             var formData = new FormUrlEncodedContent(formJson);
-            var response = await _spotifyClient.PostAsync(request.Uri, formData);
+            var response = await client.PostAsync(request.Uri, formData);
             var content = await response.Content.ReadAsAsync<SpotifyUserAuth>();
 
             _spotifyAuthProvider.AddSpotifyAccessToken(content);
-            
         }
 
         public async void RefreshToken(SpotifyUserAuth spotifyUserAuth)
         {
+            var client = new HttpClient();
             _spotifyAuthProvider.RemoveSpotifyAccessToken(spotifyUserAuth);
 
-            _spotifyClient.DefaultRequestHeaders.Add("Authorization", "Basic " + Base64Encode(_spotifyCredentials.SpotifyClientId + ":" + _spotifyCredentials.SpotifyClientSecret));
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + Base64Encode(_spotifyIntegrationOptions.SpotifyClientId + ":" + _spotifyIntegrationOptions.SpotifyClientSecret));
             var formJson = new Dictionary<string, string> {
                 { "grant_type", "refresh_token"},
                 { "refresh_token", spotifyUserAuth.Refresh_token},
             };
             var formData = new FormUrlEncodedContent(formJson);
-            var response = await _spotifyClient.PostAsync("https://accounts.spotify.com/api/token", formData);
+            var response = await client.PostAsync("https://accounts.spotify.com/api/token", formData);
             var content = await response.Content.ReadAsAsync<SpotifyUserAuth>();
 
-            _spotifyAuthProvider.AddSpotifyAccessToken(content);
+            _spotifyAuthProvider.UpdateSpotifyAccessToken(content);
         }
 
         public static string GenerateState(int length)

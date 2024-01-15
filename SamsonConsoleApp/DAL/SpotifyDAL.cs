@@ -1,4 +1,5 @@
-﻿using SamsonConsoleApp.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SamsonConsoleApp.Context;
 using SamsonConsoleApp.DAL.interfaces;
 using SamsonConsoleApp.Models.Spotify;
 
@@ -37,10 +38,16 @@ namespace SamsonConsoleApp.DAL
 
             using (var context = new SamsonContext())
             {
-                spotifyUser = await context.FindAsync<SpotifyUserAuth>(1);
-            }
+                var value = await context.spotifyUserAuths.OrderByDescending(x => x.Expires_at).FirstOrDefaultAsync();
 
-            return spotifyUser;
+                if (value != null)
+                {
+                    spotifyUser = value;
+                    return spotifyUser;
+                }
+
+                throw new Exception("There are no AccessToken to get");
+            }
         }
 
         public void RemoveAccessToken(SpotifyUserAuth spotifyUserAuth)

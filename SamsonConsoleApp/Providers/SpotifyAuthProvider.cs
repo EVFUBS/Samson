@@ -24,6 +24,13 @@ namespace SamsonConsoleApp.Providers
             return addedSpotifyAuth;
         }
 
+        public SpotifyUserAuth UpdateSpotifyAccessToken(SpotifyUserAuth spotifyUserAuth)
+        {
+            spotifyUserAuth.Expires_at = DateTimeOffset.UtcNow.AddSeconds(spotifyUserAuth.Expires_in);
+            var addedSpotifyAuth = _spotifyDAL.UpdateAccessToken(spotifyUserAuth);
+            return addedSpotifyAuth;
+        }
+
         public async Task<SpotifyUserAuth> GetSpotifyAccessToken()
         {
             var retrievedSpotifyAuthToken = await _spotifyDAL.GetAccessToken();

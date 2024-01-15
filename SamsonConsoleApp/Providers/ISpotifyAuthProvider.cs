@@ -7,5 +7,6 @@ namespace SamsonConsoleApp.Providers
         SpotifyUserAuth AddSpotifyAccessToken(SpotifyUserAuth spotifyUserAuth);
         Task<SpotifyUserAuth> GetSpotifyAccessToken();
         void RemoveSpotifyAccessToken(SpotifyUserAuth spotifyUserAuth);
+        SpotifyUserAuth UpdateSpotifyAccessToken(SpotifyUserAuth spotifyUserAuth);
     }
 }

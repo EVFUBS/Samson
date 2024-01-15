@@ -23,10 +23,9 @@ namespace SamsonConsoleApp.Speech.Deepgram
 
         public async Task<PrerecordedTranscription> SpeechToTextFromFile(string fileUrl)
         {
-            DeepgramClient client = new DeepgramClient();
             using (FileStream stream = File.OpenRead(fileUrl))
             {
-                var response = await client.Transcription.Prerecorded.GetTranscriptionAsync(
+                var response = await _deepgramClient.Transcription.Prerecorded.GetTranscriptionAsync(
                     new StreamSource(stream, "audio/wav"),
                     new PrerecordedTranscriptionOptions
                     {
