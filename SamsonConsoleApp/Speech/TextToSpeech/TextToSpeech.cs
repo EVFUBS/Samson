@@ -1,12 +1,22 @@
 ﻿using Google.Cloud.TextToSpeech.V1;
+using NAudio.Wave;
+using SamsonConsoleApp.Constants;
 
 namespace SamsonConsoleApp.Speech.GoogleTTS
 {
-    public class GoogleTextToSpeech : IGoogleTextToSpeech
+    public class TextToSpeech : ITextToSpeech
     {
-        public async Task CustomTextToSpeech(string summary, string filePath)
+        public async Task Say(string summary)
         {
-            // come back to this later
+            await Synthesize(summary, Audio.Say);
+            var reader = new Mp3FileReader(Audio.Say);
+            var waveOutEvent = new WaveOutEvent();
+            waveOutEvent.Init(reader);
+            waveOutEvent.Play();
+        }
+
+        private async Task Synthesize(string summary, string filePath)
+        {
             var client = TextToSpeechClient.Create();
             var response = await client.SynthesizeSpeechAsync(new SynthesizeSpeechRequest
             {

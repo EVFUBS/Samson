@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace SamsonConsoleApp.Actions.WebBrowser
+namespace SamsonConsoleApp.Actions.General.WebBrowser
 {
     public class WebBrowser : IWebBrowser
     {

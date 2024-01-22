@@ -12,17 +12,24 @@ wakeModelPath = r"Training\Wake\WakeModel"
 actionModelPath = r""
 tempPath = os.getcwd() + r"\temp"
 
+class SamsonCatergories(Enum):
+    General = 0,
+    Spotify = 2,
+    DidNotUnderstand = 100000
+
 # seperated by thousands to allow for more actions without risk of losing space
-class SamsonActionEnum(Enum):
+class SamsonActions(Enum):
     Greet = 0,
     Question = 1,
 
-    WebBrowserOpenWebBrowser = 1000,
+    WebBrowserOpenWebBrowserToUrl = 1000,
     WebBrowserOpenGoogleBrowser = 1001,
 
     SpotifyAvailableDevices = 2000,
     SpotifyPlayOrResumePlayback = 2001,
-    SpotifyPausePlayback = 2002
+    SpotifyPausePlayback = 2002,
+
+    DoNotUnderstand = 100000
 
 class ResponseMessage(BaseModel):
     message: str
@@ -34,8 +41,15 @@ class SamsonActionRequest(BaseModel):
     summary: str
 
 class SamsonActionResponse(BaseModel):
-    action: SamsonActionEnum
+    action: SamsonActions
+    catergory: SamsonCatergories
     parameters: list[str]
+
+class SamsonQuestionResponse(BaseModel):
+    summary: str
+
+class SamsonQuestionRequest(BaseModel):
+    question: str
 
 @app.get("/api/", response_model=ResponseMessage)
 async def root():
@@ -43,6 +57,12 @@ async def root():
 
 @app.get("/api/action", response_model=SamsonActionResponse)
 async def GetSamsonAction(request: SamsonActionRequest):
+    # Look into named entity recognition for extracting paramerters out of the prompts seems to be the way to go
+    # looks for named labels, could be used to look for "play" for example then the sequence after it?
+    return {"message": "Hello World"}
+
+@app.get("/api/question", response_model=SamsonQuestionResponse)
+async def GetSamsonQuestion(request: SamsonQuestionRequest):
     return {"message": "Hello World"}
 
 @app.post("/api/wake", response_model=SamsonWakeResponse)
@@ -64,6 +84,5 @@ async def GetSamsonWake(file: UploadFile):
 def use_route_names_as_operation_ids(app: FastAPI) -> None:
     for route in app.routes:
         route.operation_id = route.name
-
 
 use_route_names_as_operation_ids(app)

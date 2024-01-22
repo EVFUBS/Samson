@@ -12,6 +12,7 @@ namespace SamsonConsoleApp.Clients
     {
         public SamsonClient Create()
         {
+            // this needs to be something else
             return new SamsonClient("http://127.0.0.1:8000");
         }
     }

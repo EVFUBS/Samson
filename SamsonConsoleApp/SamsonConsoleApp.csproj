@@ -76,8 +76,4 @@
 	    </None>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Actions\Question\" />
-    </ItemGroup>
-
 </Project>

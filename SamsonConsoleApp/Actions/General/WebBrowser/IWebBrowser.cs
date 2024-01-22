@@ -1,4 +1,4 @@
-﻿namespace SamsonConsoleApp.Actions.WebBrowser
+﻿namespace SamsonConsoleApp.Actions.General.WebBrowser
 {
     public interface IWebBrowser
     {

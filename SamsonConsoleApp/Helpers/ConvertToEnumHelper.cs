@@ -32,10 +32,25 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToEnum<T>(this SamsonAIClient.SamsonActionEnum value)
+        public static T ToEnum<T>(this SamsonAIClient.SamsonActions value)
         {
             var name = Enum.GetName(typeof(T), value.ToString());
             return name.ToEnum<T>();
         }
+
+        /// <summary>
+        /// Extension method to return an enum value of type T for the given SamsonCatergories value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static T ToEnum<T>(this SamsonAIClient.SamsonCatergories value)
+        {
+            var name = Enum.GetName(typeof(T), value.ToString());
+            return name.ToEnum<T>();
+        }
+
+
+
     }
 }

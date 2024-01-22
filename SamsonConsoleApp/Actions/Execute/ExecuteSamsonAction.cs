@@ -1,50 +1,42 @@
-﻿using SamsonAIClient;
-using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
-using SamsonConsoleApp.Actions.WebBrowser;
-using SamsonConsoleApp.enums;
-using SamsonConsoleApp.Helpers;
+﻿using SamsonConsoleApp.Actions.General;
+using SamsonConsoleApp.Actions.Spotfiy;
+using SamsonConsoleApp.Models.Samson;
+using SamsonConsoleApp.Speech.GoogleTTS;
+using SamsonCatergories = SamsonConsoleApp.Enums.SamsonCatergories;
 
 namespace SamsonConsoleApp.Actions.Execute
 {
     public class ExecuteSamsonAction : IExecuteSamsonAction
     {
-        private readonly ISpotifyPlayer _player;
-        private readonly IWebBrowser _webBrowser;
+        private readonly IExecuteGeneral _executeGeneral;
+        private readonly IExecuteSpotify _executeSpotify;
+        private readonly ITextToSpeech _textToSpeech;
 
         public ExecuteSamsonAction(
-            ISpotifyPlayer player,
-            IWebBrowser webBrowser
+            IExecuteGeneral executeGeneral,
+            IExecuteSpotify executeSpotify,
+            ITextToSpeech textToSpeech
         ) { 
-            _player = player;
-            _webBrowser = webBrowser;
+            _executeGeneral = executeGeneral;
+            _executeSpotify = executeSpotify;
+            _textToSpeech = textToSpeech;
         }
 
-        public void Execute(SamsonActionResponse response)
+        public void Execute(SamsonAction action, string summary)
         {
-            switch (response.Action.ToEnum<SamsonActions>())
+            switch (action.Catergories)
             {
-                case SamsonActions.Greet:
-                    Greet.Greet.Greeting();
+                case SamsonCatergories.General:
+                    _executeGeneral.Execute(action, summary);
                     break;
 
-                case SamsonActions.Question:
+                case SamsonCatergories.Spotify:
+                    _executeSpotify.Execute(action, summary);
                     break;
 
-                case SamsonActions.WebBrowserOpenWebBrowser:
-                    _webBrowser.OpenDefaultWebBrowser();
-                    break;
-
-                case SamsonActions.WebBrowserOpenGoogleBrowser:
-                    _webBrowser.OpenDefaultWebBrowserToUrl("https://google.com");
-                    break;
-
-                case SamsonActions.SpotifyPlayOrResumePlayback:
-                    _player.PlayOrResumePlayback();
-                    break;
-
+                case SamsonCatergories.DidNotUnderstand:
                 default:
-                    // will want it to say this once tts is integrated
-                    Console.WriteLine("Do Not Understand");
+                    _textToSpeech.Say("Sorry, I do not understand");
                     break;
             }
         }

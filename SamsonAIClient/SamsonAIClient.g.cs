@@ -244,6 +244,107 @@ namespace SamsonAIClient
         }
 
         /// <summary>
+        /// Getsamsonquestion
+        /// </summary>
+        /// <returns>Successful Response</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<SamsonQuestionResponse> GetSamsonQuestionAsync(SamsonQuestionRequest body)
+        {
+            return GetSamsonQuestionAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Getsamsonquestion
+        /// </summary>
+        /// <returns>Successful Response</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<SamsonQuestionResponse> GetSamsonQuestionAsync(SamsonQuestionRequest body, System.Threading.CancellationToken cancellationToken)
+        {
+            if (body == null)
+                throw new System.ArgumentNullException("body");
+
+            var client_ = new System.Net.Http.HttpClient();
+            var disposeClient_ = true;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(BaseUrl)) urlBuilder_.Append(BaseUrl);
+                    // Operation Path: "api/question"
+                    urlBuilder_.Append("api/question");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<SamsonQuestionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new SwaggerException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 422)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<HTTPValidationError>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new SwaggerException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new SwaggerException<HTTPValidationError>("Validation Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
         /// Getsamsonwake
         /// </summary>
         /// <returns>Successful Response</returns>
@@ -623,45 +724,6 @@ namespace SamsonAIClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum SamsonActionEnum
-    {
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      0
-    ]")]
-        _____0___ = 0,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      1
-    ]")]
-        _____1___ = 1,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      1000
-    ]")]
-        _____1000___ = 2,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      1001
-    ]")]
-        _____1001___ = 3,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      2000
-    ]")]
-        _____2000___ = 4,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      2001
-    ]")]
-        _____2001___ = 5,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"2002")]
-        _2002 = 6,
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class SamsonActionRequest : System.ComponentModel.INotifyPropertyChanged
     {
         private string _summary;
@@ -717,11 +779,12 @@ namespace SamsonAIClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class SamsonActionResponse : System.ComponentModel.INotifyPropertyChanged
     {
-        private SamsonActionEnum _action;
+        private SamsonActions _action;
+        private SamsonCatergories _catergory;
         private System.Collections.Generic.ICollection<string> _parameters = new System.Collections.ObjectModel.Collection<string>();
 
         [Newtonsoft.Json.JsonProperty("action", Required = Newtonsoft.Json.Required.Always)]
-        public SamsonActionEnum Action
+        public SamsonActions Action
         {
             get { return _action; }
 
@@ -730,6 +793,21 @@ namespace SamsonAIClient
                 if (_action != value)
                 {
                     _action = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [Newtonsoft.Json.JsonProperty("catergory", Required = Newtonsoft.Json.Required.Always)]
+        public SamsonCatergories Catergory
+        {
+            get { return _catergory; }
+
+            set
+            {
+                if (_catergory != value)
+                {
+                    _catergory = value;
                     RaisePropertyChanged();
                 }
             }
@@ -770,6 +848,180 @@ namespace SamsonAIClient
         {
 
             return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonActionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SamsonActions
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      0
+    ]")]
+        _____0___ = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1
+    ]")]
+        _____1___ = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1000
+    ]")]
+        _____1000___ = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1001
+    ]")]
+        _____1001___ = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2000
+    ]")]
+        _____2000___ = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2001
+    ]")]
+        _____2001___ = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2002
+    ]")]
+        _____2002___ = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"100000")]
+        _100000 = 7,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SamsonCatergories
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      0
+    ]")]
+        _____0___ = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1
+    ]")]
+        _____1___ = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2
+    ]")]
+        _____2___ = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"100000")]
+        _100000 = 3,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SamsonQuestionRequest : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _question;
+
+        [Newtonsoft.Json.JsonProperty("question", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Question
+        {
+            get { return _question; }
+
+            set
+            {
+                if (_question != value)
+                {
+                    _question = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static SamsonQuestionRequest FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonQuestionRequest>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SamsonQuestionResponse : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _summary;
+
+        [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Summary
+        {
+            get { return _summary; }
+
+            set
+            {
+                if (_summary != value)
+                {
+                    _summary = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static SamsonQuestionResponse FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonQuestionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 

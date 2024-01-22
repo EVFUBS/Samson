@@ -11,5 +11,6 @@ namespace SamsonConsoleApp.Constants
         public const string WakeAudioFilePath = "wake.wav";
         public const string ListenAudioFilePath = "listen.wav";
         public const string FullAudioFilePath = "full_audio.wav";
+        public const string Say = "say.wav";
     }
 }

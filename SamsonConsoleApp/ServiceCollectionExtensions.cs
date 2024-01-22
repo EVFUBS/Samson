@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SamsonConsoleApp.Actions.WebBrowser;
+using SamsonConsoleApp.Actions.General.WebBrowser;
 using SamsonConsoleApp.Client;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Options;
