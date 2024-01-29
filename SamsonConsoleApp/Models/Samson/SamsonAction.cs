@@ -1,10 +1,6 @@
-﻿using SamsonConsoleApp.enums;
-using SamsonConsoleApp.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SamsonAIClient;
+using SamsonActions = SamsonConsoleApp.Enums.SamsonActions;
+using SamsonCatergories = SamsonConsoleApp.Enums.SamsonCatergories;
 
 namespace SamsonConsoleApp.Models.Samson
 {
@@ -12,6 +8,6 @@ namespace SamsonConsoleApp.Models.Samson
     {
         public SamsonActions Action { get; set; }
         public SamsonCatergories Catergories { get; set; }
-        public IEnumerable<string> Parameters { get; set; }
+        public SamsonActionParameters Parameters { get; set; }
     }
 }

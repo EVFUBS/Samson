@@ -1,6 +1,6 @@
 ﻿using SamsonConsoleApp.Models.Samson;
 
-namespace SamsonConsoleApp.Actions.Spotfiy
+namespace SamsonConsoleApp.Actions.Spotfiy.Interfaces
 {
     public interface IExecuteSpotify
     {

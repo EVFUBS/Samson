@@ -1,12 +1,10 @@
-﻿using SamsonAIClient;
-using SamsonConsoleApp.Actions.Execute;
+﻿using SamsonConsoleApp.Actions.Execute;
 using SamsonConsoleApp.Actions.General.Greet;
 using SamsonConsoleApp.Actions.General.Question;
 using SamsonConsoleApp.Actions.General.WebBrowser;
-using SamsonConsoleApp.Helpers;
 using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Speech.GoogleTTS;
-using SamsonActions = SamsonConsoleApp.enums.SamsonActions;
+using SamsonActions = SamsonConsoleApp.Enums.SamsonActions;
 
 namespace SamsonConsoleApp.Actions.General
 {

@@ -11,7 +11,7 @@ namespace SamsonConsoleApp.Speech.Deepgram
 
         public SpeechDeepgram(IConfiguration config)
         {
-            var credentials = config.GetRequiredSection("DeepgramIntegration").Get<DeepgramIntegrationOptions>();
+            var credentials = config.GetRequiredSection("DeepgramIntegrationOptions").Get<DeepgramIntegrationOptions>();
             _deepgramClient = new DeepgramClient(new Credentials
             {
                 ApiKey = credentials?.ApiKey,

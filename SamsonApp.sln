@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonConsoleApp", "SamsonConsoleApp\SamsonConsoleApp.csproj", "{9E34BD01-5FC1-4155-9B2A-ADC9AE788B63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamsonAIClient", "SamsonAIClient\SamsonAIClient.csproj", "{99C1BC3C-9C6D-4F18-8261-4ECE84EB7B0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonAIClient", "SamsonAIClient\SamsonAIClient.csproj", "{99C1BC3C-9C6D-4F18-8261-4ECE84EB7B0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

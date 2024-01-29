@@ -1,5 +1,5 @@
 ﻿using SamsonConsoleApp.Actions.General;
-using SamsonConsoleApp.Actions.Spotfiy;
+using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Speech.GoogleTTS;
 using SamsonCatergories = SamsonConsoleApp.Enums.SamsonCatergories;

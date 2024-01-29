@@ -54,7 +54,7 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             {
                 _webBrowser.OpenDefaultWebBrowserToUrl(confirmedResponse.RequestMessage.RequestUri.ToString());
                 var context = await spotifyListener.GetContextAsync();
-                AuthoriseCallback(context);
+                AuthorisationCallback(context);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace SamsonConsoleApp.Actions.Spotfiy
             }
         }
 
-        public void AuthoriseCallback(HttpListenerContext context)
+        public void AuthorisationCallback(HttpListenerContext context)
         {
             var state = context.Request.QueryString["state"];
             var code = context.Request.QueryString["code"];

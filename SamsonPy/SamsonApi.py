@@ -1,3 +1,4 @@
+from typing import Union
 from fastapi import FastAPI, UploadFile
 from pydantic import BaseModel
 import tensorflow as tf
@@ -34,8 +35,23 @@ class SamsonActions(Enum):
 class ResponseMessage(BaseModel):
     message: str
     
+
 class SamsonWakeResponse(BaseModel):
     wake: bool
+
+class WordsEntity(BaseModel):
+    Words: str
+    Entity: str
+
+class SamsonSpotifyParameters(BaseModel):
+    WordsEntityPairing: list[WordsEntity]
+
+class SamsonGeneralParameters(BaseModel):
+    test: str
+
+class SamsonActionParameters(BaseModel):
+    spotifyParameters: SamsonSpotifyParameters
+    generalParameters: SamsonGeneralParameters
 
 class SamsonActionRequest(BaseModel):
     summary: str
@@ -43,7 +59,8 @@ class SamsonActionRequest(BaseModel):
 class SamsonActionResponse(BaseModel):
     action: SamsonActions
     catergory: SamsonCatergories
-    parameters: list[str]
+    parameters: SamsonActionParameters
+
 
 class SamsonQuestionResponse(BaseModel):
     summary: str
@@ -51,15 +68,16 @@ class SamsonQuestionResponse(BaseModel):
 class SamsonQuestionRequest(BaseModel):
     question: str
 
+
 @app.get("/api/", response_model=ResponseMessage)
 async def root():
     return {"message": "Hello World"}
 
 @app.get("/api/action", response_model=SamsonActionResponse)
 async def GetSamsonAction(request: SamsonActionRequest):
-    # Look into named entity recognition for extracting paramerters out of the prompts seems to be the way to go
-    # looks for named labels, could be used to look for "play" for example then the sequence after it?
-    return {"message": "Hello World"}
+    return SamsonActionResponse(action=SamsonActions.SpotifyPlayOrResumePlayback, 
+                                catergory=SamsonCatergories.Spotify, 
+                                parameters=["Samson NOUN", "play VERB", "That DET", "Way NOUN", "by ADP", "John PROPN", "Mayor PROPN"])
 
 @app.get("/api/question", response_model=SamsonQuestionResponse)
 async def GetSamsonQuestion(request: SamsonQuestionRequest):

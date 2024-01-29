@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SamsonConsoleApp.Models.Spotify
 {
-    public class SpotifyUserAuth : ISpotifyUserAuth
+    public record SpotifyUserAuth : ISpotifyUserAuth
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

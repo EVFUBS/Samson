@@ -45,6 +45,7 @@ namespace SamsonConsoleApp.Speech
                 });
 
                 _executeSamsonAction.Execute(response.ToAction(), transcript.Results.Summary.TextSummary);
+                // going to loop instantly after calling?
             }
         }
 
