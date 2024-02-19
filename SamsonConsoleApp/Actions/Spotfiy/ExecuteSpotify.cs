@@ -24,11 +24,14 @@ namespace SamsonConsoleApp.Actions.Spotfiy
 
         public void Execute(SamsonAction action, string summary)
         {
-            var spotifyActionContext = GetSpotifyActionContextFromParameters(action.Parameters.SpotifyParameters);
+            var spotifyActionContext = GetSpotifyActionContextFromParameters(action.Parameters);
             switch (action.Action)
             {
                 case SamsonActions.SpotifyPlayOrResumePlayback:
-                    _player.PlayOrResumePlayback();
+                    if (spotifyActionContext.SongContext.Song != null)
+                        _player.PlayOrResumePlayback(null, null, null, null);
+                    else
+                        _player.PlayOrResumePlayback();
                     break;
 
                 case SamsonActions.SpotifyPausePlayback:
@@ -47,28 +50,28 @@ namespace SamsonConsoleApp.Actions.Spotfiy
         }
 
         // This is probably going to suck at first but need to give it a go
-        private SpotifyActionContext GetSpotifyActionContextFromParameters(SamsonSpotifyParameters parameters)
+        private SpotifyActionContext GetSpotifyActionContextFromParameters(SamsonActionParameters parameters)
         {
             var spotifyActionContext = new SpotifyActionContext();
 
             foreach (var wordsEntity in parameters.WordsEntityPairing)
             {
                 if (wordsEntity.Entity == "Play")
-                    spotifyActionContext.SongContext = TryBuildSpotifyActionSongContext(parameters.WordsEntityPairing);
+                    spotifyActionContext.SongContext = TryBuildSpotifyActionSongContext(parameters);
             }
             return spotifyActionContext;
         }
 
-        private SpotifyActionSongContext TryBuildSpotifyActionSongContext(ICollection<WordsEntity> wordEntities)
+        private SpotifyActionSongContext TryBuildSpotifyActionSongContext(SamsonActionParameters parameters)
         {
             var spotifyActionSongContext = new SpotifyActionSongContext();
-            foreach (var wordEntity in wordEntities)
+            foreach (var wordEntity in parameters.WordsEntityPairing)
             {
                 if (wordEntity.Entity == "Song")
-                    spotifyActionSongContext.Song = wordEntity.Words;
+                    spotifyActionSongContext.Song += wordEntity.Word;
                 
                 if (wordEntity.Entity == "Artist")
-                    spotifyActionSongContext.Artist = wordEntity.Words;
+                    spotifyActionSongContext.Artist += wordEntity.Word;
             }
             return spotifyActionSongContext;
         }

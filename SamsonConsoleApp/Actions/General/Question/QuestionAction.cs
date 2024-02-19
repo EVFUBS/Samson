@@ -1,4 +1,5 @@
-﻿using SamsonConsoleApp.Clients.Interfaces;
+﻿using SamsonAIClient;
+using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Speech.GoogleTTS;
 
 namespace SamsonConsoleApp.Actions.General.Question
@@ -20,7 +21,7 @@ namespace SamsonConsoleApp.Actions.General.Question
         public async Task Question(string summary)
         {
             var client = _samsonAiClientFactory.Create();
-            var response = await client.GetSamsonQuestionAsync(new SamsonAIClient.SamsonQuestionRequest
+            var response = await client.GetSamsonQuestionAsync(new SamsonQuestionRequest
             {
                 Question = summary
             });

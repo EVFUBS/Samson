@@ -10,8 +10,10 @@ using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
 using SamsonConsoleApp.Client;
 using SamsonConsoleApp.Clients;
 using SamsonConsoleApp.Clients.Interfaces;
+using SamsonConsoleApp.Context;
 using SamsonConsoleApp.DAL;
 using SamsonConsoleApp.DAL.interfaces;
+using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Options;
 using SamsonConsoleApp.Providers;
 using SamsonConsoleApp.Speech;
@@ -32,8 +34,8 @@ namespace SamsonConsoleApp
             services.Configure<SpotifyIntegrationOptions>(config.GetSection(nameof(SpotifyIntegrationOptions)));
 
             services.AddScoped<ISpotifyClientFactory, SpotifyClientFactory>();
-            services.AddScoped<IWebBrowser, WebBrowser>();
             services.AddScoped<ISamsonAIClientFactory, SamsonAIClientFactory>();
+            services.AddScoped<IWebBrowser, WebBrowser>();
 
             services.AddScoped<ISpeechDeepgram, SpeechDeepgram>();
             services.AddScoped<ITextToSpeech,  TextToSpeech>();
@@ -50,8 +52,10 @@ namespace SamsonConsoleApp
             services.AddScoped<ISpotifyAuthorisation, SpotifyAuthorisation>();
             services.AddScoped<ISpotifyAuthProvider, SpotifyAuthProvider>();
             services.AddScoped<ISpotifyDAL, SpotifyDAL>();
+            services.AddScoped<SamsonContext>();
 
             services.AddSingleton<ISpeechRecognition, SpeechRecognition>();
+            services.AddSingleton<ISamsonServerCredentials, SamsonServerCredentials>();
 
             return services;
         }

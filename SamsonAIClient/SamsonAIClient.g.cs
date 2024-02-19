@@ -726,36 +726,19 @@ namespace SamsonAIClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class SamsonActionParameters : System.ComponentModel.INotifyPropertyChanged
     {
-        private SamsonSpotifyParameters _spotifyParameters = new SamsonSpotifyParameters();
-        private SamsonGeneralParameters _generalParameters = new SamsonGeneralParameters();
+        private System.Collections.Generic.ICollection<WordsEntity> _wordsEntityPairing = new System.Collections.ObjectModel.Collection<WordsEntity>();
 
-        [Newtonsoft.Json.JsonProperty("spotifyParameters", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("WordsEntityPairing", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public SamsonSpotifyParameters SpotifyParameters
+        public System.Collections.Generic.ICollection<WordsEntity> WordsEntityPairing
         {
-            get { return _spotifyParameters; }
+            get { return _wordsEntityPairing; }
 
             set
             {
-                if (_spotifyParameters != value)
+                if (_wordsEntityPairing != value)
                 {
-                    _spotifyParameters = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        [Newtonsoft.Json.JsonProperty("generalParameters", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public SamsonGeneralParameters GeneralParameters
-        {
-            get { return _generalParameters; }
-
-            set
-            {
-                if (_generalParameters != value)
-                {
-                    _generalParameters = value;
+                    _wordsEntityPairing = value;
                     RaisePropertyChanged();
                 }
             }
@@ -970,8 +953,13 @@ namespace SamsonAIClient
     ]")]
         _____2002___ = 6,
 
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2003
+    ]")]
+        _____2003___ = 7,
+
         [System.Runtime.Serialization.EnumMember(Value = @"100000")]
-        _100000 = 7,
+        _100000 = 8,
 
     }
 
@@ -992,59 +980,6 @@ namespace SamsonAIClient
         [System.Runtime.Serialization.EnumMember(Value = @"100000")]
         _100000 = 2,
 
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonGeneralParameters : System.ComponentModel.INotifyPropertyChanged
-    {
-        private string _test;
-
-        [Newtonsoft.Json.JsonProperty("test", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Test
-        {
-            get { return _test; }
-
-            set
-            {
-                if (_test != value)
-                {
-                    _test = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonGeneralParameters FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonGeneralParameters>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -1140,59 +1075,6 @@ namespace SamsonAIClient
         {
 
             return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonQuestionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonSpotifyParameters : System.ComponentModel.INotifyPropertyChanged
-    {
-        private System.Collections.Generic.ICollection<WordsEntity> _wordsEntityPairing = new System.Collections.ObjectModel.Collection<WordsEntity>();
-
-        [Newtonsoft.Json.JsonProperty("WordsEntityPairing", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<WordsEntity> WordsEntityPairing
-        {
-            get { return _wordsEntityPairing; }
-
-            set
-            {
-                if (_wordsEntityPairing != value)
-                {
-                    _wordsEntityPairing = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonSpotifyParameters FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonSpotifyParameters>(data, new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 
@@ -1348,20 +1230,20 @@ namespace SamsonAIClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class WordsEntity : System.ComponentModel.INotifyPropertyChanged
     {
-        private string _words;
+        private string _word;
         private string _entity;
 
-        [Newtonsoft.Json.JsonProperty("Words", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("Word", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Words
+        public string Word
         {
-            get { return _words; }
+            get { return _word; }
 
             set
             {
-                if (_words != value)
+                if (_word != value)
                 {
-                    _words = value;
+                    _word = value;
                     RaisePropertyChanged();
                 }
             }

@@ -18,6 +18,7 @@
         SpotifyAvailableDevices = 2000,
         SpotifyPlayOrResumePlayback = 2001,
         SpotifyPausePlayback = 2002,
+        SpotifyStartPlaylist = 2003,
 
         // Did not understand
         DoNotUnderstand = 100000

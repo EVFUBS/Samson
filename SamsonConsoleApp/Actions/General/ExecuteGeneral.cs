@@ -45,8 +45,7 @@ namespace SamsonConsoleApp.Actions.General
                     break;
 
                 case SamsonActions.WebBrowserOpenWebBrowserToUrl:
-                    // want you to be able to specify the site you want to go to
-                    _webBrowser.OpenDefaultWebBrowserToUrl("https://google.com");
+                    _webBrowser.OpenDefaultWebBrowserToUrl(action.Parameters.WordsEntityPairing.FirstOrDefault(x => x.Entity == "URL").Word);
                     break;
 
                 case SamsonActions.DoNotUnderstand:

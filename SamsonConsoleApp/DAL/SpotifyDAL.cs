@@ -2,60 +2,48 @@
 using SamsonConsoleApp.Context;
 using SamsonConsoleApp.DAL.interfaces;
 using SamsonConsoleApp.Models.Spotify;
+using SQLitePCL;
 
 namespace SamsonConsoleApp.DAL
 {
     public class SpotifyDAL : ISpotifyDAL
     {
-        public SpotifyDAL() { 
+        public SamsonContext _context {  get; set; }
+
+        public SpotifyDAL(SamsonContext context) {
+            _context = context;
         }
 
         public SpotifyUserAuth AddAccessToken(SpotifyUserAuth spotifyUserAuth)
         {
-            using (var context = new SamsonContext())
-            {
-                context.spotifyUserAuths.Add(spotifyUserAuth);
-                context.SaveChanges();
-            }
-
+            _context.spotifyUserAuths.Add(spotifyUserAuth);
+            _context.SaveChanges();
             return spotifyUserAuth;
         }
 
         public SpotifyUserAuth UpdateAccessToken(SpotifyUserAuth spotifyUserAuth)
         {
-            using (var context = new SamsonContext())
-            {
-                context.spotifyUserAuths.Update(spotifyUserAuth);
-                context.SaveChanges();
-            }
-
+            _context.spotifyUserAuths.Update(spotifyUserAuth);
+            _context.SaveChanges();
             return spotifyUserAuth;
         }
 
         public async Task<SpotifyUserAuth> GetAccessToken()
         {
-            SpotifyUserAuth spotifyUser;
+            var value = await _context.spotifyUserAuths.OrderByDescending(x => x.Expires_at).FirstOrDefaultAsync();
 
-            using (var context = new SamsonContext())
+            if (value != null)
             {
-                var value = await context.spotifyUserAuths.OrderByDescending(x => x.Expires_at).FirstOrDefaultAsync();
-
-                if (value != null)
-                {
-                    spotifyUser = value;
-                    return spotifyUser;
-                }
-
-                throw new Exception("There are no AccessToken to get");
+                return value;
             }
+
+            throw new Exception("There are no AccessToken to get");   
         }
 
         public void RemoveAccessToken(SpotifyUserAuth spotifyUserAuth)
         {
-            using (var context = new SamsonContext())
-            {
-                context.Remove(spotifyUserAuth);
-            }
+            _context.spotifyUserAuths.Remove(spotifyUserAuth);
+            _context.SaveChanges();
         }
     }
 }

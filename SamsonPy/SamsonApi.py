@@ -29,6 +29,7 @@ class SamsonActions(Enum):
     SpotifyAvailableDevices = 2000,
     SpotifyPlayOrResumePlayback = 2001,
     SpotifyPausePlayback = 2002,
+    SpotifyStartPlaylist = 2003,
 
     DoNotUnderstand = 100000
 
@@ -40,18 +41,11 @@ class SamsonWakeResponse(BaseModel):
     wake: bool
 
 class WordsEntity(BaseModel):
-    Words: str
+    Word: str
     Entity: str
 
-class SamsonSpotifyParameters(BaseModel):
-    WordsEntityPairing: list[WordsEntity]
-
-class SamsonGeneralParameters(BaseModel):
-    test: str
-
 class SamsonActionParameters(BaseModel):
-    spotifyParameters: SamsonSpotifyParameters
-    generalParameters: SamsonGeneralParameters
+    WordsEntityPairing: list[WordsEntity]
 
 class SamsonActionRequest(BaseModel):
     summary: str
@@ -77,7 +71,7 @@ async def root():
 async def GetSamsonAction(request: SamsonActionRequest):
     return SamsonActionResponse(action=SamsonActions.SpotifyPlayOrResumePlayback, 
                                 catergory=SamsonCatergories.Spotify, 
-                                parameters=["Samson NOUN", "play VERB", "That DET", "Way NOUN", "by ADP", "John PROPN", "Mayor PROPN"])
+                                parameters=SamsonActionParameters())
 
 @app.get("/api/question", response_model=SamsonQuestionResponse)
 async def GetSamsonQuestion(request: SamsonQuestionRequest):

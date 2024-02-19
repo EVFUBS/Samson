@@ -16,7 +16,8 @@ namespace SamsonConsoleApp.Actions.Execute
             IExecuteGeneral executeGeneral,
             IExecuteSpotify executeSpotify,
             ITextToSpeech textToSpeech
-        ) { 
+        )
+        {
             _executeGeneral = executeGeneral;
             _executeSpotify = executeSpotify;
             _textToSpeech = textToSpeech;

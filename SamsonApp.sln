@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonConsoleApp", "SamsonC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonAIClient", "SamsonAIClient\SamsonAIClient.csproj", "{99C1BC3C-9C6D-4F18-8261-4ECE84EB7B0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamsonServer", "SamsonServer\SamsonServer.csproj", "{63418DDE-0E0A-481F-8B09-B92190AA4D62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{99C1BC3C-9C6D-4F18-8261-4ECE84EB7B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99C1BC3C-9C6D-4F18-8261-4ECE84EB7B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99C1BC3C-9C6D-4F18-8261-4ECE84EB7B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63418DDE-0E0A-481F-8B09-B92190AA4D62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63418DDE-0E0A-481F-8B09-B92190AA4D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63418DDE-0E0A-481F-8B09-B92190AA4D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63418DDE-0E0A-481F-8B09-B92190AA4D62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

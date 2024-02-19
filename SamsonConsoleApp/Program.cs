@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SamsonConsoleApp;
 using SamsonConsoleApp.Context;
+using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Speech;
 
 internal class Program
@@ -12,29 +14,34 @@ internal class Program
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
         builder.Environment.EnvironmentName = "development";
 
-        // Read Config
         builder.Configuration
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
-        // Dependency Injection
-        builder.Services.AddDependencies(builder.Configuration);
+        builder.Services.AddDbContext<SamsonContext>(options => 
+            options.UseSqlite(builder.Configuration.GetConnectionString("Samsondb")));
 
-        builder.Services.AddDbContext<SamsonContext>();
+        builder.Services.AddDependencies(builder.Configuration);
 
         var app = builder.Build();
         var provider = builder.Services.BuildServiceProvider();
+
         var speechRecognition = provider.GetService<ISpeechRecognition>();
+        var samsonCredentials = provider.GetService<ISamsonServerCredentials>();
 
         if (speechRecognition != null)
         {
+            //Console.WriteLine("Getting Samson Credentials");
+            //samsonCredentials.Login();
+
             Console.WriteLine("Samson is now listening");
-            speechRecognition.Start();
+            //speechRecognition.Start();
+            speechRecognition.TestStart();
             app.Run();
         }
         else
         {
-            throw new Exception("Error Occured attempting to start speech recognition");
+            throw new Exception("Error occured attempting to start samson");
         }
     }
 }

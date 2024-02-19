@@ -1,5 +1,5 @@
 ﻿using NAudio.Wave;
-using static SamsonConsoleApp.Speech.Wake.AudioRecorder;
+using static SamsonConsoleApp.Speech.Audio.AudioRecorder;
 
 namespace SamsonConsoleApp.Helpers.AudioHelpers
 {

@@ -1,7 +1,7 @@
 ﻿using NAudio.Wave;
 using System.Diagnostics;
 
-namespace SamsonConsoleApp.Speech.Wake
+namespace SamsonConsoleApp.Speech.Audio
 {
     public class AudioRecorder : IAudioRecorder
     {

@@ -1,11 +1,5 @@
-﻿using SamsonConsoleApp.enums;
-using SamsonConsoleApp.Enums;
+﻿using SamsonConsoleApp.Enums;
 using SamsonConsoleApp.Models.Samson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SamsonConsoleApp.Helpers
 {

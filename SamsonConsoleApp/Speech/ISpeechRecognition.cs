@@ -3,5 +3,6 @@
     public interface ISpeechRecognition
     {
         Task Start();
+        Task TestStart();
     }
 }

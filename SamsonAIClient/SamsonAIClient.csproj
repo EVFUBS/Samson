@@ -23,5 +23,4 @@
 	<Target Name="NSwag" AfterTargets="PostBuildEvent">
 		<Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net60) run nswag.json" />
 	</Target>
-
 </Project>

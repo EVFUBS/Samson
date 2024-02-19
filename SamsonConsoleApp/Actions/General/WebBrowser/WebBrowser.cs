@@ -1,15 +1,26 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Extensions.Configuration;
+using SamsonConsoleApp.Options;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace SamsonConsoleApp.Actions.General.WebBrowser
 {
     public class WebBrowser : IWebBrowser
     {
+        private readonly string? _defaultBrowserUrl;
+
+        public WebBrowser(IConfiguration config)
+        {
+            _defaultBrowserUrl = config?.GetRequiredSection("WebBrowser")?.GetChildren()?.FirstOrDefault(x => x.Key == "defaultWebPage")?.Value;
+        }
+
         public void OpenDefaultWebBrowser()
         {
-            // get this out of config
-            string target = "http://www.google.com";
-            OpenUrl(target);
+            if (_defaultBrowserUrl == null)
+            {
+                OpenUrl("https://google.com");
+            }
+            OpenUrl(_defaultBrowserUrl);
         }
 
         public void OpenDefaultWebBrowserToUrl(string website)

@@ -1,6 +1,7 @@
 ﻿using Google.Cloud.TextToSpeech.V1;
 using NAudio.Wave;
 using SamsonConsoleApp.Constants;
+using SamsonConsoleApp.Speech.Audio;
 
 namespace SamsonConsoleApp.Speech.GoogleTTS
 {
@@ -8,11 +9,8 @@ namespace SamsonConsoleApp.Speech.GoogleTTS
     {
         public async Task Say(string summary)
         {
-            await Synthesize(summary, Audio.Say);
-            var reader = new Mp3FileReader(Audio.Say);
-            var waveOutEvent = new WaveOutEvent();
-            waveOutEvent.Init(reader);
-            waveOutEvent.Play();
+            await Synthesize(summary, AudioFilePaths.Say);
+            AudioPlayer.playMp3(AudioFilePaths.Say);
         }
 
         private async Task Synthesize(string summary, string filePath)

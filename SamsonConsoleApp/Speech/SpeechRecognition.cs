@@ -1,12 +1,13 @@
 ﻿using NAudio.Wave;
 using SamsonAIClient;
 using SamsonConsoleApp.Clients.Interfaces;
-using SamsonConsoleApp.Constants;
 using SamsonConsoleApp.Helpers.AudioHelpers;
 using SamsonConsoleApp.Speech.Deepgram;
-using SamsonConsoleApp.Speech.Wake;
 using SamsonConsoleApp.Actions.Execute;
 using SamsonConsoleApp.Helpers;
+using Deepgram.Models;
+using SamsonConsoleApp.Speech.Audio;
+using SamsonConsoleApp.Constants;
 
 namespace SamsonConsoleApp.Speech
 {
@@ -30,22 +31,47 @@ namespace SamsonConsoleApp.Speech
         {
             while (true)
             {
-                await Wake(Audio.WakeAudioFilePath, 5, 2000);
-                await Listen(Audio.ListenAudioFilePath, 120, 5000, 1000);
+                Logger.Log("Waiting for wake...");
+                await Wake(AudioFilePaths.WakeAudioFilePath, 5, 2000);
+                
+                Logger.Log("Listening...");
+                await Listen(AudioFilePaths.ListenAudioFilePath, 120, 5000, 1000);
 
-                // append wake and listen together. - This should be done with one recorder, needs to change in the future
-                AudioRecorder.Concatenate(Audio.FullAudioFilePath, new List<string> { Audio.WakeAudioFilePath, Audio.ListenAudioFilePath });
+                AudioRecorder.Concatenate(AudioFilePaths.FullAudioFilePath, new List<string>
+                {
+                    AudioFilePaths.WakeAudioFilePath,
+                    AudioFilePaths.ListenAudioFilePath
+                });
 
-                var transcript = await _deepgram.SpeechToTextFromFile(Audio.FullAudioFilePath);
+                Logger.Log("Sending audio to deepgram");
+                var transcript = await _deepgram.SpeechToTextFromFile(AudioFilePaths.FullAudioFilePath);
 
+                Logger.Log("sending following transcript to samson actions: ", transcript.Results.Summary.TextSummary);
                 var client = _samsonClientFactory.Create();
                 var response = await client.GetSamsonActionAsync(new SamsonActionRequest
                 {
                     Summary = transcript.Results.Summary.TextSummary
                 });
 
+                Logger.Log($"Recieved action: {nameof(response.Action)}. Executing Action...");
                 _executeSamsonAction.Execute(response.ToAction(), transcript.Results.Summary.TextSummary);
-                // going to loop instantly after calling?
+                Logger.Log("Execution Complete!\n");
+            }
+        }
+
+        public async Task TestStart()
+        {
+            while (true)
+            {
+                var client = _samsonClientFactory.Create();
+                var response = await client.GetSamsonActionAsync(new SamsonActionRequest
+                {
+                    Summary = "hey samson play 17250 by glaive"
+                });
+
+                Logger.Log($"Received action: {nameof(response.Action)}. Executing Action...");
+                _executeSamsonAction.Execute(response.ToAction(), "hey samson play 17250 by glaive");
+                Logger.Log("Execution Complete!\n");
             }
         }
 
@@ -79,6 +105,7 @@ namespace SamsonConsoleApp.Speech
             var listening = true;
             var actionRecorder = new AudioRecorder(recordTime);
             actionRecorder.StartRecording();
+            AudioPlayer.playWav(AudioFilePaths.ListenStart);
 
             while (listening)
             {
