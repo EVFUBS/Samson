@@ -1,18 +1,19 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SamsonConsoleApp.Actions.Execute;
-using SamsonConsoleApp.Actions.General;
-using SamsonConsoleApp.Actions.General.Greet;
-using SamsonConsoleApp.Actions.General.Question;
-using SamsonConsoleApp.Actions.General.WebBrowser;
-using SamsonConsoleApp.Actions.Spotfiy;
-using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
+using SamsonConsoleApp.Execute.Spotfiy;
+using SamsonConsoleApp.Execute.Spotfiy.Interfaces;
 using SamsonConsoleApp.Client;
 using SamsonConsoleApp.Clients;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Context;
 using SamsonConsoleApp.DAL;
 using SamsonConsoleApp.DAL.interfaces;
+using SamsonConsoleApp.Execute.ExecuteActions;
+using SamsonConsoleApp.Execute.General;
+using SamsonConsoleApp.Execute.General.Greet;
+using SamsonConsoleApp.Execute.General.Question;
+using SamsonConsoleApp.Execute.General.WebBrowser;
+using SamsonConsoleApp.Execute.Spotfiy;
 using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Options;
 using SamsonConsoleApp.Providers;
@@ -34,13 +35,13 @@ namespace SamsonConsoleApp
             services.Configure<SpotifyIntegrationOptions>(config.GetSection(nameof(SpotifyIntegrationOptions)));
 
             services.AddScoped<ISpotifyClientFactory, SpotifyClientFactory>();
-            services.AddScoped<ISamsonAIClientFactory, SamsonAIClientFactory>();
+            services.AddScoped<IAiClientFactory, AiClientFactory>();
             services.AddScoped<IWebBrowser, WebBrowser>();
 
             services.AddScoped<ISpeechDeepgram, SpeechDeepgram>();
             services.AddScoped<ITextToSpeech,  TextToSpeech>();
 
-            services.AddScoped<IExecuteSamsonAction, ExecuteSamsonAction>();
+            services.AddScoped<IExecuteAction, ExecuteAction>();
             services.AddScoped<IExecuteGeneral, ExecuteGeneral>();
             services.AddScoped<IExecuteSpotify, ExecuteSpotify>();
 

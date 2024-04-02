@@ -8,35 +8,47 @@ import sklearn
 import pandas as pd
 import json
 import io
+import tensorflow as tf
 
-model_save_path = r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Models\SamsonActions\\'
+df = pd.read_csv(r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonPy\Data\SamsonActions.csv')
+df['class'] = df['class'].astype('category')
+df['class_enc'] = df['class'].cat.codes
+df.to_csv(r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonPy\Data\SamsonActions.csv')
 
-df = pd.read_csv(r'C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonAI\Data\SamsonActions.csv')
 rng = RandomState()
 
-x_train, x_test, y_train, y_test = train_test_split(df['text'], df['class'], test_size=.2, stratify=df['class'], random_state=42)
-df['encoded_class'] = sklearn.LabelEncoder().fit_transform(df['class'])
+x_train, x_test, y_train, y_test = train_test_split(df['text'], df['class_enc'], test_size=.2, stratify=df['class'], random_state=42)
 
-maxlen = 20000
 tokenizer = Tokenizer(num_words=50000, oov_token='<oov>')
 tokenizer.fit_on_texts(x_train)
 word_index = tokenizer.word_index
 x_seq = tokenizer.texts_to_sequences(x_train)
+
+maxlen = 50
+num_classes = df['class'].nunique()
+num_of_words = len(tokenizer.word_index) + 1
+
 train_padded = pad_sequences(x_seq, padding='post', maxlen=maxlen)
 test_padded = pad_sequences(tokenizer.texts_to_sequences(x_test), padding='post', maxlen=maxlen)
 
+y_train = tf.keras.utils.to_categorical(y_train, num_classes=num_classes)
+
 tokenizer_json = tokenizer.to_json()
-with io.open('../Models/tokenizer.json', 'w', encoding='utf-8') as f:
+with io.open(r'Models\SamsonActions\tokenizer.json', 'w', encoding='utf-8') as f:
     f.write(json.dumps(tokenizer_json, ensure_ascii=False))
 
+
+
+# will need to determine the structure of the model with testing prob need some LSTM or RNN
 model = Sequential([
-    Dense(48, x_train.shape, kernel_initializer='he_uniform', activation='relu'),
+    LSTM(128, input_shape=(maxlen, num_of_words), return_sequences=True, activation="relu"),
     Dropout(0.2),
-    Dense(24, activation='relu'),
-    Dense(df['class'].nunique(), activation='softmax')
+    LSTM(64, activation='relu'),
+    Dropout(0.2),
+    Dense(num_classes, activation='softmax')
 ])
 
-model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-history = model.fit(x_train, y_train, epochs=10, validation_data=(x_test, y_test), verbose=2)
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+history = model.fit(train_padded, y_train, epochs=10, validation_data=(x_test, y_test), verbose=2)
 
-model.save(model_save_path, overwrite=True)
+model.save("ActionModel", overwrite=True)

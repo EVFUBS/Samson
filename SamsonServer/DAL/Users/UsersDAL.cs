@@ -32,10 +32,6 @@ namespace SamsonServer.DAL
         {
             var users = await _samsonContext.Users.FromSql($"EXEC spAddUser @email={email}, @password={hashedPassword}, @username={username}").ToListAsync();
             var user = users.FirstOrDefault(x => x.Email == email);
-
-            if (user == null)
-                throw new UserNotFoundException("Error occured while creating new user");
-
             return user;
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Google.Cloud.TextToSpeech.V1;
-using NAudio.Wave;
 using SamsonConsoleApp.Constants;
 using SamsonConsoleApp.Speech.Audio;
 

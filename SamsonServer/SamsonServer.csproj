@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Deepgram" Version="3.4.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -19,6 +20,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	<PackageReference Include="Hangfire.Core" Version="1.8.*" />
+	<PackageReference Include="Hangfire.SqlServer" Version="1.8.*" />
+	<PackageReference Include="Hangfire.AspNetCore" Version="1.8.*" />
+	<PackageReference Include="Microsoft.Data.SqlClient" Version="*" />
   </ItemGroup>
 
   <ItemGroup>

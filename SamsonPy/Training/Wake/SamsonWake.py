@@ -1,15 +1,12 @@
 import tensorflow as tf
 import numpy as np
 from tensorflow.keras import layers
-from Training.Wake.ProcessData import process_data
-
-process_data()
 
 # Load the processed data
-X_train = np.load("TrainingData\X_train.npy")
-X_val = np.load("TrainingData\X_val.npy")
-y_train = np.load("TrainingData\y_train.npy")
-y_val = np.load("TrainingData\y_val.npy")
+X_train = np.load("Training\Wake\TrainingData\X_train.npy")
+X_val = np.load("Training\Wake\TrainingData\X_val.npy")
+y_train = np.load("Training\Wake\TrainingData\y_train.npy")
+y_val = np.load("Training\Wake\TrainingData\y_val.npy")
 
 # Define your neural network architecture
 model = tf.keras.models.Sequential([

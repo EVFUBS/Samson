@@ -22,10 +22,17 @@ namespace SamsonConsoleApp.Context
 
     public class SamsonContextFactory : IDesignTimeDbContextFactory<SamsonContext>
     {
+        private readonly IConfiguration _configuration;
+
+        public SamsonContextFactory(IConfiguration config)
+        {
+            _configuration = config;
+        }
+
         public SamsonContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<SamsonContext>();
-            optionsBuilder.UseSqlServer("Data Source = EBS345; Initial Catalog = Samsondb; Integrated Security = True; Trust Server Certificate = True");
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Samsondb"));
 
             return new SamsonContext(optionsBuilder.Options);
         }

@@ -1,21 +1,21 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace SamsonConsoleApp.Models.Samson
 {
     public class SamsonServerCredentials : ISamsonServerCredentials
     {
-        public readonly string? emailOrUsername;
+        public readonly string? email;
         public readonly string? password;
+        public readonly string? username;
         public string? token;
         private readonly string? url;
 
         public SamsonServerCredentials(IConfiguration config)
         {
-            emailOrUsername = config.GetSection("SamsonServer").GetSection("Credentials").GetValue<string>("emailOrUsername");
+            email = config.GetSection("SamsonServer").GetSection("Credentials").GetValue<string>("email");
             password = config.GetSection("SamsonServer").GetSection("Credentials").GetValue<string>("password");
+            username = config.GetSection("SamsonServer").GetSection("Credentials").GetValue<string>("username");
             url = config.GetSection("SamsonServer").GetValue<string>("SamsonServerUrl");
         }
 
@@ -23,10 +23,11 @@ namespace SamsonConsoleApp.Models.Samson
         {
             var client = new HttpClient();
 
-            var request = new Dictionary<string, string>
+            var request = new Dictionary<string, string?>
             {
-                {"emailOrUsername", emailOrUsername},
+                {"email", email},
                 {"password", password},
+                {"username", username},
             };
             JsonContent content = JsonContent.Create(request);
 

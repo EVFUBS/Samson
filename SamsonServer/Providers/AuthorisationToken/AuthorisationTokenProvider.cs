@@ -1,5 +1,7 @@
-﻿using SamsonServer.DAL.AuthorisationToken;
+﻿using Newtonsoft.Json.Linq;
+using SamsonServer.DAL.AuthorisationToken;
 using SamsonServer.DAL.Users;
+using SamsonServer.Exceptions;
 using SamsonServer.Models.User;
 using SamsonServer.Providers.Users;
 using SamsonServer.Utility;
@@ -18,8 +20,16 @@ namespace SamsonServer.Providers.AuthorisationToken
 
         public async Task<Models.AuthorisationToken.AuthorisationToken> GetById(int userId)
         {
-            var authToken = await _authorisationTokenDAL.GetById(userId);
-            return authToken;
+            try
+            {
+                var authToken = await _authorisationTokenDAL.GetById(userId);
+                return authToken;
+            }
+            catch (DataNotFoundException)
+            {
+                var authToken = await RefreshToken(userId);
+                return authToken;
+            }
         }
 
         public async Task<Models.AuthorisationToken.AuthorisationToken> RefreshToken(int userId)

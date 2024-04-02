@@ -23,7 +23,7 @@ def extract_features(file_path, mfcc_max_len=100):
 
     return mfccs
 
-def process_data():
+def process_wake_data():
     # Directory paths for positive and negative examples
     positive_dir = r'../../Data/Wake/negative'
     negative_dir = r'../../Data/Wake/positive'

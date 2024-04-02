@@ -29,51 +29,35 @@ namespace SamsonServer.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] UserLogin userLogin)
         {
-            try
-            {
-                var user = await _usersProvider.AddUserAsync(userLogin.Email, userLogin.Password, userLogin.Username);
-                var token = await _authorisationTokenProvider.Create(user.Id);
-                return Ok(token.Token);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
+            var user = await _usersProvider.AddUserAsync(userLogin.Email, userLogin.Password, userLogin.Username);
+            var token = await _authorisationTokenProvider.Create(user.Id);
+            return Ok(token.Token);
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginInfo userLoginInfo)
+        public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
         {
-            if (userLoginInfo == null)
+            if (userLogin == null)
             {
                 return BadRequest("There is no login information");
             }
-            
+
+            string emailOrUsername;
+            if (!string.IsNullOrEmpty(userLogin.Email))
+                emailOrUsername = userLogin.Email;
+            else
+                emailOrUsername = userLogin.Username;
             try
             {
-                var user = await _usersProvider.GetUserAsync(userLoginInfo.EmailOrUserName, userLoginInfo.Password);
+                var user = await _usersProvider.GetUserAsync(emailOrUsername, userLogin.Password);
 
                 Models.AuthorisationToken.AuthorisationToken token;
-                try
-                {
-                    token = await _authorisationTokenProvider.GetById(user.Id);
-                }
-                catch (DataNotFoundException)
-                {
-                    try
-                    {
-                        token = await _authorisationTokenProvider.RefreshToken(user.Id);
-                    }
-                    catch (DataNotFoundException) { 
-                        token = await _authorisationTokenProvider.Create(user.Id);
-                    }
-                }
-
+                token = await _authorisationTokenProvider.GetById(user.Id);
                 return Ok(token.Token);
             } 
             catch (UserNotFoundException ex)
             {
-                return Unauthorized(ex.Message);
+                return NotFound(ex.Message);
             }
         }
     }

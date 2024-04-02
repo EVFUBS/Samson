@@ -17,5 +17,8 @@ namespace SamsonServer.Models.User
 
         [Required]
         public required string Username { get; set; }
+
+        [Required]
+        public required string Permission {  get; set; }
     }
 }

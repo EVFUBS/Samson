@@ -3,6 +3,7 @@ using SamsonServer.DAL;
 using SamsonServer.DAL.AuthorisationToken;
 using SamsonServer.DAL.Users;
 using SamsonServer.Providers.AuthorisationToken;
+using SamsonServer.Providers.Speech;
 using SamsonServer.Providers.Users;
 
 namespace SamsonServer
@@ -18,6 +19,8 @@ namespace SamsonServer
 
             services.AddScoped<IAuthorisationTokenDAL, AuthorisationTokenDAL>();
             services.AddScoped<IAuthorisationTokenProvider, AuthorisationTokenProvider>();
+
+            services.AddScoped<ISpeechDeepgram, SpeechDeepgram>();
 
             return services;
         }

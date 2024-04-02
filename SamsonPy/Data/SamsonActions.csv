@@ -1,12 +1,10 @@
-text, class
-#==================================
-# General Actions
-#==================================
-
-#==================================
-# Browser Actions
-#==================================
-open a browser, OpenWebBrowser
-open a web broser, OpenWebBrowser
-open google, OpenGoogleBrowser
-can you open google, OpenGoogleBrowser
+text,class,class_enc
+open a browser,OpenWebBrowser
+open a web broser,OpenWebBrowser
+open google,OpenGoogleBrowser
+can you open google,OpenGoogleBrowser
+open google,OpenGoogleBrowser
+can you open google,OpenGoogleBrowser
+open a browser,OpenWebBrowser
+open a web broser,OpenWebBrowser
+play something on spotify,SpotifyPlayOrResumePlayback

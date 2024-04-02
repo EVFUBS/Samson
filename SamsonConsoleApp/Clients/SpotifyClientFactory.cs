@@ -1,4 +1,4 @@
-﻿using SamsonConsoleApp.Actions.Spotfiy.Interfaces;
+﻿using SamsonConsoleApp.Execute.Spotfiy.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Providers;

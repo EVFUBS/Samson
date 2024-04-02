@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Actions\Login\**" />
+    <Compile Remove="Execute\Login\**" />
     <Compile Remove="Clients\Clients\**" />
     <Compile Remove="SamsonAI\**" />
-    <EmbeddedResource Remove="Actions\Login\**" />
+    <EmbeddedResource Remove="Execute\Login\**" />
     <EmbeddedResource Remove="Clients\Clients\**" />
     <EmbeddedResource Remove="SamsonAI\**" />
-    <None Remove="Actions\Login\**" />
+    <None Remove="Execute\Login\**" />
     <None Remove="Clients\Clients\**" />
     <None Remove="SamsonAI\**" />
   </ItemGroup>
@@ -39,7 +39,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AForge" Version="2.2.5" />
+    <PackageReference Include="AForge.Imaging" Version="2.2.5" />
+    <PackageReference Include="AForge.Video" Version="2.2.5" />
+    <PackageReference Include="AForge.Vision" Version="2.2.5" />
     <PackageReference Include="Deepgram" Version="3.4.0" />
+    <PackageReference Include="Emgu.CV" Version="4.8.1.5350" />
     <PackageReference Include="Google.Apis" Version="1.65.0" />
     <PackageReference Include="Google.Cloud.TextToSpeech.V1" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
@@ -78,6 +83,10 @@
 	    <None Update="samsonDB.db">
 	      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Security\Vision\" />
     </ItemGroup>
 
 </Project>

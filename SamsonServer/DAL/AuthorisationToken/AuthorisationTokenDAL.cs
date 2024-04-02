@@ -26,7 +26,7 @@ namespace SamsonServer.DAL.AuthorisationToken
 
         public async Task<Models.AuthorisationToken.AuthorisationToken> Update(int userId, string token, DateTimeOffset expirationDate)
         {
-            var authTokens = _samsonContext.AuthorisationTokens.FromSql($"spUpdateAuthorisationToken @userId={userId} @token={token} @expirationDate={expirationDate}");
+            var authTokens = _samsonContext.AuthorisationTokens.FromSql($"EXEC spUpdateAuthorisationToken @userId={userId} @token={token} @expirationDate={expirationDate}");
             var authToken = await authTokens.FirstOrDefaultAsync();
 
             if (authToken == null )
