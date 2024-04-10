@@ -8,7 +8,7 @@ using SamsonConsoleApp.Speech.GoogleTTS;
 
 namespace SamsonConsoleApp.Execute.Spotfiy
 {
-    public class ExecuteSpotify : IExecuteAction, IExecuteSpotify
+    public class ExecuteSpotify : IExecuteSpotify
     {
         private readonly ISpotifyPlayer _player;
         private readonly ITextToSpeech _textToSpeech;
@@ -22,7 +22,9 @@ namespace SamsonConsoleApp.Execute.Spotfiy
             _textToSpeech = textToSpeech;
         }
 
-        public void Execute(SamsonAction action, string summary)
+        public Catergories catergory => Catergories.Spotify;
+
+        public void Execute(SamsonAction action)
         {
             var spotifyActionContext = GetSpotifyActionContextFromParameters(action.Parameters);
             switch (action.Action)

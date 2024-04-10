@@ -2,7 +2,7 @@
 using SamsonConsoleApp.Execute.Spotfiy.Interfaces;
 using SamsonConsoleApp.Clients.Interfaces;
 
-namespace SamsonConsoleApp.Execute.Spotfiy
+namespace SamsonConsoleApp.Execute.Spotfiy.Player
 {
     public class SpotifyPlayer : ISpotifyPlayer
     {

@@ -21,30 +21,10 @@
 
   <ItemGroup>
     <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\clr.py" />
-    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__init__.py" />
-    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__main__.py" />
-    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.deps.json" />
-    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.dll" />
-    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.pdb" />
-    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\util\__init__.py" />
-    <None Remove="C:\Users\lssmith\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\__init__.py" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\clr.py" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__init__.py" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\find_libpython\__main__.py" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.deps.json" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.dll" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\runtime\Python.Runtime.pdb" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\util\__init__.py" />
-    <None Remove="C:\Users\lukes\.nuget\packages\quantconnect.pythonnet\2.0.24\contentFiles\any\any\pythonnet\__init__.py" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AForge" Version="2.2.5" />
-    <PackageReference Include="AForge.Imaging" Version="2.2.5" />
-    <PackageReference Include="AForge.Video" Version="2.2.5" />
-    <PackageReference Include="AForge.Vision" Version="2.2.5" />
-    <PackageReference Include="Deepgram" Version="3.4.0" />
-    <PackageReference Include="Emgu.CV" Version="4.8.1.5350" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Google.Apis" Version="1.65.0" />
     <PackageReference Include="Google.Cloud.TextToSpeech.V1" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
@@ -71,6 +51,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SamsonAIClient\SamsonAIClient.csproj" />
+    <ProjectReference Include="..\SamsonServerClient\SamsonServerClient.csproj" />
   </ItemGroup>
 
     <ItemGroup>

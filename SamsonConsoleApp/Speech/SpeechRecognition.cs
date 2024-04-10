@@ -2,30 +2,19 @@
 using SamsonAIClient;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Helpers.AudioHelpers;
-using SamsonConsoleApp.Speech.Deepgram;
 using SamsonConsoleApp.Helpers;
-using Deepgram.Models;
 using SamsonConsoleApp.Speech.Audio;
 using SamsonConsoleApp.Constants;
 using SamsonConsoleApp.Execute.ExecuteActions;
+using SamsonServerClient;
 
 namespace SamsonConsoleApp.Speech
 {
-    public class SpeechRecognition : ISpeechRecognition
+    public class SpeechRecognition(
+        IAiClientFactory aiClientFactory,
+        IServerClientFactory serverClientFactory,
+        IExecuteAction executeAction) : ISpeechRecognition
     {
-        private readonly IAiClientFactory _samsonClientFactory;
-        private readonly ISpeechDeepgram _deepgram;
-        private readonly IExecuteAction _executeAction;
-
-        public SpeechRecognition(
-            IAiClientFactory AiClientFactory,
-            ISpeechDeepgram deepgram,
-            IExecuteAction executeAction)
-        {
-            _samsonClientFactory = AiClientFactory;
-            _deepgram = deepgram;
-            _executeAction = executeAction;
-        }
 
         public async Task Start()
         {
@@ -44,17 +33,13 @@ namespace SamsonConsoleApp.Speech
                 });
 
                 Logger.Log("Sending audio to deepgram");
-                var transcript = await _deepgram.SpeechToTextFromFile(AudioFilePaths.FullAudioFilePath);
+                var transcript = await GetTranscript();
 
                 Logger.Log("Sending following transcript to samson actions: ", transcript.Results.Summary.TextSummary);
-                var client = _samsonClientFactory.Create();
-                var response = await client.GetSamsonActionAsync(new SamsonActionRequest
-                {
-                    Summary = transcript.Results.Summary.TextSummary
-                });
+                var response = await GetAction(transcript);
 
                 Logger.Log($"Recieved action: {nameof(response.Action)}. Executing Action...");
-                _executeAction.Execute(response.ToAction(), transcript.Results.Summary.TextSummary);
+                executeAction.Execute(response.ToAction());
                 Logger.Log("Execution Complete!\n");
             }
         }
@@ -63,14 +48,14 @@ namespace SamsonConsoleApp.Speech
         {
             var summary = "This is the text summary";
             var request = new SamsonActionRequest { Summary = summary};
-            var client = _samsonClientFactory.Create();
+            var client = aiClientFactory.Create();
             var response = await client.GetSamsonActionAsync(request);
-            _executeAction.Execute(response.ToAction(), summary);
+            executeAction.Execute(response.ToAction());
         }
 
         private async Task Wake(string audioFilePath, double recordTime, int listenTimeInMilliseconds)
         {
-            var samsonClient = _samsonClientFactory.Create();
+            var samsonClient = aiClientFactory.Create();
             var listening = true;
             var wakeRecorder = new AudioRecorder(recordTime);
             wakeRecorder.StartRecording();
@@ -114,6 +99,26 @@ namespace SamsonConsoleApp.Speech
                     }
                 }
             }
+        }
+
+        private async Task<PrerecordedTranscription> GetTranscript()
+        {
+            var serverClient = serverClientFactory.Create();
+            using (FileStream fileStream = File.OpenRead(AudioFilePaths.FullAudioFilePath))
+            {
+                return await serverClient.SynthAsync(fileStream.ToStream());
+            }
+        }
+
+        private async Task<SamsonActionResponse> GetAction(PrerecordedTranscription transcript)
+        {
+            var client = aiClientFactory.Create();
+            var response = await client.GetSamsonActionAsync(new SamsonActionRequest
+            {
+                Summary = transcript.Results.Summary.TextSummary
+            });
+
+            return response;
         }
     }
 }

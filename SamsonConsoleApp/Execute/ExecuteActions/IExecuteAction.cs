@@ -1,9 +1,11 @@
-﻿using SamsonConsoleApp.Models.Samson;
+﻿using SamsonConsoleApp.Enums;
+using SamsonConsoleApp.Models.Samson;
 
 namespace SamsonConsoleApp.Execute.ExecuteActions
 {
     public interface IExecuteAction
     {
-        void Execute(SamsonAction action, string summary);
+        Catergories catergory { get; }
+        void Execute(SamsonAction action);
     }
 }

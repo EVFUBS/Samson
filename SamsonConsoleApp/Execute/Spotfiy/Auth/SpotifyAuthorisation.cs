@@ -6,7 +6,7 @@ using SamsonConsoleApp.Providers;
 using System.Net;
 using System.Text;
 
-namespace SamsonConsoleApp.Execute.Spotfiy
+namespace SamsonConsoleApp.Execute.Spotfiy.Auth
 {
     public class SpotifyAuthorisation : ISpotifyAuthorisation
     {

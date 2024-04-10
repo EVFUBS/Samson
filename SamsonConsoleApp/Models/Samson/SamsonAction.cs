@@ -6,7 +6,7 @@ namespace SamsonConsoleApp.Models.Samson
     public class SamsonAction
     {
         public Actions Action { get; set; }
-        public Catergories Catergories { get; set; }
+        public Catergories Catergory { get; set; }
         public SamsonActionParameters? Parameters { get; set; }
     }
 }

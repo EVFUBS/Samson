@@ -44,6 +44,7 @@ if (app.Environment.IsDevelopment())
         DashboardTitle = "Samson Server Dashboard",
     });
 }
+app.UseDeveloperExceptionPage();
 
 app.MapControllers();
 

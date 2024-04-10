@@ -19,26 +19,23 @@ namespace SamsonServer.Providers.Speech
             });
         }
 
-        public async Task<PrerecordedTranscription> SpeechToTextFromFile(string fileUrl)
+        public async Task<PrerecordedTranscription> SpeechToTextFromFile(Stream data)
         {
-            using (FileStream stream = File.OpenRead(fileUrl))
-            {
-                var response = await _deepgramClient.Transcription.Prerecorded.GetTranscriptionAsync(
-                    new StreamSource(stream, "audio/wav"),
-                    new PrerecordedTranscriptionOptions
-                    {
-                        Model = "nova-2",
-                        Language = "en",
-                        Punctuate = true
-                    });
-
-                if (response == null)
+            var response = await _deepgramClient.Transcription.Prerecorded.GetTranscriptionAsync(
+                new StreamSource(data, "audio/wav"),
+                new PrerecordedTranscriptionOptions
                 {
-                    throw new Exception("Response from Deepgram was null!");
-                }
+                    Model = "nova-2",
+                    Language = "en",
+                    Punctuate = true
+                });
 
-                return response;
+            if (response == null)
+            {
+                throw new Exception("No Response From Deepgram!");
             }
+
+            return response;
         }
     }
 }

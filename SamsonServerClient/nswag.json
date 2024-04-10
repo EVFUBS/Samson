@@ -1,0 +1,52 @@
+{
+  "runtime": "Net60",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "https://localhost:7044/swagger/v1/swagger.json"
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "generateClientClasses": true,
+      "generateClientInterfaces": false,
+      "generateDtoTypes": true,
+      "injectHttpClient": false,
+      "disposeHttpClient": true,
+      "generateExceptionClasses": true,
+      "exceptionClass": "SwaggerException",
+      "wrapDtoExceptions": true,
+      "useHttpClientCreationMethod": false,
+      "httpClientType": "System.Net.Http.HttpClient",
+      "useHttpRequestMessageCreationMethod": false,
+      "useBaseUrl": true,
+      "generateBaseUrlProperty": true,
+      "generateSyncMethods": false,
+      "exposeJsonSerializerSettings": false,
+      "clientClassAccessModifier": "public",
+      "typeAccessModifier": "public",
+      "generateContractsOutput": false,
+      "parameterDateTimeFormat": "s",
+      "generateUpdateJsonSerializerSettingsMethod": true,
+      "serializeTypeInformation": false,
+      "queryNullValue": "",
+      "className": "{controller}SamsonServerClient",
+      "operationGenerationMode": "SingleClientFromOperationId",
+      "generateOptionalParameters": false,
+      "generateJsonMethods": true,
+      "wrapResponses": false,
+      "generateResponseClasses": true,
+      "responseClass": "SwaggerResponse",
+      "namespace": "SamsonServerClient",
+      "requiredPropertiesMustBeDefined": true,
+      "classStyle": "Inpc",
+      "generateDefaultValues": true,
+      "generateDataAnnotations": true,
+      "excludedTypeNames": [],
+      "handleReferences": false,
+      "generateImmutableArrayProperties": false,
+      "generateImmutableDictionaryProperties": false,
+      "output": "SamsonServerClient.g.cs"
+    }
+  }
+}
+

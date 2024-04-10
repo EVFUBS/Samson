@@ -1,4 +1,5 @@
-﻿using SamsonConsoleApp.Enums;
+﻿using SamsonAIClient;
+using SamsonConsoleApp.Enums;
 using SamsonConsoleApp.Execute.ExecuteActions;
 using SamsonConsoleApp.Execute.General.Greet;
 using SamsonConsoleApp.Execute.General.Question;
@@ -8,7 +9,7 @@ using SamsonConsoleApp.Speech.GoogleTTS;
 
 namespace SamsonConsoleApp.Execute.General
 {
-    public class ExecuteGeneral : IExecuteAction, IExecuteGeneral
+    public class ExecuteGeneral : IExecuteGeneral
     {
         private readonly IGreetAction _greetAction;
         private readonly IQuestionAction _questionAction;
@@ -28,7 +29,9 @@ namespace SamsonConsoleApp.Execute.General
             _textToSpeech = textToSpeech;
         }
 
-        public void Execute(SamsonAction action, string summary)
+        public Catergories catergory => Catergories.General;
+
+        public void Execute(SamsonAction action)
         {
             switch (action.Action)
             {
@@ -37,7 +40,7 @@ namespace SamsonConsoleApp.Execute.General
                     break;
 
                 case Actions.Question:
-                    _questionAction.Question(summary);
+                    _questionAction.Question(action);
                     break;
 
                 case Actions.WebBrowserOpenGoogleBrowser:

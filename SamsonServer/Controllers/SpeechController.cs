@@ -1,23 +1,31 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Deepgram.Models;
 using Microsoft.AspNetCore.Mvc;
+using SamsonServer.Providers.Speech;
 
 namespace SamsonServer.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class SpeechController : ControllerBase
+    [Route("[controller]")]
+    public class SpeechController(ISpeechDeepgram _deepgram) : ControllerBase
     {
-        // Moving Speech stuff over to the server cuz it makes way more sense (only require 1 set of keys)
-        [HttpPost]
-        public async Task<IActionResult> Synthesize()
+        [HttpPost("synth")]
+        public async Task<ActionResult<PrerecordedTranscription>> Synthesize(Stream data)
         {
-            return null;
+            try
+            {
+                var transcript = await _deepgram.SpeechToTextFromFile(data);
+                return Ok(transcript);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPost]
+        [HttpPost("tts")]
         public async Task<IActionResult> SpeechToText()
         {
-            return null;
+            return Ok();
         }
     }
 }

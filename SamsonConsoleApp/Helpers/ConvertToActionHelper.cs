@@ -10,7 +10,7 @@ namespace SamsonConsoleApp.Helpers
             return new SamsonAction
             {
                 Action = value.Action.ToEnum<Enums.Actions>(),
-                Catergories = value.Catergory.ToEnum<Catergories>(),
+                Catergory = value.Catergory.ToEnum<Catergories>(),
                 Parameters = value.Parameters
             };
         }

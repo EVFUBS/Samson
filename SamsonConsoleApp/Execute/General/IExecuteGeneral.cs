@@ -1,9 +1,10 @@
-﻿using SamsonConsoleApp.Models.Samson;
+﻿using SamsonConsoleApp.Enums;
+using SamsonConsoleApp.Execute.ExecuteActions;
+using SamsonConsoleApp.Models.Samson;
 
 namespace SamsonConsoleApp.Execute.General
 {
-    public interface IExecuteGeneral
+    public interface IExecuteGeneral : IExecuteAction
     {
-        void Execute(SamsonAction action, string summary);
     }
 }

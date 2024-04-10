@@ -10,27 +10,16 @@ namespace SamsonServer.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController(
+        ILogger<UsersController> logger,
+        IUsersProvider usersProvider,
+        IAuthorisationTokenProvider authorisationTokenProvider) : ControllerBase
     {
-        private readonly IUsersProvider _usersProvider;
-        private readonly IAuthorisationTokenProvider _authorisationTokenProvider;
-        private readonly ILogger<UsersController> _logger;
-
-        public UsersController(
-            ILogger<UsersController> logger,
-            IUsersProvider usersProvider,
-            IAuthorisationTokenProvider authorisationTokenProvider)
-        {
-            _logger = logger;
-            _usersProvider = usersProvider;
-            _authorisationTokenProvider = authorisationTokenProvider;
-        }
-
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] UserLogin userLogin)
         {
-            var user = await _usersProvider.AddUserAsync(userLogin.Email, userLogin.Password, userLogin.Username);
-            var token = await _authorisationTokenProvider.Create(user.Id);
+            var user = await usersProvider.AddUserAsync(userLogin.Email, userLogin.Password, userLogin.Username);
+            var token = await authorisationTokenProvider.Create(user.Id);
             return Ok(token.Token);
         }
 
@@ -49,10 +38,10 @@ namespace SamsonServer.Controllers
                 emailOrUsername = userLogin.Username;
             try
             {
-                var user = await _usersProvider.GetUserAsync(emailOrUsername, userLogin.Password);
+                var user = await usersProvider.GetUserAsync(emailOrUsername, userLogin.Password);
 
                 Models.AuthorisationToken.AuthorisationToken token;
-                token = await _authorisationTokenProvider.GetById(user.Id);
+                token = await authorisationTokenProvider.GetById(user.Id);
                 return Ok(token.Token);
             } 
             catch (UserNotFoundException ex)

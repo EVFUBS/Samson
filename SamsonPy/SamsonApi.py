@@ -14,7 +14,7 @@ import pandas as pd
 app = FastAPI()
 
 wakeModelPath = r"WakeModel"
-actionModelPath = r""
+actionModelPath = r"Training\Action\ActionModel"
 nerModelPath = r""
 tempPath = os.getcwd() + r"\temp"
 

@@ -28,12 +28,16 @@ internal class Program
 
         var speechRecognition = provider.GetService<ISpeechRecognition>();
         var samsonCredentials = provider.GetService<ISamsonServerCredentials>();
+        var actionRegister = provider.GetService<IActionsRegister>();
+        actionRegister.RegisterActions();
 
         if (speechRecognition != null && samsonCredentials != null)
         {
             samsonCredentials.Login();
 
             Console.WriteLine("Samson is now listening");
+
+
             speechRecognition.TestStart();
             app.Run();
         }
