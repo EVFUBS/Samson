@@ -1,5 +1,5 @@
-﻿using SamsonConsoleApp.Enums;
-using SamsonConsoleApp.Models.Samson;
+﻿using SamsonCommon.Enums;
+using SamsonCommon.Models;
 
 namespace SamsonConsoleApp.Execute.ExecuteActions
 {

@@ -32,7 +32,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToEnum<T>(this SamsonAIClient.SamsonActions value)
+        public static T ToEnum<T>(this SamsonServerClient.Actions value)
         {
             var name = Enum.GetName(typeof(T), value.ToString());
             return name.ToEnum<T>();
@@ -44,7 +44,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToEnum<T>(this SamsonAIClient.SamsonCatergories value)
+        public static T ToEnum<T>(this SamsonServerClient.Catergories value)
         {
             var name = Enum.GetName(typeof(T), value.ToString());
             return name.ToEnum<T>();

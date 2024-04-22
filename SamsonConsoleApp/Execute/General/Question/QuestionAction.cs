@@ -1,6 +1,6 @@
 ﻿using SamsonAIClient;
+using SamsonCommon.Models;
 using SamsonConsoleApp.Clients.Interfaces;
-using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Speech.GoogleTTS;
 
 namespace SamsonConsoleApp.Execute.General.Question
@@ -23,7 +23,7 @@ namespace SamsonConsoleApp.Execute.General.Question
         {
             // come back and get question out of action later
             var client = _samsonAiClientFactory.Create();
-            var response = await client.GetSamsonQuestionAsync(new SamsonQuestionRequest
+            var response = await client.GetSamsonQuestionAsync(new QuestionRequest
             {
                 Question = "summary"
             });

@@ -1,5 +1,7 @@
 using Hangfire;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.ML;
 using SamsonConsoleApp.Context;
 using SamsonServer;
 
@@ -22,6 +24,9 @@ builder.Services.AddHangfire(configuration => configuration.SetDataCompatibility
 builder.Services.AddHangfireServer();
 
 builder.Services.AddControllers();
+
+builder.Services.AddPredictionEnginePool<SamsonActionModel.SamsonActionClassification.ModelInput, SamsonActionModel.SamsonActionClassification.ModelOutput>()
+    .FromFile("C:\\Users\\lssmith\\Documents\\pdrepos\\Samson\\SamsonConsoleApp\\SamsonActionModel\\SamsonActionClassification.mlnet");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

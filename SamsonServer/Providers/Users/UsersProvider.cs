@@ -1,6 +1,6 @@
 ﻿using SamsonServer.DAL.Users;
+using SamsonServer.Helpers;
 using SamsonServer.Models.User;
-using SamsonServer.Utility;
 
 namespace SamsonServer.Providers.Users
 {

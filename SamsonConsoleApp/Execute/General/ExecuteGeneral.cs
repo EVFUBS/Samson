@@ -1,13 +1,13 @@
-﻿using SamsonAIClient;
-using SamsonConsoleApp.Enums;
-using SamsonConsoleApp.Execute.ExecuteActions;
+﻿using SamsonCommon.Models;
+using SamsonConsoleApp.Execute.General;
 using SamsonConsoleApp.Execute.General.Greet;
 using SamsonConsoleApp.Execute.General.Question;
 using SamsonConsoleApp.Execute.General.WebBrowser;
-using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Speech.GoogleTTS;
+using Actions = SamsonCommon.Enums.Actions;
+using Catergories = SamsonCommon.Enums.Catergories;
 
-namespace SamsonConsoleApp.Execute.General
+namespace SamsonCommon.Execute.General
 {
     public class ExecuteGeneral : IExecuteGeneral
     {
@@ -48,7 +48,7 @@ namespace SamsonConsoleApp.Execute.General
                     break;
 
                 case Actions.WebBrowserOpenWebBrowserToUrl:
-                    _webBrowser.OpenDefaultWebBrowserToUrl(action.Parameters.WordsEntityPairing.FirstOrDefault(x => x.Entity == "URL").Word);
+                    _webBrowser.OpenDefaultWebBrowserToUrl(action.Parameters.WordEntityPairings.FirstOrDefault(x => x.Entity == "URL").Word);
                     break;
 
                 case Actions.DoNotUnderstand:

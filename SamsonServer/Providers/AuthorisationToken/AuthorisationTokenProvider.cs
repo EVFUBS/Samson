@@ -2,9 +2,9 @@
 using SamsonServer.DAL.AuthorisationToken;
 using SamsonServer.DAL.Users;
 using SamsonServer.Exceptions;
+using SamsonServer.Helpers;
 using SamsonServer.Models.User;
 using SamsonServer.Providers.Users;
-using SamsonServer.Utility;
 using System.Security.Cryptography;
 
 namespace SamsonServer.Providers.AuthorisationToken

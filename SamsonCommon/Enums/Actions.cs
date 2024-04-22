@@ -1,4 +1,4 @@
-﻿namespace SamsonConsoleApp.Enums
+﻿namespace SamsonCommon.Enums
 {
     public enum Actions
     {

@@ -19,6 +19,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.ML" Version="3.0.1" />
+    <PackageReference Include="Microsoft.ML" Version="3.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	<PackageReference Include="Hangfire.Core" Version="1.8.*" />
 	<PackageReference Include="Hangfire.SqlServer" Version="1.8.*" />
@@ -28,10 +30,12 @@
 
   <ItemGroup>
     <Folder Include="Models\ResponseModels\" />
+    <Folder Include="Providers\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SamsonAIClient\SamsonAIClient.csproj" />
+    <ProjectReference Include="..\SamsonActionModel\SamsonActionModel.csproj" />
+    <ProjectReference Include="..\SamsonCommon\SamsonCommon.csproj" />
   </ItemGroup>
 
 </Project>

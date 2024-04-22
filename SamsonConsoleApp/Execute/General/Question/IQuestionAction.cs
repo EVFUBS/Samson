@@ -1,4 +1,4 @@
-﻿using SamsonConsoleApp.Models.Samson;
+﻿using SamsonCommon.Models;
 
 namespace SamsonConsoleApp.Execute.General.Question
 {

@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonAIClient", "SamsonAIC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonServer", "SamsonServer\SamsonServer.csproj", "{63418DDE-0E0A-481F-8B09-B92190AA4D62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamsonServerClient", "SamsonServerClient\SamsonServerClient.csproj", "{3571642F-B6D9-48EA-BAE0-65A18E106A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonServerClient", "SamsonServerClient\SamsonServerClient.csproj", "{3571642F-B6D9-48EA-BAE0-65A18E106A6C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonActionModel", "SamsonActionModel\SamsonActionModel.csproj", "{ACDC65A7-D18E-4831-BE7A-D931470ABC39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamsonCommon", "SamsonCommon\SamsonCommon.csproj", "{E232161E-8F1B-4B01-AAF4-A7843B984507}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{3571642F-B6D9-48EA-BAE0-65A18E106A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3571642F-B6D9-48EA-BAE0-65A18E106A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3571642F-B6D9-48EA-BAE0-65A18E106A6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACDC65A7-D18E-4831-BE7A-D931470ABC39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACDC65A7-D18E-4831-BE7A-D931470ABC39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACDC65A7-D18E-4831-BE7A-D931470ABC39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACDC65A7-D18E-4831-BE7A-D931470ABC39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E232161E-8F1B-4B01-AAF4-A7843B984507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E232161E-8F1B-4B01-AAF4-A7843B984507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E232161E-8F1B-4B01-AAF4-A7843B984507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E232161E-8F1B-4B01-AAF4-A7843B984507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

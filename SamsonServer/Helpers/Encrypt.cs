@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SamsonServer.Utility
+namespace SamsonServer.Helpers
 {
     public class Encrypt
     {

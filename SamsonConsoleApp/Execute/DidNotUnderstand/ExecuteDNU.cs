@@ -1,6 +1,5 @@
-﻿using SamsonConsoleApp.Enums;
-using SamsonConsoleApp.Execute.ExecuteActions;
-using SamsonConsoleApp.Models.Samson;
+﻿using SamsonCommon.Enums;
+using SamsonCommon.Models;
 using SamsonConsoleApp.Speech.GoogleTTS;
 
 namespace SamsonConsoleApp.Execute.DidNotUnderstand

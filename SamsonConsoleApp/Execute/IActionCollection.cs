@@ -1,5 +1,5 @@
-﻿using SamsonConsoleApp.Execute.ExecuteActions;
-using SamsonConsoleApp.Models.Samson;
+﻿using SamsonCommon.Models;
+using SamsonConsoleApp.Execute.ExecuteActions;
 
 namespace SamsonConsoleApp.Execute
 {

@@ -147,7 +147,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<SamsonActionResponse> GetSamsonActionAsync(SamsonActionRequest body)
+        public virtual System.Threading.Tasks.Task<ActionResponse> GetSamsonActionAsync(ActionRequest body)
         {
             return GetSamsonActionAsync(body, System.Threading.CancellationToken.None);
         }
@@ -158,7 +158,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<SamsonActionResponse> GetSamsonActionAsync(SamsonActionRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ActionResponse> GetSamsonActionAsync(ActionRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -206,7 +206,7 @@ namespace SamsonAIClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<SamsonActionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<ActionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new SwaggerException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -248,7 +248,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<SamsonQuestionResponse> GetSamsonQuestionAsync(SamsonQuestionRequest body)
+        public virtual System.Threading.Tasks.Task<QuestionResponse> GetSamsonQuestionAsync(QuestionRequest body)
         {
             return GetSamsonQuestionAsync(body, System.Threading.CancellationToken.None);
         }
@@ -259,7 +259,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<SamsonQuestionResponse> GetSamsonQuestionAsync(SamsonQuestionRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<QuestionResponse> GetSamsonQuestionAsync(QuestionRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -307,7 +307,7 @@ namespace SamsonAIClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<SamsonQuestionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<QuestionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new SwaggerException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -349,7 +349,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<SamsonWakeResponse> GetSamsonWakeAsync(FileParameter file)
+        public virtual System.Threading.Tasks.Task<WakeResponse> GetSamsonWakeAsync(FileParameter file)
         {
             return GetSamsonWakeAsync(file, System.Threading.CancellationToken.None);
         }
@@ -360,7 +360,7 @@ namespace SamsonAIClient
         /// </summary>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<SamsonWakeResponse> GetSamsonWakeAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<WakeResponse> GetSamsonWakeAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = new System.Net.Http.HttpClient();
             var disposeClient_ = true;
@@ -416,7 +416,7 @@ namespace SamsonAIClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<SamsonWakeResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<WakeResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new SwaggerException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -566,6 +566,246 @@ namespace SamsonAIClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ActionParameters : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Collections.Generic.ICollection<WordsEntity> _wordsEntityPairing = new System.Collections.ObjectModel.Collection<WordsEntity>();
+
+        [Newtonsoft.Json.JsonProperty("WordsEntityPairing", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<WordsEntity> WordsEntityPairing
+        {
+            get { return _wordsEntityPairing; }
+
+            set
+            {
+                if (_wordsEntityPairing != value)
+                {
+                    _wordsEntityPairing = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ActionParameters FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ActionParameters>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ActionRequest : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _summary;
+
+        [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Summary
+        {
+            get { return _summary; }
+
+            set
+            {
+                if (_summary != value)
+                {
+                    _summary = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ActionRequest FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ActionRequest>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ActionResponse : System.ComponentModel.INotifyPropertyChanged
+    {
+        private Actions _action;
+        private Catergories _catergory;
+        private ActionParameters _parameters = new ActionParameters();
+
+        [Newtonsoft.Json.JsonProperty("action", Required = Newtonsoft.Json.Required.Always)]
+        public Actions Action
+        {
+            get { return _action; }
+
+            set
+            {
+                if (_action != value)
+                {
+                    _action = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [Newtonsoft.Json.JsonProperty("catergory", Required = Newtonsoft.Json.Required.Always)]
+        public Catergories Catergory
+        {
+            get { return _catergory; }
+
+            set
+            {
+                if (_catergory != value)
+                {
+                    _catergory = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [Newtonsoft.Json.JsonProperty("parameters", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public ActionParameters Parameters
+        {
+            get { return _parameters; }
+
+            set
+            {
+                if (_parameters != value)
+                {
+                    _parameters = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ActionResponse FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum Actions
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      0
+    ]")]
+        _____0___ = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1
+    ]")]
+        _____1___ = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1000
+    ]")]
+        _____1000___ = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      1001
+    ]")]
+        _____1001___ = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2000
+    ]")]
+        _____2000___ = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2001
+    ]")]
+        _____2001___ = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2002
+    ]")]
+        _____2002___ = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2003
+    ]")]
+        _____2003___ = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"100000")]
+        _100000 = 8,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Body_GetSamsonWake_api_wake_post : System.ComponentModel.INotifyPropertyChanged
     {
         private byte[] _file;
@@ -616,6 +856,25 @@ namespace SamsonAIClient
             if (handler != null)
                 handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum Catergories
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      0
+    ]")]
+        _____0___ = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"[
+      2
+    ]")]
+        _____2___ = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"100000")]
+        _100000 = 2,
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -671,6 +930,112 @@ namespace SamsonAIClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class QuestionRequest : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _question;
+
+        [Newtonsoft.Json.JsonProperty("question", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Question
+        {
+            get { return _question; }
+
+            set
+            {
+                if (_question != value)
+                {
+                    _question = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static QuestionRequest FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<QuestionRequest>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class QuestionResponse : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _summary;
+
+        [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Summary
+        {
+            get { return _summary; }
+
+            set
+            {
+                if (_summary != value)
+                {
+                    _summary = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static QuestionResponse FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<QuestionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ResponseMessage : System.ComponentModel.INotifyPropertyChanged
     {
         private string _message;
@@ -710,423 +1075,6 @@ namespace SamsonAIClient
         {
 
             return Newtonsoft.Json.JsonConvert.DeserializeObject<ResponseMessage>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonActionParameters : System.ComponentModel.INotifyPropertyChanged
-    {
-        private System.Collections.Generic.ICollection<WordsEntity> _wordsEntityPairing = new System.Collections.ObjectModel.Collection<WordsEntity>();
-
-        [Newtonsoft.Json.JsonProperty("WordsEntityPairing", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<WordsEntity> WordsEntityPairing
-        {
-            get { return _wordsEntityPairing; }
-
-            set
-            {
-                if (_wordsEntityPairing != value)
-                {
-                    _wordsEntityPairing = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonActionParameters FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonActionParameters>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonActionRequest : System.ComponentModel.INotifyPropertyChanged
-    {
-        private string _summary;
-
-        [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Summary
-        {
-            get { return _summary; }
-
-            set
-            {
-                if (_summary != value)
-                {
-                    _summary = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonActionRequest FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonActionRequest>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonActionResponse : System.ComponentModel.INotifyPropertyChanged
-    {
-        private SamsonActions _action;
-        private SamsonCatergories _catergory;
-        private SamsonActionParameters _parameters = new SamsonActionParameters();
-
-        [Newtonsoft.Json.JsonProperty("action", Required = Newtonsoft.Json.Required.Always)]
-        public SamsonActions Action
-        {
-            get { return _action; }
-
-            set
-            {
-                if (_action != value)
-                {
-                    _action = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        [Newtonsoft.Json.JsonProperty("catergory", Required = Newtonsoft.Json.Required.Always)]
-        public SamsonCatergories Catergory
-        {
-            get { return _catergory; }
-
-            set
-            {
-                if (_catergory != value)
-                {
-                    _catergory = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        [Newtonsoft.Json.JsonProperty("parameters", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public SamsonActionParameters Parameters
-        {
-            get { return _parameters; }
-
-            set
-            {
-                if (_parameters != value)
-                {
-                    _parameters = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonActionResponse FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonActionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum SamsonActions
-    {
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      0
-    ]")]
-        _____0___ = 0,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      1
-    ]")]
-        _____1___ = 1,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      1000
-    ]")]
-        _____1000___ = 2,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      1001
-    ]")]
-        _____1001___ = 3,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      2000
-    ]")]
-        _____2000___ = 4,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      2001
-    ]")]
-        _____2001___ = 5,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      2002
-    ]")]
-        _____2002___ = 6,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      2003
-    ]")]
-        _____2003___ = 7,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"100000")]
-        _100000 = 8,
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum SamsonCatergories
-    {
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      0
-    ]")]
-        _____0___ = 0,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"[
-      2
-    ]")]
-        _____2___ = 1,
-
-        [System.Runtime.Serialization.EnumMember(Value = @"100000")]
-        _100000 = 2,
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonQuestionRequest : System.ComponentModel.INotifyPropertyChanged
-    {
-        private string _question;
-
-        [Newtonsoft.Json.JsonProperty("question", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Question
-        {
-            get { return _question; }
-
-            set
-            {
-                if (_question != value)
-                {
-                    _question = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonQuestionRequest FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonQuestionRequest>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonQuestionResponse : System.ComponentModel.INotifyPropertyChanged
-    {
-        private string _summary;
-
-        [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Summary
-        {
-            get { return _summary; }
-
-            set
-            {
-                if (_summary != value)
-                {
-                    _summary = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonQuestionResponse FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonQuestionResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SamsonWakeResponse : System.ComponentModel.INotifyPropertyChanged
-    {
-        private bool _wake;
-
-        [Newtonsoft.Json.JsonProperty("wake", Required = Newtonsoft.Json.Required.Always)]
-        public bool Wake
-        {
-            get { return _wake; }
-
-            set
-            {
-                if (_wake != value)
-                {
-                    _wake = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-        public string ToJson()
-        {
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
-        public static SamsonWakeResponse FromJson(string data)
-        {
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SamsonWakeResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 
@@ -1214,6 +1162,58 @@ namespace SamsonAIClient
         {
 
             return Newtonsoft.Json.JsonConvert.DeserializeObject<ValidationError>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WakeResponse : System.ComponentModel.INotifyPropertyChanged
+    {
+        private bool _wake;
+
+        [Newtonsoft.Json.JsonProperty("wake", Required = Newtonsoft.Json.Required.Always)]
+        public bool Wake
+        {
+            get { return _wake; }
+
+            set
+            {
+                if (_wake != value)
+                {
+                    _wake = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static WakeResponse FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<WakeResponse>(data, new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 

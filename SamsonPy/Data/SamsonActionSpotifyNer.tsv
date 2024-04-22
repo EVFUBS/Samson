@@ -1,0 +1,53 @@
+I live in New York.	LOC
+Microsoft is headquartered in Redmond.	ORG
+ML.NET is an open-source project.	MISC
+The Statue of Liberty, located in New York Harbor, is an iconic symbol of freedom.	LOC
+Google, headquartered in Mountain View, California, dominates the search engine market.	ORG
+Python, a versatile programming language, is widely used for data science and web development.	MISC
+Paris, known as the City of Love, attracts millions of tourists each year.	LOC
+NASA, the space agency responsible for space exploration, launched the Mars rover mission.	ORG
+Elon Musk, the visionary CEO of SpaceX and Tesla, aims to revolutionize transportation	PER
+Tokyo, the bustling capital of Japan, blends modern skyscrapers with historic temples.	LOC
+Apple, famous for its iPhones and MacBooks, has a loyal customer base worldwide.	ORG
+The Great Wall of China, stretching over 13,000 miles, is a marvel of ancient engineering.	LOC
+Facebook, the social media giant, connects billions of people across the globe.	ORG
+Seattle, nestled between mountains and water, is home to tech giants like Amazon and Microsoft.	LOC
+Java, a popular programming language, is used for building web applications and Android apps.	MISC
+The Louvre Museum in Paris houses priceless artworks, including the Mona Lisa.	LOC
+Tesla, led by Elon Musk, produces electric vehicles and renewable energy solutions.	ORG
+London, with its iconic red buses and historic landmarks, is a vibrant cultural hub.	LOC
+Amazon, the e-commerce behemoth, offers everything from books to electronics.	ORG
+The Colosseum in Rome, Italy, hosted ancient gladiator battles and grand spectacles.	LOC
+Netflix, known for its streaming service, produces original content loved by viewers.	ORG
+Mount Everest, the world's highest peak, challenges climbers with extreme conditions.	LOC
+CERN, the European Organization for Nuclear Research, investigates fundamental particles.	ORG
+Sydney Opera House, an architectural masterpiece, graces the shores of Sydney Harbor.	LOC
+JavaScript, a scripting language, powers interactive web pages and web applications.	MISC
+The Kremlin in Moscow, Russia, serves as the official residence of the President.	LOC
+Adobe, creators of Photoshop and Illustrator, revolutionized digital design.	ORG
+The Sahara Desert, stretching across North Africa, is the largest hot desert globally.	LOC
+Reddit, a popular online community, hosts discussions on various topics.	ORG
+The Amazon Rainforest, teeming with biodiversity, plays a crucial role in our ecosystem.	LOC
+Twitter, the microblogging platform, allows users to share thoughts in 280 characters.	ORG
+The Taj Mahal, a white marble mausoleum, stands as a testament to eternal love.	LOC
+Linux, an open-source operating system, powers servers, desktops, and embedded devices.	MISC
+The Vatican City, the smallest independent state, is the spiritual center of Catholicism.	LOC
+Spotify, the music streaming service, offers a vast library of songs and playlists.	ORG
+The Nile River, the longest river in the world, sustains life across several countries.	LOC
+TensorFlow, an AI framework by Google, enables deep learning and neural networks.	MISC
+The Sydney Harbour Bridge, an iconic steel arch bridge, connects Sydney's shores.	LOC
+GitHub, a platform for developers, hosts millions of open-source repositories.	ORG
+The Himalayas, home to Mount Everest, form a majestic mountain range in Asia.	LOC
+WordPress, a popular content management system, powers millions of websites.	MISC
+The Acropolis of Athens, adorned with ancient temples, overlooks the city of Athens.	LOC
+SQLite, a lightweight database engine, is widely used in mobile apps and browsers.	MISC
+The Serengeti National Park in Tanzania hosts the Great Migration of wildebeests.	LOC
+Kotlin, a modern programming language, is favored for Android app development.	MISC
+The Grand Canyon, carved by the Colorado River, offers breathtaking vistas.	LOC
+Rust, a systems programming language, emphasizes safety and performance.	MISC
+The Louvre Abu Dhabi, a cultural landmark, showcases art from around the world.	LOC
+Angular, a JavaScript framework, simplifies building dynamic web applications.	MISC
+The Alhambra, a palace in Granada, Spain, features intricate Islamic architecture.	LOC
+MongoDB, a NoSQL database, stores unstructured data for scalable applications.	MISC
+The Great Barrier Reef, off Australia's coast, teems with marine biodiversity.	LOC
+Ruby on Rails, a web development framework, streamlines building robust apps.	MISC

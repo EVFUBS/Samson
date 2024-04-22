@@ -6,7 +6,6 @@ import numpy as np
 import os
 from Training.Wake.ProcessData import extract_features
 from enum import Enum
-import json
 from Training.Action.ProcessData import process_action_data
 import spacy
 import pandas as pd

@@ -1,0 +1,54 @@
+﻿{
+  "Scenario": "NamedEntitiyRecognition",
+  "DataSource": {
+    "Version": 3,
+    "EscapeCharacter": "\"",
+    "ReadMultiLines": false,
+    "KeepDiacritics": false,
+    "KeepPunctuations": false,
+    "AllowQuoting": false,
+    "Type": "TabularFile",
+    "FilePath": "C:\\Users\\lssmith\\Documents\\pdrepos\\Samson\\SamsonConsoleApp\\SamsonActionModel\\Data\\SpotifyNer\\SpotifyNer.tsv",
+    "Delimiter": "\t",
+    "DecimalMarker": ".",
+    "HasHeader": false,
+    "ColumnProperties": [
+      {
+        "ColumnName": "Sentence",
+        "ColumnPurpose": "Sentence",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Label",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "StringArray",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 0,
+    "Type": "NerTrainingOption",
+    "TrainingTime": 10,
+    "LabelColumn": "Label",
+    "SentenceColumn": "Sentence",
+    "LabelsFilePath": "C:\\Users\\lssmith\\Documents\\pdrepos\\Samson\\SamsonConsoleApp\\SamsonActionModel\\Data\\SpotifyNer\\EntityKeyMap.txt",
+    "Epoch": 10,
+    "ValidationOption": {
+      "Version": 0,
+      "Type": "CrossValidationValidationOption",
+      "NumberOfFolds": 5
+    }
+  }
+}

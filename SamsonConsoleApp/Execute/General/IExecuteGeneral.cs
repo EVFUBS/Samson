@@ -1,6 +1,4 @@
-﻿using SamsonConsoleApp.Enums;
-using SamsonConsoleApp.Execute.ExecuteActions;
-using SamsonConsoleApp.Models.Samson;
+﻿using SamsonConsoleApp.Execute.ExecuteActions;
 
 namespace SamsonConsoleApp.Execute.General
 {

@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace SamsonServer.Utility
+namespace SamsonServer.Helpers
 {
     public static class TokenHelper
     {

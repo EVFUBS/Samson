@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SamsonAIClient\SamsonAIClient.csproj" />
+    <ProjectReference Include="..\SamsonCommon\SamsonCommon.csproj" />
     <ProjectReference Include="..\SamsonServerClient\SamsonServerClient.csproj" />
   </ItemGroup>
 

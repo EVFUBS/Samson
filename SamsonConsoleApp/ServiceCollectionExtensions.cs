@@ -27,6 +27,7 @@ using SamsonConsoleApp.Execute.Spotfiy.Auth;
 using SamsonConsoleApp.Execute;
 using SamsonConsoleApp.Execute.Spotfiy;
 using SamsonConsoleApp.Execute.DidNotUnderstand;
+using SamsonCommon.Execute.General;
 
 namespace SamsonConsoleApp
 {
@@ -60,6 +61,10 @@ namespace SamsonConsoleApp
 
             services.AddSingleton<ISpeechRecognition, SpeechRecognition>();
             services.AddSingleton<ISamsonServerCredentials, SamsonServerCredentials>();
+            services.AddScoped<IServerClientFactory, ServerClientFactory>();
+            services.AddScoped<IExecuteAction, ExecuteGeneral>();
+            services.AddScoped<IExecuteAction, ExecuteSpotify>();
+            services.AddScoped<IExecuteAction, ExecuteDNU>();
 
             return services;
         }

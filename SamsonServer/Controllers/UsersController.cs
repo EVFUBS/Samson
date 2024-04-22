@@ -36,6 +36,7 @@ namespace SamsonServer.Controllers
                 emailOrUsername = userLogin.Email;
             else
                 emailOrUsername = userLogin.Username;
+            
             try
             {
                 var user = await usersProvider.GetUserAsync(emailOrUsername, userLogin.Password);

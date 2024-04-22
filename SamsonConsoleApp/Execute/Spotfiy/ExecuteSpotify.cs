@@ -1,10 +1,11 @@
 ﻿using SamsonAIClient;
 using SamsonConsoleApp.Execute.Spotfiy.Interfaces;
-using SamsonConsoleApp.Enums;
-using SamsonConsoleApp.Execute.ExecuteActions;
-using SamsonConsoleApp.Models.Samson;
 using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Speech.GoogleTTS;
+using Catergories = SamsonCommon.Enums.Catergories;
+using Actions = SamsonCommon.Enums.Actions;
+using SamsonCommon.Models;
+using ActionParameters = SamsonCommon.Models.ActionParameters;
 
 namespace SamsonConsoleApp.Execute.Spotfiy
 {
@@ -52,11 +53,11 @@ namespace SamsonConsoleApp.Execute.Spotfiy
         }
 
         // This is probably going to suck at first but need to give it a go
-        private SpotifyActionContext GetSpotifyActionContextFromParameters(SamsonActionParameters parameters)
+        private SpotifyActionContext GetSpotifyActionContextFromParameters(ActionParameters parameters)
         {
             var spotifyActionContext = new SpotifyActionContext();
 
-            foreach (var wordsEntity in parameters.WordsEntityPairing)
+            foreach (var wordsEntity in parameters.WordEntityPairings)
             {
                 if (wordsEntity.Entity == "Play")
                     spotifyActionContext.SongContext = TryBuildSpotifyActionSongContext(parameters);
@@ -64,10 +65,10 @@ namespace SamsonConsoleApp.Execute.Spotfiy
             return spotifyActionContext;
         }
 
-        private SpotifyActionSongContext TryBuildSpotifyActionSongContext(SamsonActionParameters parameters)
+        private SpotifyActionSongContext TryBuildSpotifyActionSongContext(ActionParameters parameters)
         {
             var spotifyActionSongContext = new SpotifyActionSongContext();
-            foreach (var wordEntity in parameters.WordsEntityPairing)
+            foreach (var wordEntity in parameters.WordEntityPairings)
             {
                 if (wordEntity.Entity == "Song")
                     spotifyActionSongContext.Song += wordEntity.Word;

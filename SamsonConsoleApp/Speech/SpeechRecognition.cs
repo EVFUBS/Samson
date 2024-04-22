@@ -47,9 +47,8 @@ namespace SamsonConsoleApp.Speech
         public async Task TestStart()
         {
             var summary = "This is the text summary";
-            var request = new SamsonActionRequest { Summary = summary};
-            var client = aiClientFactory.Create();
-            var response = await client.GetSamsonActionAsync(request);
+            var client = serverClientFactory.Create();
+            var response = await client.ActionAsync(summary);
             executeAction.Execute(response.ToAction());
         }
 
@@ -110,14 +109,10 @@ namespace SamsonConsoleApp.Speech
             }
         }
 
-        private async Task<SamsonActionResponse> GetAction(PrerecordedTranscription transcript)
+        private async Task<SamsonAction> GetAction(PrerecordedTranscription transcript)
         {
-            var client = aiClientFactory.Create();
-            var response = await client.GetSamsonActionAsync(new SamsonActionRequest
-            {
-                Summary = transcript.Results.Summary.TextSummary
-            });
-
+            var client = serverClientFactory.Create();
+            var response = await client.ActionAsync(transcript.Results.Summary.TextSummary);
             return response;
         }
     }
