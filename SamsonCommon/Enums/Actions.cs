@@ -7,18 +7,20 @@
         // needed by any one integration.
 
         // General
-        Greet = 0,
-        Question = 1,
-
-        // Web browsers
-        WebBrowserOpenWebBrowserToUrl = 1000,
-        WebBrowserOpenGoogleBrowser = 1001,
+        GeneralStart = 1000,
+        Greet = 1001,
+        Question = 1002,
+        OpenWebBrowser = 1003,
+        OpenGoogleBrowser = 1004,
+        GeneralEnd = 2999,
 
         // Spotify
-        SpotifyAvailableDevices = 2000,
-        SpotifyPlayOrResumePlayback = 2001,
-        SpotifyPausePlayback = 2002,
-        SpotifyStartPlaylist = 2003,
+        SpotifyStart = 3000,
+        SpotifyAvailableDevices = 3001,
+        SpotifyPlayOrResumePlayback = 3002,
+        SpotifyPausePlayback = 3003,
+        SpotifyStartPlaylist = 3004,
+        SpotifyEnd = 3999,
 
         // Did not understand
         DoNotUnderstand = 100000

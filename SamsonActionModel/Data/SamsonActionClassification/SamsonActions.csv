@@ -15,9 +15,9 @@ open edge, OpenWebBrowser
 pause, SpotifyPausePlayback
 Whats the weather like, Question
 Hey Samson how are you, Greet
-Hey how are you, Greet
-Good morning, Greet
-Whats up, Greet
+Hey samson how are you, Greet
+Good morning samson, Greet
+Whats up samson, Greet
 pause this song, SpotifyPausePlayback
 play my playlist, SpotifyStartPlaylist
 could you play my playlist, SpotifyStartPlaylist
@@ -44,8 +44,8 @@ unmute spotify,SpotifyUnmutePlayback
 shuffle my spotify playlist,SpotifyShufflePlayback
 repeat this album on spotify,SpotifyRepeatPlayback
 what's the capital of France,Question
-say hello in Spanish,Greet
-good evening,Greet
+hi Samson,Greet
+good evening samson,Greet
 how's the weather tomorrow,Question
 stop playback,SpotifyPausePlayback
 resume playback,SpotifyPlayOrResumePlayback
@@ -70,7 +70,7 @@ I like surprises shuffle my Spotify playlist will you,SpotifyShufflePlayback
 This album is great can you set it to repeat on Spotify,SpotifyRepeatPlayback
 I'm curious about something what is the capital city of France,Question
 Could you greet me in Spanish I'm trying to learn,Question
-Good evening I hope you're doing well today,Greet
+Good evening samson I hope you're doing well today,Greet
 Do you know if it will rain tomorrow I have plans and I'm wondering about the weather,Question
 I need a break from this song stop the playback on Spotify,SpotifyPausePlayback
 I'm ready to listen again can you resume the playback on Spotify,SpotifyPlayOrResumePlayback
@@ -78,3 +78,8 @@ I'm switching over to my phone can you transfer the Spotify music there,SpotifyD
 I want to fill the room with music transfer the tunes to my living room speaker on Spotify,SpotifyDeviceTransfer
 This song sounds familiar what's it called,SpotifyCurrentTrack
 I'm interested in what I've been listening to the most can you find my top songs on Spotify,SpotifyTopTracks
+hi samson, Greet
+hey there samson, Greet
+yo samson what is up, Greet
+yo, Greet
+morning samson, Greet

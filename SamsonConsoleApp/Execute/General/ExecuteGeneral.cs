@@ -43,11 +43,11 @@ namespace SamsonCommon.Execute.General
                     _questionAction.Question(action);
                     break;
 
-                case Actions.WebBrowserOpenGoogleBrowser:
-                    _webBrowser.OpenDefaultWebBrowser();
+                case Actions.OpenGoogleBrowser:
+                    _webBrowser.OpenGoogle();
                     break;
 
-                case Actions.WebBrowserOpenWebBrowserToUrl:
+                case Actions.OpenWebBrowser:
                     _webBrowser.OpenDefaultWebBrowserToUrl(action.Parameters.WordEntityPairings.FirstOrDefault(x => x.Entity == "URL").Word);
                     break;
 

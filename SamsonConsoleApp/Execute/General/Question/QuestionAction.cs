@@ -22,12 +22,15 @@ namespace SamsonConsoleApp.Execute.General.Question
         public async Task Question(SamsonAction action)
         {
             // come back and get question out of action later
-            var client = _samsonAiClientFactory.Create();
-            var response = await client.GetSamsonQuestionAsync(new QuestionRequest
-            {
-                Question = "summary"
-            });
-            await _textToSpeech.Say(response.Summary);
+            //var client = _samsonAiClientFactory.Create();
+            //var response = await client.GetSamsonQuestionAsync(new QuestionRequest
+            //{
+            //    Question = "summary"
+            //});
+            //await _textToSpeech.Say(response.Summary);
+
+
+            Console.WriteLine("Question");
         }
     }
 }

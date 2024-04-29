@@ -449,6 +449,78 @@ namespace SamsonServerClient
             }
         }
 
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task WakeAsync()
+        {
+            return WakeAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task WakeAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = new System.Net.Http.HttpClient();
+            var disposeClient_ = true;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(BaseUrl)) urlBuilder_.Append(BaseUrl);
+                    // Operation Path: "api/Wake"
+                    urlBuilder_.Append("api/Wake");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
         protected struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
@@ -592,21 +664,29 @@ namespace SamsonServerClient
     public enum Actions
     {
 
-        _0 = 0,
-
-        _1 = 1,
-
         _1000 = 1000,
 
         _1001 = 1001,
 
-        _2000 = 2000,
+        _1002 = 1002,
 
-        _2001 = 2001,
+        _1003 = 1003,
 
-        _2002 = 2002,
+        _1004 = 1004,
 
-        _2003 = 2003,
+        _2999 = 2999,
+
+        _3000 = 3000,
+
+        _3001 = 3001,
+
+        _3002 = 3002,
+
+        _3003 = 3003,
+
+        _3004 = 3004,
+
+        _3999 = 3999,
 
         _100000 = 100000,
 
@@ -755,9 +835,11 @@ namespace SamsonServerClient
     public enum Catergories
     {
 
-        _0 = 0,
+        _1000 = 1000,
 
-        _2 = 2,
+        _2000 = 2000,
+
+        _3000 = 3000,
 
         _100000 = 100000,
 

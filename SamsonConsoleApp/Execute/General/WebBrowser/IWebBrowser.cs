@@ -4,5 +4,6 @@
     {
         void OpenDefaultWebBrowser();
         void OpenDefaultWebBrowserToUrl(string website);
+        void OpenGoogle();
     }
 }

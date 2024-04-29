@@ -14,6 +14,11 @@ namespace SamsonConsoleApp.Execute.General.WebBrowser
             _defaultBrowserUrl = config?.GetRequiredSection("WebBrowser")?.GetChildren()?.FirstOrDefault(x => x.Key == "defaultWebPage")?.Value;
         }
 
+        public void OpenGoogle()
+        {
+            OpenUrl("https://google.com");
+        }
+
         public void OpenDefaultWebBrowser()
         {
             if (_defaultBrowserUrl == null)

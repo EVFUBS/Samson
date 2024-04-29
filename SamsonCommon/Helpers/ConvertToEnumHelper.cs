@@ -1,4 +1,6 @@
-﻿namespace SamsonConsoleApp.Helpers
+﻿using SamsonServerClient;
+
+namespace SamsonConsoleApp.Helpers
 {
     public static class ConvertToEnumHelper
     {

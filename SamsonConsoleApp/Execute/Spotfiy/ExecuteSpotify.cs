@@ -27,13 +27,14 @@ namespace SamsonConsoleApp.Execute.Spotfiy
 
         public void Execute(SamsonAction action)
         {
-            var spotifyActionContext = GetSpotifyActionContextFromParameters(action.Parameters);
+            //come back when NER model done to get this to work!
+            //var spotifyActionContext = GetSpotifyActionContextFromParameters(action.Parameters);
             switch (action.Action)
             {
                 case Actions.SpotifyPlayOrResumePlayback:
-                    if (spotifyActionContext.SongContext.Song != null)
-                        _player.PlayOrResumePlayback(null, null, null, null);
-                    else
+                    //if (spotifyActionContext.SongContext.Song != null)
+                    //    _player.PlayOrResumePlayback(null, null, null, null);
+                    //else
                         _player.PlayOrResumePlayback();
                     break;
 
@@ -52,7 +53,6 @@ namespace SamsonConsoleApp.Execute.Spotfiy
             }
         }
 
-        // This is probably going to suck at first but need to give it a go
         private SpotifyActionContext GetSpotifyActionContextFromParameters(ActionParameters parameters)
         {
             var spotifyActionContext = new SpotifyActionContext();

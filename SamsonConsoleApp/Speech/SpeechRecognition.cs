@@ -5,15 +5,15 @@ using SamsonConsoleApp.Helpers.AudioHelpers;
 using SamsonConsoleApp.Helpers;
 using SamsonConsoleApp.Speech.Audio;
 using SamsonConsoleApp.Constants;
-using SamsonConsoleApp.Execute.ExecuteActions;
 using SamsonServerClient;
+using SamsonConsoleApp.Execute;
 
 namespace SamsonConsoleApp.Speech
 {
     public class SpeechRecognition(
         IAiClientFactory aiClientFactory,
         IServerClientFactory serverClientFactory,
-        IExecuteAction executeAction) : ISpeechRecognition
+        IActionCollection actionCollection) : ISpeechRecognition
     {
 
         public async Task Start()
@@ -39,17 +39,24 @@ namespace SamsonConsoleApp.Speech
                 var response = await GetAction(transcript);
 
                 Logger.Log($"Recieved action: {nameof(response.Action)}. Executing Action...");
-                executeAction.Execute(response.ToAction());
+                actionCollection.Execute(response.ToAction());
                 Logger.Log("Execution Complete!\n");
             }
         }
 
         public async Task TestStart()
         {
-            var summary = "This is the text summary";
+            var summary = "pause this song";
             var client = serverClientFactory.Create();
-            var response = await client.ActionAsync(summary);
-            executeAction.Execute(response.ToAction());
+            try
+            {
+                var response = await client.ActionAsync(summary);
+                actionCollection.Execute(response.ToAction());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString());
+            }
         }
 
         private async Task Wake(string audioFilePath, double recordTime, int listenTimeInMilliseconds)

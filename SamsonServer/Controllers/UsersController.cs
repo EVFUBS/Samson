@@ -28,7 +28,7 @@ namespace SamsonServer.Controllers
         {
             if (userLogin == null)
             {
-                return BadRequest("There is no login information");
+                return BadRequest("There is no login information!");
             }
 
             string emailOrUsername;
@@ -40,9 +40,7 @@ namespace SamsonServer.Controllers
             try
             {
                 var user = await usersProvider.GetUserAsync(emailOrUsername, userLogin.Password);
-
-                Models.AuthorisationToken.AuthorisationToken token;
-                token = await authorisationTokenProvider.GetById(user.Id);
+                var token = await authorisationTokenProvider.GetById(user.Id);
                 return Ok(token.Token);
             } 
             catch (UserNotFoundException ex)

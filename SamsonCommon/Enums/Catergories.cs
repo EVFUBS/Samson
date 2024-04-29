@@ -2,8 +2,9 @@
 {
     public enum Catergories
     {
-        General = 0,
-        Spotify = 2,
+        General = 1000,
+        Web = 2000,
+        Spotify = 3000,
         DidNotUnderstand = 100000
     }
 }

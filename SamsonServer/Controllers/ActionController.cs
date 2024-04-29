@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ML;
 using SamsonActionModel;
+using SamsonCommon.Enums;
+using SamsonCommon.Helpers;
 using SamsonCommon.Models;
+using SamsonConsoleApp.Helpers;
 using SamsonServer.Helpers;
 
 
@@ -26,7 +29,15 @@ namespace SamsonServer.Controllers
                 Text = @summary,
             });
 
-            return Ok(prediction);
+            var action = prediction.PredictedLabel.ToEnum<Actions>();
+
+            return Ok(new SamsonAction
+            {
+                Action = action,
+                Catergory = CatergoryHelper.GetCatergory(action),
+                // Will be filled out by ner model later
+                Parameters = new ActionParameters { }
+            });
         }
     }
 }

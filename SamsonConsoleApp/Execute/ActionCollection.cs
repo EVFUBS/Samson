@@ -19,6 +19,7 @@ namespace SamsonConsoleApp.Execute
                 if (executeAction.catergory == action.Catergory)
                 {
                     executeAction.Execute(action);
+                    break;
                 }
             }
         }

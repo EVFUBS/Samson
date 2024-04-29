@@ -7,9 +7,10 @@ namespace SamsonServer.Controllers
     [ApiController]
     public class WakeController : ControllerBase
     {
+        [HttpGet]
         public IActionResult Get()
         {
-
+            return Ok();
         }
     }
 }

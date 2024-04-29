@@ -28,8 +28,7 @@ internal class Program
 
         var speechRecognition = provider.GetService<ISpeechRecognition>();
         var samsonCredentials = provider.GetService<ISamsonServerCredentials>();
-        var actionRegister = provider.GetService<IActionsRegister>();
-        actionRegister.RegisterActions();
+        provider.GetService<IActionsRegister>().RegisterActions();
 
         if (speechRecognition != null && samsonCredentials != null)
         {

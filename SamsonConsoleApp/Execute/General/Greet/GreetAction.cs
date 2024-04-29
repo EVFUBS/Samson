@@ -17,7 +17,8 @@ namespace SamsonConsoleApp.Execute.General.Greet
         public void Greeting()
         {
             // Will want a couple of pre-recorded greetings here - saves using API over and over again and spending money :/
-            _textToSpeech.Say("Hi");
+            Console.WriteLine("Temporary Hi");
+            //_textToSpeech.Say("Hi");
         }
     }
 }

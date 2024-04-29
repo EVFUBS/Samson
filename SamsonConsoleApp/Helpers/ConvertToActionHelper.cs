@@ -8,10 +8,13 @@ namespace SamsonConsoleApp.Helpers
     {
         public static SamsonAction ToAction(this SamsonServerClient.SamsonAction value)
         {
+            var action = (int)value.Action;
+            var catergory = (int)value.Catergory;
+
             return new SamsonAction
             {
-                Action = value.Action.ToEnum<Actions>(),
-                Catergory = value.Catergory.ToEnum<Catergories>(),
+                Action = action.ToEnum<Actions>(),
+                Catergory = catergory.ToEnum<Catergories>(),
                 Parameters = value.Parameters.ToActionParameters()
             };
         }
