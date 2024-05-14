@@ -1,21 +1,16 @@
-﻿using SamsonAIClient;
-using SamsonCommon.Models;
-using SamsonConsoleApp.Clients.Interfaces;
+﻿using SamsonCommon.Models;
 using SamsonConsoleApp.Speech.GoogleTTS;
 
 namespace SamsonConsoleApp.Execute.General.Question
 {
     public class QuestionAction : IQuestionAction
     {
-        private IAiClientFactory _samsonAiClientFactory;
         private ITextToSpeech _textToSpeech;
 
         public QuestionAction(
-            IAiClientFactory samsonAIClientFactory,
             ITextToSpeech textToSpeech
             )
         {
-            _samsonAiClientFactory = samsonAIClientFactory;
             _textToSpeech = textToSpeech;
         }
 

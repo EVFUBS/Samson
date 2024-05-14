@@ -42,7 +42,7 @@
       "generateDefaultValues": true,
       "generateDataAnnotations": true,
       "excludedTypeNames": [],
-      "handleReferences": false,
+      "handleReferences": true,
       "generateImmutableArrayProperties": false,
       "generateImmutableDictionaryProperties": false,
       "output": "SamsonServerClient.g.cs"

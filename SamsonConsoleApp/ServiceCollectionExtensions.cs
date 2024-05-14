@@ -28,6 +28,7 @@ using SamsonConsoleApp.Execute;
 using SamsonConsoleApp.Execute.Spotfiy;
 using SamsonConsoleApp.Execute.DidNotUnderstand;
 using SamsonCommon.Execute.General;
+using AutoMapper;
 
 namespace SamsonConsoleApp
 {
@@ -38,7 +39,6 @@ namespace SamsonConsoleApp
             services.Configure<SpotifyIntegrationOptions>(config.GetSection(nameof(SpotifyIntegrationOptions)));
 
             services.AddScoped<ISpotifyClientFactory, SpotifyClientFactory>();
-            services.AddScoped<IAiClientFactory, AiClientFactory>();
             services.AddScoped<IWebBrowser, WebBrowser>();
 
             services.AddScoped<ITextToSpeech,  TextToSpeech>();
@@ -65,6 +65,7 @@ namespace SamsonConsoleApp
             services.AddScoped<IExecuteAction, ExecuteGeneral>();
             services.AddScoped<IExecuteAction, ExecuteSpotify>();
             services.AddScoped<IExecuteAction, ExecuteDNU>();
+            services.AddAutoMapper(typeof(MappingProfile));
 
             return services;
         }

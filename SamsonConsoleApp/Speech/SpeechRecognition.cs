@@ -1,5 +1,4 @@
 ﻿using NAudio.Wave;
-using SamsonAIClient;
 using SamsonConsoleApp.Clients.Interfaces;
 using SamsonConsoleApp.Helpers.AudioHelpers;
 using SamsonConsoleApp.Helpers;
@@ -7,13 +6,14 @@ using SamsonConsoleApp.Speech.Audio;
 using SamsonConsoleApp.Constants;
 using SamsonServerClient;
 using SamsonConsoleApp.Execute;
+using AutoMapper;
 
 namespace SamsonConsoleApp.Speech
 {
     public class SpeechRecognition(
-        IAiClientFactory aiClientFactory,
         IServerClientFactory serverClientFactory,
-        IActionCollection actionCollection) : ISpeechRecognition
+        IActionCollection actionCollection,
+        IMapper mapper) : ISpeechRecognition
     {
 
         public async Task Start()
@@ -44,7 +44,13 @@ namespace SamsonConsoleApp.Speech
             }
         }
 
-        public async Task TestStart()
+        public async Task TestWake()
+        {
+            await Wake(AudioFilePaths.WakeAudioFilePath, 5, 2000);
+            Console.WriteLine("I Woke");
+        }
+
+        public async Task TestAction()
         {
             var summary = "pause this song";
             var client = serverClientFactory.Create();
@@ -61,7 +67,7 @@ namespace SamsonConsoleApp.Speech
 
         private async Task Wake(string audioFilePath, double recordTime, int listenTimeInMilliseconds)
         {
-            var samsonClient = aiClientFactory.Create();
+            var client = serverClientFactory.Create();
             var listening = true;
             var wakeRecorder = new AudioRecorder(recordTime);
             wakeRecorder.StartRecording();
@@ -73,8 +79,8 @@ namespace SamsonConsoleApp.Speech
 
                 using (var fileStream = File.OpenRead(audioFilePath))
                 {
-                    var response = await samsonClient.GetSamsonWakeAsync(new FileParameter(fileStream));
-                    if (response.Wake == true)
+                    var response = await client.WakeAsync(mapper.Map<FileStream, SamsonServerClient.Stream>(fileStream));
+                    if (response.IsWake == true)
                     {
                         wakeRecorder.StopRecording();
                         break;

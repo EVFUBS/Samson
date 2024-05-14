@@ -1,5 +1,4 @@
-﻿using SamsonAIClient;
-using SamsonConsoleApp.Execute.Spotfiy.Interfaces;
+﻿using SamsonConsoleApp.Execute.Spotfiy.Interfaces;
 using SamsonConsoleApp.Models.Spotify;
 using SamsonConsoleApp.Speech.GoogleTTS;
 using Catergories = SamsonCommon.Enums.Catergories;

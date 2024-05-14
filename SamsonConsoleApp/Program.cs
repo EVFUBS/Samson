@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +29,7 @@ internal class Program
 
         var speechRecognition = provider.GetService<ISpeechRecognition>();
         var samsonCredentials = provider.GetService<ISamsonServerCredentials>();
+
         provider.GetService<IActionsRegister>().RegisterActions();
 
         if (speechRecognition != null && samsonCredentials != null)
@@ -37,7 +39,7 @@ internal class Program
             Console.WriteLine("Samson is now listening");
 
 
-            speechRecognition.TestStart();
+            speechRecognition.TestWake();
             app.Run();
         }
         else

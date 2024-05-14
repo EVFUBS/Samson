@@ -8,7 +8,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.ML" Version="3.0.1" />
     <PackageReference Include="Microsoft.ML.FastTree" Version="3.0.1" />
+    <PackageReference Include="Microsoft.ML.Vision" Version="3.0.1" />
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
     <PackageReference Include="Spectrogram" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup Label="SamsonActionClassification">
@@ -17,9 +19,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\SamsonWakeData\OriginalData\" />
-    <Folder Include="Data\SamsonWakeData\Wake\" />
-    <Folder Include="Data\SamsonWakeData\NotWake\" />
     <Folder Include="Data\SpotifyNer\" />
+  </ItemGroup>
+  <ItemGroup Label="SamsonWakeClassification">
+    <None Include="SamsonWakeClassification.mlnet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
