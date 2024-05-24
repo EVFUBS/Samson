@@ -2,11 +2,6 @@
 using SamsonConsoleApp.Execute.DidNotUnderstand;
 using SamsonConsoleApp.Execute.General;
 using SamsonConsoleApp.Execute.Spotfiy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SamsonConsoleApp
 {
@@ -14,13 +9,13 @@ namespace SamsonConsoleApp
         IActionCollection actionCollection,
         IExecuteGeneral general,
         IExecuteSpotify spotify,
-        IExecuteDNU dnu) : IActionsRegister
+        IExecuteDNU didNotUnderstand) : IActionsRegister
     {
         public void RegisterActions()
         {
             actionCollection.RegisterAction(general);
             actionCollection.RegisterAction(spotify);
-            actionCollection.RegisterAction(dnu);
+            actionCollection.RegisterAction(didNotUnderstand);
         }
     }
 }

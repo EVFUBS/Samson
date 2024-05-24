@@ -1,24 +1,12 @@
-﻿using FftSharp;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using Spectrogram;
 using System.Drawing;
 using System.Drawing.Imaging;
-using static Tensorflow.Summary.Types;
 
 namespace SamsonActionModel.SamsonWake
 {
     public class SamsonWakePreprocess
     {
-        // This is going to be converting audio data to Mel Spectograms images and use a convolutional neural network
-        // to classify the audio data into 2 catergories, Wake and NotWake
-
-        // Mel Spectograms capture audio data more accurately related to human pitch perception by applying the mel scale
-        // to the spectogram
-
-        // If you need to refresh on what a spectrum is read https://medium.com/analytics-vidhya/understanding-the-mel-spectrogram-fca2afa2ce53
-        // GitHub for spectogram https://github.com/swharden/Spectrogram
-        // Useful example to refer to https://github.com/aslotte/mlnet-sound-classifier/blob/master/src/Program.cs
-
         private static string _notWakeFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\OriginalData\NotWake\";
         private static string _notWakeSpectogramFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\TrainData\NotWake\";
         private static string _wakeFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\OriginalData\Wake\";
