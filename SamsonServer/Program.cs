@@ -31,6 +31,15 @@ builder.Services.AddPredictionEnginePool<SamsonActionModel.SamsonActionClassific
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "SamsonUI",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000");
+        });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -41,6 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseCors("SamsonUI");
 
 if (app.Environment.IsDevelopment())
 {

@@ -3,14 +3,15 @@ import { ReactNode } from "react";
 
 type FormProps = {
     children?: ReactNode
-    onSave?: () => void
+    onClick?: () => void
+    buttonText?: string;
 }
 
-const Form: React.FC<FormProps> = ({children, onSave}) => {
+const Form: React.FC<FormProps> = ({children, onClick, buttonText}) => {
     return (
     <form className="flex flex-col space-y-4 w-2/3 items-center">
         {children}
-        <Button className="w-full" variant="bordered" onClick={onSave}>Save</Button>
+        <Button className="w-full" variant="bordered" onClick={onClick}>{buttonText}</Button>
     </form>
     )
 }

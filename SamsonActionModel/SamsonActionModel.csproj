@@ -19,6 +19,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\SamsonWakeData\TestData\Audio\" />
+    <Folder Include="Data\SamsonWakeData\TestData\Spectogram\" />
     <Folder Include="Data\SpotifyNer\" />
   </ItemGroup>
   <ItemGroup Label="SamsonWakeClassification">

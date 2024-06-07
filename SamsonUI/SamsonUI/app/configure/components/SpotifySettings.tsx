@@ -1,10 +1,12 @@
+"use client"
+
 import Form from "@/components/form";
 import { Input } from "@nextui-org/input";
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
-import { useMemo, useState } from "react";
+import { Key, useMemo, useState } from "react";
 
 export default function SpotifySettings() {
-    const [selectedKeys, setSelectedKeys] = useState(new Set(["Code"]));
+    const [selectedKeys, setSelectedKeys] = useState(new Set<Key>(["Code"]));
 
 	const selectedValue = useMemo(
 		() => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
@@ -12,7 +14,7 @@ export default function SpotifySettings() {
 	  );
     
     return (
-        <Form>
+        <Form buttonText="Save">
             <label>Register Spotify Integration (For Development)</label>
             <Input type="text" label="Spotify Client Id" placeholder="Enter spotify client id"></Input>
             <Input type="password" label="Spotify Client Secret" placeholder="Enter spotify client secret"></Input>
@@ -33,7 +35,7 @@ export default function SpotifySettings() {
                         disallowEmptySelection
                         selectionMode="single"
                         selectedKeys={selectedKeys}
-                        onSelectionChange={setSelectedKeys}
+                        onSelectionChange={(key) => setSelectedKeys(key)}
                     >
                         <DropdownItem key="Code">Code</DropdownItem>
                         <DropdownItem key="Not">Not</DropdownItem>

@@ -7,7 +7,7 @@ export default function ListenSettings() {
 	const [selectedListeningDuration, setSelectedListenDuration] = useState("");
 
     return (
-        <Form>
+        <Form buttonText="Save">
             <label>Listening Settings</label>
             <div className="flex flex-row justify-between items-center w-full">
                 <RadioGroup 

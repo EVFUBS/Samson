@@ -16,6 +16,10 @@ export const siteConfig = {
 			label: "Configure",
 			href: "/configure"
 		},
+		{
+			label: "Demo",
+			href: "/demo"
+		}
 	],
 	navMenuItems: [
 		{
@@ -25,6 +29,10 @@ export const siteConfig = {
 		{
 			label: "Configure",
 			href: "/configure",
+		},
+		{
+			label: "Demo",
+			href: "/demo"
 		},
 		{
 			label: "Logout",

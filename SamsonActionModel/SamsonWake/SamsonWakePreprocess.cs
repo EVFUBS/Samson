@@ -12,6 +12,11 @@ namespace SamsonActionModel.SamsonWake
         private static string _wakeFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\OriginalData\Wake\";
         private static string _wakeSpectogramFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\TrainData\Wake\";
 
+        public void PreprocessOne(string filePath, string savePath)
+        {
+            CreateMelSpectograms(Directory.GetFiles(filePath, "*.wav", SearchOption.TopDirectoryOnly), savePath, "Test");
+        }
+
         public void Preprocess()
         {
             // get all wav files in the _filePath directory and sub-directories
