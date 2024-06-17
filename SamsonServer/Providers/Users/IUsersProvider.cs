@@ -1,4 +1,5 @@
-﻿using SamsonServer.Models.User;
+﻿using SamsonServer.Models.ReturnModels.User;
+using SamsonServer.Models.User;
 
 namespace SamsonServer.Providers.Users
 {
@@ -6,5 +7,6 @@ namespace SamsonServer.Providers.Users
     {
         Task<User> AddUserAsync(string email, string password, string username);
         Task<User> GetUserAsync(string emailOrUsername, string password);
+        Task<UserSettings> GetUserSettingsAsync(int id);
     }
 }

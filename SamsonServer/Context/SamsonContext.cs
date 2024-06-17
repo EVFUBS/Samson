@@ -3,16 +3,12 @@ using Microsoft.EntityFrameworkCore.Design;
 using SamsonServer.Models.AuthorisationToken;
 using SamsonServer.Models.User;
 
-namespace SamsonConsoleApp.Context
+namespace SamsonServer.Context
 {
-    public class SamsonContext : DbContext
+    public class SamsonContext(DbContextOptions<SamsonContext> options) : DbContext(options)
     {
         public DbSet<User> Users { get; set; }
         public DbSet<AuthorisationToken> AuthorisationTokens { get; set; }
-
-        public SamsonContext(DbContextOptions<SamsonContext> options) : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,19 +16,12 @@ namespace SamsonConsoleApp.Context
         }
     }
 
-    public class SamsonContextFactory : IDesignTimeDbContextFactory<SamsonContext>
+    public class SamsonContextFactory(IConfiguration config) : IDesignTimeDbContextFactory<SamsonContext>
     {
-        private readonly IConfiguration _configuration;
-
-        public SamsonContextFactory(IConfiguration config)
-        {
-            _configuration = config;
-        }
-
         public SamsonContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<SamsonContext>();
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Samsondb"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("Samsondb"));
 
             return new SamsonContext(optionsBuilder.Options);
         }

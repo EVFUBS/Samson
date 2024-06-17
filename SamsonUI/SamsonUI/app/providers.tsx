@@ -5,8 +5,9 @@ import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from 'next/navigation'
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
-import { createContext, useReducer, useState } from "react";
+import {createContext, useEffect, useReducer, useState} from "react";
 import { SamsonTokenContext } from "@/config/globals";
+import {samsonServerClient} from "@/Clients/Clients";
 
 export interface ProvidersProps {
 	children: React.ReactNode;
@@ -31,7 +32,7 @@ interface SamsonTokenProviderProps {
 
 const SamsonTokenProvider: React.FC<SamsonTokenProviderProps> = ({ children }) => {
     const [token, setToken] = useState<string>("");
-  
+  	
     return (
 		<SamsonTokenContext.Provider value={{token, setToken}}>
 			{children}

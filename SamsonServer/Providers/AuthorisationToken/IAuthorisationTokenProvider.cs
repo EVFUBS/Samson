@@ -13,5 +13,6 @@ namespace SamsonServer.Providers.AuthorisationToken
         Task<Models.AuthorisationToken.AuthorisationToken> Create(int userId);
         Task<Models.AuthorisationToken.AuthorisationToken> GetById(int userId);
         Task<Models.AuthorisationToken.AuthorisationToken> RefreshToken(int userId);
+        bool CompareTokens(string token);
     }
 }

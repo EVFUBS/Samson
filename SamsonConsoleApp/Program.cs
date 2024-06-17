@@ -35,11 +35,8 @@ internal class Program
         if (speechRecognition != null && samsonCredentials != null)
         {
             samsonCredentials.Login();
-
             Console.WriteLine("Samson is now listening");
-
-
-            speechRecognition.TestWake();
+            speechRecognition.TestAction();
             app.Run();
         }
         else

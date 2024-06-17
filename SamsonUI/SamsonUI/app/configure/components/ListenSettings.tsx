@@ -1,32 +1,43 @@
 import Form from "@/components/form";
 import {RadioGroup, Radio} from "@nextui-org/react";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {samsonServerClient} from "@/Clients/Clients";
 
 export default function ListenSettings() {
-    const [selectedListeningMode, setSelectedListeningMode] = useState("wake");
-	const [selectedListeningDuration, setSelectedListenDuration] = useState("");
+    const [listeningMode, setListeningMode] = useState<string | undefined>("");
+	const [listeningDuration, setListenDuration] = useState<string | undefined>("");
 
+    useEffect(() => {
+        const GetListenSettings = async(id: number) => {
+            const userSettings = await samsonServerClient.settings(8);
+            setListenDuration(userSettings.listenDuration?.toString());
+            setListeningMode(userSettings.listenMode?.toString());
+        }
+        
+        GetListenSettings(8);
+    }, []);
+    
     return (
         <Form buttonText="Save">
             <label>Listening Settings</label>
             <div className="flex flex-row justify-between items-center w-full">
                 <RadioGroup 
                     label="Select your preferred listening mode"
-                    value={selectedListeningMode}
-                    onValueChange={setSelectedListeningMode}
+                    value={listeningMode}
+                    onValueChange={setListeningMode}
                     >
-                    <Radio value="wake">wake word only</Radio>
-                    <Radio value="always">always on - (Does not exist yet but its here)</Radio>
-                    <Radio value="manual">manual activation - (through UI or hotkey)</Radio>
+                    <Radio value="1">wake word only</Radio>
+                    <Radio value="2">always on - (Does not exist yet but its here)</Radio>
+                    <Radio value="3">manual activation - (through UI or hotkey)</Radio>
                 </RadioGroup>
             </div>
 
-            {selectedListeningMode === "wake" ?
+            {listeningMode === "wake" ?
             <div className="flex flex-row justify-between items-center w-full pt-10">
                 <RadioGroup 
                 label="Select your preferred listen duration (duration of audio that is captured between evaluations for wake words - can affect performance and speed of response)"
-                value={selectedListeningDuration}
-                onValueChange={setSelectedListenDuration}
+                value={listeningDuration}
+                onValueChange={setListenDuration}
                 >
                     <Radio value="5">5 seconds</Radio>
                     <Radio value="10">10 seconds</Radio>

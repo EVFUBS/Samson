@@ -9,20 +9,13 @@ using System.Security.Cryptography;
 
 namespace SamsonServer.Providers.AuthorisationToken
 {
-    public class AuthorisationTokenProvider : IAuthorisationTokenProvider
+    public class AuthorisationTokenProvider(IAuthorisationTokenDal authorisationTokenDal) : IAuthorisationTokenProvider
     {
-        private readonly IAuthorisationTokenDAL _authorisationTokenDAL;
-
-        public AuthorisationTokenProvider(IAuthorisationTokenDAL authorisationTokenDAL)
-        {
-            _authorisationTokenDAL = authorisationTokenDAL;
-        }
-
         public async Task<Models.AuthorisationToken.AuthorisationToken> GetById(int userId)
         {
             try
             {
-                var authToken = await _authorisationTokenDAL.GetById(userId);
+                var authToken = await authorisationTokenDal.GetById(userId);
                 return authToken;
             }
             catch (DataNotFoundException)
@@ -34,14 +27,21 @@ namespace SamsonServer.Providers.AuthorisationToken
 
         public async Task<Models.AuthorisationToken.AuthorisationToken> RefreshToken(int userId)
         {
-            var authToken = await _authorisationTokenDAL.Update(userId, TokenHelper.GenerateAuthorisationToken(), DateTimeOffset.UtcNow.AddDays(30));
+            var authToken = await authorisationTokenDal.Update(userId, TokenHelper.GenerateAuthorisationToken(), DateTimeOffset.UtcNow.AddDays(30));
             return authToken;
         }
 
         public async Task<Models.AuthorisationToken.AuthorisationToken> Create(int userId)
         {
-            var authToken = await _authorisationTokenDAL.Create(userId, TokenHelper.GenerateAuthorisationToken(), DateTimeOffset.UtcNow.AddDays(30));
+            var authToken = await authorisationTokenDal.Create(userId, TokenHelper.GenerateAuthorisationToken(), DateTimeOffset.UtcNow.AddDays(30));
             return authToken;
+        }
+
+        public bool CompareTokens(string token)
+        {
+            // this will need caching later
+            var allTokens = authorisationTokenDal.GetAllAuthorisationTokens();
+            return allTokens.Exists(x => x.Token == token);
         }
     }
 }

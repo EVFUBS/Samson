@@ -2,8 +2,8 @@ using Hangfire;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.ML;
-using SamsonConsoleApp.Context;
 using SamsonServer;
+using SamsonServer.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +17,11 @@ builder.Services.AddDbContext<SamsonContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Samsondb")));
 
 builder.Services.AddHangfire(configuration => configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
-                                                           .UseSimpleAssemblyNameTypeSerializer()
-                                                           .UseRecommendedSerializerSettings()
-                                                           .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection")));
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSqlServerStorage(
+        "Data Source=EBS345;Initial Catalog=Samsondb;Integrated Security=True;Trust Server Certificate=True"));
+                                                           //.UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection")));
 
 builder.Services.AddHangfireServer();
 

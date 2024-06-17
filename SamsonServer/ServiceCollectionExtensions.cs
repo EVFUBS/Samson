@@ -1,4 +1,4 @@
-﻿using SamsonConsoleApp.Context;
+﻿using SamsonServer.Context;
 using SamsonServer.DAL;
 using SamsonServer.DAL.AuthorisationToken;
 using SamsonServer.DAL.Users;
@@ -15,10 +15,10 @@ namespace SamsonServer
         {
             services.AddScoped<SamsonContext>();
 
-            services.AddScoped<IUsersDAL, UsersDAL>();
+            services.AddScoped<IUsersDal, UsersDal>();
             services.AddScoped<IUsersProvider, UsersProvider>();
 
-            services.AddScoped<IAuthorisationTokenDAL, AuthorisationTokenDAL>();
+            services.AddScoped<IAuthorisationTokenDal, AuthorisationTokenDal>();
             services.AddScoped<IAuthorisationTokenProvider, AuthorisationTokenProvider>();
 
             services.AddScoped<ISpeechDeepgram, SpeechDeepgram>();

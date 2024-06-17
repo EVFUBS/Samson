@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using SamsonServer.DAL;
-using SamsonServer.DAL.AuthorisationToken;
 using SamsonServer.Exceptions;
+using SamsonServer.Models.ReturnModels.User;
 using SamsonServer.Models.User;
 using SamsonServer.Providers.AuthorisationToken;
 using SamsonServer.Providers.Users;
@@ -26,16 +25,7 @@ namespace SamsonServer.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
         {
-            if (userLogin == null)
-            {
-                return BadRequest("There is no login information!");
-            }
-
-            string emailOrUsername;
-            if (!string.IsNullOrEmpty(userLogin.Email))
-                emailOrUsername = userLogin.Email;
-            else
-                emailOrUsername = userLogin.Username;
+            var emailOrUsername = !string.IsNullOrEmpty(userLogin.Email) ? userLogin.Email : userLogin.Username;
             
             try
             {
@@ -46,6 +36,21 @@ namespace SamsonServer.Controllers
             catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("settings/{id:int}")]
+        public async Task<ActionResult<UserSettings>> GetUserSettingsAsync(int id)
+        {
+            try
+            {
+                var userSettings = await usersProvider.GetUserSettingsAsync(id);
+                return Ok(userSettings);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

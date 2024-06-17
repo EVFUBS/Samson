@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using SamsonCommon.Enums;
 
 namespace SamsonServer.Models.User
 {
@@ -20,5 +21,9 @@ namespace SamsonServer.Models.User
 
         [Required]
         public required string Permission {  get; set; }
+        
+        public ListenMode ListenMode { get; set; }
+        
+        public int ListenDuration { get; set; }
     }
 }

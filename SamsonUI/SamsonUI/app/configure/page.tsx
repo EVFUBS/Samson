@@ -13,8 +13,8 @@ export default function Home() {
 		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
             <p>Configure</p>
 			<div className="flex flex-col w-full items-center space-y-32">
-				<ListenSettings/>
 				<ServerSettings/>
+				<ListenSettings/>
 				<SpotifySettings/>
 			</div>
 		</section>

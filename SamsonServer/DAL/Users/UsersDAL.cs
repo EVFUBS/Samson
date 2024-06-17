@@ -1,23 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SamsonConsoleApp.Context;
-using SamsonServer.DAL.Users;
+using SamsonServer.Context;
 using SamsonServer.Exceptions;
+using SamsonServer.Models.ReturnModels.User;
 using SamsonServer.Models.User;
 
-namespace SamsonServer.DAL
+namespace SamsonServer.DAL.Users
 {
-    public class UsersDAL : IUsersDAL
+    public class UsersDal(SamsonContext samsonContext) : IUsersDal
     {
-        public readonly SamsonContext _samsonContext;
-
-        public UsersDAL(SamsonContext samsonContext)
-        {
-            _samsonContext = samsonContext;
-        }
-
         public async Task<User> GetUserAsync(string emailOrUsername, string hashedPassword)
         {
-            var user = await _samsonContext.Users.FirstOrDefaultAsync(x =>
+            var user = await samsonContext.Users.FirstOrDefaultAsync(x =>
                 (x.Username == emailOrUsername || x.Email == emailOrUsername) && x.Password == hashedPassword);
 
             if (user != null)
@@ -30,9 +23,26 @@ namespace SamsonServer.DAL
 
         public async Task<User> AddUserAsync(string email, string hashedPassword, string username)
         {
-            var users = await _samsonContext.Users.FromSql($"EXEC spAddUser @email={email}, @password={hashedPassword}, @username={username}").ToListAsync();
-            var user = users.FirstOrDefault(x => x.Email == email);
-            return user;
+            var users = await samsonContext.Users.FromSql($"EXEC spAddUser @email={email}, @password={hashedPassword}, @username={username}").ToListAsync();
+            return users.FirstOrDefault(x => x.Email == email) ?? throw new InvalidOperationException();
+        }
+
+        public async Task<UserSettings> GetUserSettingsByIdAsync(int id)
+        {
+            var user = await samsonContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user != null)
+            {
+                var userSettings = new UserSettings
+                {
+                    Id = user.Id,
+                    ListenDuration = user.ListenDuration,
+                    ListenMode = user.ListenMode
+                };
+
+                return userSettings;
+            }
+
+            throw new Exception($"could not find user with id: {id}");
         }
     }
 }

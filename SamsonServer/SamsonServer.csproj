@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Models\ResponseModels\" />
-    <Folder Include="Providers\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

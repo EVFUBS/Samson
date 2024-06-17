@@ -68,11 +68,10 @@ namespace SamsonConsoleApp.Speech
         private async Task Wake(string audioFilePath, double recordTime, int listenTimeInMilliseconds)
         {
             var client = serverClientFactory.Create();
-            var listening = true;
             var wakeRecorder = new AudioRecorder(recordTime);
             wakeRecorder.StartRecording();
 
-            while (listening)
+            while (true)
             {
                 await Task.Delay(listenTimeInMilliseconds);
                 wakeRecorder.Save(audioFilePath);
@@ -80,11 +79,9 @@ namespace SamsonConsoleApp.Speech
                 using (var fileStream = File.OpenRead(audioFilePath))
                 {
                     var response = await client.WakeAsync(mapper.Map<FileStream, SamsonServerClient.Stream>(fileStream));
-                    if (response.IsWake == true)
-                    {
-                        wakeRecorder.StopRecording();
-                        break;
-                    }
+                    if (response.IsWake != true) continue;
+                    wakeRecorder.StopRecording();
+                    break;
                 }
             }
         }

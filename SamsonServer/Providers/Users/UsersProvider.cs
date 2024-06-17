@@ -1,14 +1,15 @@
 ﻿using SamsonServer.DAL.Users;
 using SamsonServer.Helpers;
+using SamsonServer.Models.ReturnModels.User;
 using SamsonServer.Models.User;
 
 namespace SamsonServer.Providers.Users
 {
     public class UsersProvider : IUsersProvider
     {
-        private readonly IUsersDAL _usersDAL;
+        private readonly IUsersDal _usersDAL;
 
-        public UsersProvider(IUsersDAL usersDAL)
+        public UsersProvider(IUsersDal usersDAL)
         {
             _usersDAL = usersDAL;
         }
@@ -24,6 +25,11 @@ namespace SamsonServer.Providers.Users
             var hashedPassword = Encrypt.GetHashString(password);
             var user = await _usersDAL.AddUserAsync(email, hashedPassword, username);
             return user;
+        }
+
+        public async Task<UserSettings> GetUserSettingsAsync(int id)
+        {
+            return await _usersDAL.GetUserSettingsByIdAsync(id);
         }
     }
 }
