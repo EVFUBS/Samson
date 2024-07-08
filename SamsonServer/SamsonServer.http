@@ -1,6 +1,0 @@
-@SamsonServer_HostAddress = http://localhost:5195
-
-GET {{SamsonServer_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

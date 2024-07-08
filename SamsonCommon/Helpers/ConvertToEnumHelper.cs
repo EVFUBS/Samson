@@ -1,6 +1,6 @@
 ﻿using SamsonServerClient;
 
-namespace SamsonConsoleApp.Helpers
+namespace SamsonCommon.Helpers
 {
     public static class ConvertToEnumHelper
     {

@@ -1,6 +1,7 @@
 ﻿using SamsonCommon.Enums;
 using SamsonCommon.Models;
 using System.Text.Json;
+using SamsonCommon.Helpers;
 
 namespace SamsonConsoleApp.Helpers
 {
@@ -9,17 +10,17 @@ namespace SamsonConsoleApp.Helpers
         public static SamsonAction ToAction(this SamsonServerClient.SamsonAction value)
         {
             var action = (int)value.Action;
-            var catergory = (int)value.Catergory;
+            var category = (int)value.Catergory;
 
             return new SamsonAction
             {
                 Action = action.ToEnum<Actions>(),
-                Catergory = catergory.ToEnum<Catergories>(),
+                Catergory = category.ToEnum<Catergories>(),
                 Parameters = value.Parameters.ToActionParameters()
             };
         }
 
-        public static ActionParameters ToActionParameters(this SamsonServerClient.ActionParameters value)
+        private static ActionParameters? ToActionParameters(this SamsonServerClient.ActionParameters value)
         {
             var serialised = JsonSerializer.Serialize(value);
             return JsonSerializer.Deserialize<ActionParameters>(serialised);

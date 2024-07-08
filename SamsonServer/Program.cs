@@ -28,7 +28,7 @@ builder.Services.AddHangfireServer();
 builder.Services.AddControllers();
 
 builder.Services.AddPredictionEnginePool<SamsonActionModel.SamsonActionClassification.ModelInput, SamsonActionModel.SamsonActionClassification.ModelOutput>()
-    .FromFile("C:\\Users\\lssmith\\Documents\\pdrepos\\Samson\\SamsonConsoleApp\\SamsonActionModel\\SamsonActionClassification.mlnet");
+    .FromFile(@"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\SamsonActionClassification.mlnet");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -38,7 +38,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "SamsonUI",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000");
+            policy.WithOrigins("https://localhost:3000");
+            policy.WithOrigins("https://localhost:44349");
         });
 });
 

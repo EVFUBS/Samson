@@ -4,7 +4,6 @@ using SamsonActionModel;
 using SamsonCommon.Enums;
 using SamsonCommon.Helpers;
 using SamsonCommon.Models;
-using SamsonConsoleApp.Helpers;
 using SamsonServer.Helpers;
 
 
@@ -12,18 +11,12 @@ namespace SamsonServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActionController : ControllerBase
+    public class ActionController(IPredEngineHelper predEngineHelper) : ControllerBase
     {
-        IPredEngineHelper _predEngineHelper {  get; set; }
-        public ActionController(IPredEngineHelper predEngineHelper)
-        {
-            _predEngineHelper = predEngineHelper;
-        }
-
         [HttpGet]
         public ActionResult<SamsonAction> Get(string summary)
         {
-            var predEngine = _predEngineHelper.GetPredEngine<SamsonActionClassification.ModelInput, SamsonActionClassification.ModelOutput>();
+            var predEngine = predEngineHelper.GetPredEngine<SamsonActionClassification.ModelInput, SamsonActionClassification.ModelOutput>();
             var prediction = predEngine.Predict(new SamsonActionClassification.ModelInput
             {
                 Text = @summary,

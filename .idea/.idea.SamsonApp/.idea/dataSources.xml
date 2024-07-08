@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Microsoft SQL Server (JetBrains)" uuid="41d130fc-9744-4113-9580-0a34d71a95ab">
+    <data-source source="LOCAL" name="SamsonDB-server" uuid="41d130fc-9744-4113-9580-0a34d71a95ab">
       <driver-ref>sqlserver.jb</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>
       <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
       <jdbc-url>Data Source=EBS345;Initial Catalog=Samsondb;Integrated Security=True;Trust Server Certificate=True</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="samsonDB-local" uuid="ef5601a3-39ef-4b6e-8f3c-779697feb26a">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonConsoleApp\samsonDB.db</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

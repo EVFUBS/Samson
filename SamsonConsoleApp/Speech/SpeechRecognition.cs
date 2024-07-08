@@ -15,35 +15,51 @@ namespace SamsonConsoleApp.Speech
         IActionCollection actionCollection,
         IMapper mapper) : ISpeechRecognition
     {
-
         public async Task Start()
+        {
+            Logger.Log("Listening...");
+            await Listen(AudioFilePaths.ListenAudioFilePath, 120, 5000, 300);
+
+            AudioRecorder.Concatenate(AudioFilePaths.FullAudioFilePath, new List<string>
+            {
+                AudioFilePaths.WakeAudioFilePath,
+                AudioFilePaths.ListenAudioFilePath
+            });
+
+            Logger.Log("Converting audio to transcript");
+            var transcript = await GetTranscript();
+
+            Logger.Log("Sending following transcript to samson actions: ", transcript.Results.Summary.TextSummary);
+            var response = await GetAction(transcript);
+
+            Logger.Log($"Received action: {nameof(response.Action)}. Executing Action...");
+            actionCollection.Execute(response.ToAction());
+            Logger.Log("Execution Complete!\n");
+        }
+        
+        public async Task WakeWordStart()
         {
             while (true)
             {
                 Logger.Log("Waiting for wake...");
                 await Wake(AudioFilePaths.WakeAudioFilePath, 5, 2000);
-                
-                Logger.Log("Listening...");
-                await Listen(AudioFilePaths.ListenAudioFilePath, 120, 5000, 300);
-
-                AudioRecorder.Concatenate(AudioFilePaths.FullAudioFilePath, new List<string>
-                {
-                    AudioFilePaths.WakeAudioFilePath,
-                    AudioFilePaths.ListenAudioFilePath
-                });
-
-                Logger.Log("Sending audio to deepgram");
-                var transcript = await GetTranscript();
-
-                Logger.Log("Sending following transcript to samson actions: ", transcript.Results.Summary.TextSummary);
-                var response = await GetAction(transcript);
-
-                Logger.Log($"Recieved action: {nameof(response.Action)}. Executing Action...");
-                actionCollection.Execute(response.ToAction());
-                Logger.Log("Execution Complete!\n");
+                await Start();
             }
         }
 
+        // to be continued
+        public async Task HotKeyStart()
+        {
+            while (true)
+            {
+                if (!Console.KeyAvailable) continue;
+                if (Console.ReadKey().Key.Equals(ConsoleKey.LeftWindows) && Console.ReadKey().Key.Equals(ConsoleKey.Q))
+                {
+                    await Start();
+                }
+            }
+        }
+        
         public async Task TestWake()
         {
             await Wake(AudioFilePaths.WakeAudioFilePath, 5, 2000);
@@ -76,13 +92,11 @@ namespace SamsonConsoleApp.Speech
                 await Task.Delay(listenTimeInMilliseconds);
                 wakeRecorder.Save(audioFilePath);
 
-                using (var fileStream = File.OpenRead(audioFilePath))
-                {
-                    var response = await client.WakeAsync(mapper.Map<FileStream, SamsonServerClient.Stream>(fileStream));
-                    if (response.IsWake != true) continue;
-                    wakeRecorder.StopRecording();
-                    break;
-                }
+                await using var fileStream = File.OpenRead(audioFilePath);
+                var response = await client.WakeAsync(mapper.Map<FileStream, SamsonServerClient.Stream>(fileStream));
+                if (!response.IsWake) continue;
+                wakeRecorder.StopRecording();
+                break;
             }
         }
 
@@ -97,26 +111,19 @@ namespace SamsonConsoleApp.Speech
                 await Task.Delay(listenTimeInMilliseconds);
                 actionRecorder.Save(audioFilePath);
 
-                using (var reader = new AudioFileReader(audioFilePath))
-                {
-                    TimeSpan silenceDuration = reader.GetSilenceDuration(AudioRecorder.SilenceLocation.Start);
-
-                    if (silenceDuration.TotalMilliseconds > silenceDurationInMilliseconds)
-                    {
-                        actionRecorder.StopRecording();
-                        listening = false;
-                    }
-                }
+                await using var reader = new AudioFileReader(audioFilePath);
+                var silenceDuration = reader.GetSilenceDuration(AudioRecorder.SilenceLocation.Start);
+                if (!(silenceDuration.TotalMilliseconds > silenceDurationInMilliseconds)) continue;
+                actionRecorder.StopRecording();
+                listening = false;
             }
         }
 
         private async Task<PrerecordedTranscription> GetTranscript()
         {
             var serverClient = serverClientFactory.Create();
-            using (FileStream fileStream = File.OpenRead(AudioFilePaths.FullAudioFilePath))
-            {
-                return await serverClient.SynthAsync(fileStream.ToStream());
-            }
+            await using var fileStream = File.OpenRead(AudioFilePaths.FullAudioFilePath);
+            return await serverClient.SynthAsync(fileStream.ToStream());
         }
 
         private async Task<SamsonAction> GetAction(PrerecordedTranscription transcript)

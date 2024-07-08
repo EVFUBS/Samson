@@ -32,7 +32,7 @@ using AutoMapper;
 
 namespace SamsonConsoleApp
 {
-    public static class ServiceCollectionExtensions
+    public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration config)
         {

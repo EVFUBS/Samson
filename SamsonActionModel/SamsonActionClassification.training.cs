@@ -13,7 +13,7 @@ namespace SamsonActionModel
 {
     public partial class SamsonActionClassification
     {
-        public const string RetrainFilePath =  @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\SamsonActions.csv";
+        public const string RetrainFilePath =  @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonActionClassification\SamsonActions.csv";
         public const char RetrainSeparatorChar = ',';
         public const bool RetrainHasHeader =  true;
         public const bool RetrainAllowQuoting =  false;
@@ -92,7 +92,7 @@ namespace SamsonActionModel
             var pipeline = mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"text",outputColumnName:@"text")      
                                     .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"text"}))      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"class",inputColumnName:@"class",addKeyValueAnnotationsAsText:false))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator: mlContext.BinaryClassification.Trainers.LbfgsLogisticRegression(new LbfgsLogisticRegressionBinaryTrainer.Options(){L1Regularization=0.03125F,L2Regularization=0.05583035F,LabelColumnName=@"class",FeatureColumnName=@"Features"}), labelColumnName:@"class"))      
+                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator: mlContext.BinaryClassification.Trainers.LbfgsLogisticRegression(new LbfgsLogisticRegressionBinaryTrainer.Options(){L1Regularization=0.03125F,L2Regularization=0.04738394F,LabelColumnName=@"class",FeatureColumnName=@"Features"}), labelColumnName:@"class"))      
                                     .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;

@@ -2,11 +2,11 @@
 
 import Form from "@/components/form";
 import { Input } from "@nextui-org/input";
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Selection} from "@nextui-org/react";
 import { Key, useMemo, useState } from "react";
 
 export default function SpotifySettings() {
-    const [selectedKeys, setSelectedKeys] = useState(new Set<Key>(["Code"]));
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set<Key>(["Code"]));
 
 	const selectedValue = useMemo(
 		() => Array.from(selectedKeys).join(", ").replaceAll("_", " "),

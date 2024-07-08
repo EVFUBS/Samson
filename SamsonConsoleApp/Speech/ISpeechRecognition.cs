@@ -2,8 +2,9 @@
 {
     public interface ISpeechRecognition
     {
-        Task Start();
+        Task WakeWordStart();
         Task TestAction();
         Task TestWake();
+        Task Start();
     }
 }
