@@ -25,6 +25,7 @@ namespace SamsonServer.Providers.AuthorisationToken
             }
         }
 
+        // TODO: This is wrong
         public async Task<Models.AuthorisationToken.AuthorisationToken> RefreshToken(int userId)
         {
             var authToken = await authorisationTokenDal.Update(userId, TokenHelper.GenerateAuthorisationToken(), DateTimeOffset.UtcNow.AddDays(30));
@@ -33,7 +34,9 @@ namespace SamsonServer.Providers.AuthorisationToken
 
         public async Task<Models.AuthorisationToken.AuthorisationToken> Create(int userId)
         {
-            var authToken = await authorisationTokenDal.Create(userId, TokenHelper.GenerateAuthorisationToken(), DateTimeOffset.UtcNow.AddDays(30));
+            var token = TokenHelper.GenerateAuthorisationToken();
+            var authToken = await authorisationTokenDal.Create(userId, Encrypt.HashString(token), DateTimeOffset.UtcNow.AddDays(30));
+            authToken.Token = token;
             return authToken;
         }
 

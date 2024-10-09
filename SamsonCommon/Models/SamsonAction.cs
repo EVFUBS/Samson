@@ -8,5 +8,6 @@ namespace SamsonCommon.Models
         public Actions Action { get; set; }
         public Catergories Catergory { get; set; }
         public ActionParameters? Parameters { get; set; }
+        public string Text { get; set; }
     }
 }

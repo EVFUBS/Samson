@@ -31,7 +31,7 @@ export default function ListenSettings() {
                 >
                     <Radio value="1">wake word only</Radio>
                     <Radio value="2">always on - (Does not exist yet but its here)</Radio>
-                    <Radio value="3">manual activation</Radio>
+                    <Radio value="3">manual activation - (Also does not exist yet but its here)</Radio>
                 </RadioGroup>
             </div>
 

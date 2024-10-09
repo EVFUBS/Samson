@@ -5,9 +5,8 @@ import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from 'next/navigation'
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
-import {createContext, useEffect, useReducer, useState} from "react";
+import {useState} from "react";
 import { SamsonTokenContext } from "@/config/globals";
-import {samsonServerClient} from "@/Clients/Clients";
 
 export interface ProvidersProps {
 	children: React.ReactNode;

@@ -3,7 +3,7 @@
 import Form from "@/components/form";
 import { Input } from "@nextui-org/input";
 import {useState} from "react";
-import {samsonServerClient} from "@/Clients/Clients";
+import {samsonServerClient} from "@/clients/Clients";
 import Actions from "@/types/enums";
 
 export default function Page() {
@@ -11,7 +11,6 @@ export default function Page() {
 	const [actionCommand, setActionCommand] = useState<string>()
 		
 	const onSamsonActionClick = async () => {
-		console.log(actionCommand)
 		const response = await samsonServerClient.action(actionCommand);
 		// @ts-ignore
 		let enumKey = Object.keys(Actions)[Object.values(Actions).indexOf(response.action)];
@@ -21,7 +20,6 @@ export default function Page() {
 	return (
 		<div className="flex flex-col justify-center items-center w-full gap-20">
 			<div> Wake demo will go here</div>
-			
 			<div className="flex flex-col items-center w-full gap-5">
 				<div>
 					<h3>Actions Inference</h3>
@@ -31,7 +29,6 @@ export default function Page() {
 					<Input type="text" label="Enter command for samson to see the output action!" placeholder="Enter command" onChange={(e) => setActionCommand(e.target.value)}></Input>
 				</Form>
 			</div>
-			
 			<div>Named entity recognition demo will go here</div>
 		</div>
 	)

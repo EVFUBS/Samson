@@ -23,13 +23,13 @@ namespace SamsonServer.Controllers
             });
 
             var action = prediction.PredictedLabel.ToEnum<Actions>();
-
+            
             return Ok(new SamsonAction
             {
                 Action = action,
-                Catergory = CatergoryHelper.GetCatergory(action),
-                // Will be filled out by ner model later
-                Parameters = new ActionParameters { }
+                Catergory = CategoryHelper.GetCategory(action),
+                Parameters = new ActionParameters { },
+                Text = summary,
             });
         }
     }

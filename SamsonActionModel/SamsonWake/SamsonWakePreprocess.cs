@@ -7,10 +7,10 @@ namespace SamsonActionModel.SamsonWake
 {
     public class SamsonWakePreprocess
     {
-        private static string _notWakeFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\OriginalData\NotWake\";
-        private static string _notWakeSpectogramFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\TrainData\NotWake\";
-        private static string _wakeFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\OriginalData\Wake\";
-        private static string _wakeSpectogramFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonConsoleApp\SamsonActionModel\Data\SamsonWakeData\TrainData\Wake\";
+        private static string _notWakeFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonClient\SamsonActionModel\Data\SamsonWakeData\OriginalData\NotWake\";
+        private static string _notWakeSpectogramFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonClient\SamsonActionModel\Data\SamsonWakeData\TrainData\NotWake\";
+        private static string _wakeFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonClient\SamsonActionModel\Data\SamsonWakeData\OriginalData\Wake\";
+        private static string _wakeSpectogramFilePath = @"C:\Users\lssmith\Documents\pdrepos\Samson\SamsonClient\SamsonActionModel\Data\SamsonWakeData\TrainData\Wake\";
 
         public void PreprocessOne(string filePath, string savePath)
         {
@@ -26,7 +26,7 @@ namespace SamsonActionModel.SamsonWake
             CreateMelSpectograms(wakeAudioFiles, _wakeSpectogramFilePath, "Wake");
         }
 
-        public void CreateMelSpectograms(string[] audioFiles, string savePath, string filePrefix)
+        private void CreateMelSpectograms(string[] audioFiles, string savePath, string filePrefix)
         {
             int i = 1;
             foreach (string file in audioFiles)

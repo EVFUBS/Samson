@@ -20,13 +20,18 @@
     <Folder Include="Data\SamsonWakeData\TestData\Spectogram\" />
     <Folder Include="Data\SpotifyNer\" />
   </ItemGroup>
+  <ItemGroup Label="SamsonActionClassification">
+    <None Include="SamsonActionClassification.mlnet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup Label="SamsonWakeClassification">
     <None Include="SamsonWakeClassification.mlnet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup Label="SamsonActionClassification">
-    <None Include="SamsonActionClassification.mlnet">
+  <ItemGroup Label="SpotifyNer">
+    <None Include="SpotifyNer.mlnet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

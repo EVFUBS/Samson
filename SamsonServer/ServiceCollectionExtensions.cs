@@ -1,9 +1,10 @@
-﻿using SamsonServer.Context;
-using SamsonServer.DAL;
+﻿using SamsonCommon;
+using SamsonServer.Context;
 using SamsonServer.DAL.AuthorisationToken;
 using SamsonServer.DAL.Users;
 using SamsonServer.Helpers;
 using SamsonServer.Providers.AuthorisationToken;
+using SamsonServer.Providers.Question;
 using SamsonServer.Providers.Speech;
 using SamsonServer.Providers.Users;
 
@@ -21,10 +22,11 @@ namespace SamsonServer
             services.AddScoped<IAuthorisationTokenDal, AuthorisationTokenDal>();
             services.AddScoped<IAuthorisationTokenProvider, AuthorisationTokenProvider>();
 
+            services.AddScoped<IQuestionProvider, QuestionProvider>();
+            services.AddScoped<ISpeechProvider, SpeechProvider>();
             services.AddScoped<ISpeechDeepgram, SpeechDeepgram>();
 
             services.AddScoped<IPredEngineHelper, PredEngineHelper>();
-
             return services;
         }
     }

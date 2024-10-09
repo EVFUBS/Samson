@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonActionModel", "Samson
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamsonCommon", "SamsonCommon\SamsonCommon.csproj", "{E232161E-8F1B-4B01-AAF4-A7843B984507}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamsonConsoleApp", "SamsonConsoleApp\SamsonConsoleApp.csproj", "{4FDCFACB-BFD2-4CC0-BE9A-C9DFA89AB5F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamsonClient", "SamsonClient\SamsonClient.csproj", "{4FDCFACB-BFD2-4CC0-BE9A-C9DFA89AB5F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

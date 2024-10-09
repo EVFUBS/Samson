@@ -1,47 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.ML;
-using SamsonActionModel;
-using SamsonActionModel.SamsonWake;
 using SamsonCommon.Models;
-using SamsonServer.Helpers;
-using System.Drawing.Imaging;
+using SamsonServer.Extensions;
+using SamsonServer.Providers.Speech;
 
 namespace SamsonServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WakeController(IPredEngineHelper predEngineHelper) : ControllerBase
+    public class WakeController(ISpeechProvider speechProvider) : ControllerBase
     {
         [HttpGet]
-        public ActionResult<SamsonWake> Get(Stream data)
+        public async Task<ActionResult<SamsonWake>> Get(Base64EncodedRequest data)
         {
-            var predEngine = predEngineHelper.GetPredEngine<SamsonWakeClassification.ModelInput, SamsonWakeClassification.ModelOutput>();
-            var melSpectogram = new SamsonWakePreprocess().CreateMelSpectogramFromStream(data);
-            using (var stream = new MemoryStream())
+            var wakeStrings = new[] { "Samson", "Hey Samson", "Hey Simpson", "Hey, Simpson", "Hey, Sam's", "Hey, Sam" };
+            var transcribeText = await speechProvider.SpeechToText(data.ToMemoryStream());
+            return Ok(new SamsonWake
             {
-                melSpectogram.Save(stream, ImageFormat.Png);
-                var melSpectogramByteArray = stream.ToArray();
-
-                var prediction = predEngine.Predict(new SamsonWakeClassification.ModelInput
-                {
-                    ImageSource = melSpectogramByteArray,
-                });
-
-                if(prediction.PredictedLabel == "Wake") 
-                {
-                    return Ok(new SamsonWake
-                    {
-                        IsWake = true
-                    });
-                }
-                else
-                {
-                    return Ok(new SamsonWake
-                    {
-                        IsWake = false
-                    });
-                }
-            }
+                IsWake = wakeStrings.Any(substring => transcribeText.Contains(substring))
+            });
         }
     }
 }

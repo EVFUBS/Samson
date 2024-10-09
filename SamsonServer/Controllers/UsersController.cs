@@ -8,7 +8,7 @@ using SamsonServer.Providers.Users;
 namespace SamsonServer.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController(
         ILogger<UsersController> logger,
         IUsersProvider usersProvider,

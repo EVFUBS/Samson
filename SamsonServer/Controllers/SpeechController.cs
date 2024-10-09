@@ -1,15 +1,21 @@
-﻿using Deepgram.Models;
+﻿using AutoMapper;
+using Deepgram.Models;
 using Microsoft.AspNetCore.Mvc;
+using SamsonServer.Extensions;
+using SamsonServer.Models.ReturnModels.Speech;
 using SamsonServer.Providers.Speech;
+using Whisper.net;
+using Whisper.net.Ggml;
+
 
 namespace SamsonServer.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class SpeechController(ISpeechDeepgram deepgram) : ControllerBase
+    [Route("api/[controller]")]
+    public class SpeechController(ISpeechDeepgram deepgram, ISpeechProvider speechProvider) : ControllerBase
     {
         [HttpPost("synth")]
-        public async Task<ActionResult<PrerecordedTranscription>> Synthesize(Stream data)
+        public async Task<ActionResult<PrerecordedTranscription>> DeepgramSpeechToText(Stream data)
         {
             try
             {
@@ -22,10 +28,19 @@ namespace SamsonServer.Controllers
             }
         }
 
-        [HttpPost("tts")]
-        public async Task<IActionResult> SpeechToText()
+        [HttpPost("stt")]
+        public async Task<ActionResult<SpeechToText>> SpeechToText(Base64EncodedRequest data)
         {
-            return Ok();
+            return Ok(new SpeechToText
+            {
+                Text = await speechProvider.SpeechToText(data.ToMemoryStream())
+            });
+        }
+
+        [HttpPost("tts")]
+        public async Task<ActionResult> TextToSpeech(string text)
+        {
+            return Ok("oke");
         }
     }
 }

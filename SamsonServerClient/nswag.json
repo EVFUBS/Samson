@@ -1,8 +1,8 @@
 {
-  "runtime": "Net60",
+  "runtime": "Net80",
   "documentGenerator": {
     "fromDocument": {
-      "url": "https://localhost:7044/swagger/v1/swagger.json"
+      "url": "https://localhost:44306/swagger/v1/swagger.json"
     }
   },
   "codeGenerators": {
@@ -45,7 +45,12 @@
       "handleReferences": true,
       "generateImmutableArrayProperties": false,
       "generateImmutableDictionaryProperties": false,
-      "output": "SamsonServerClient.g.cs"
+      "output": "SamsonServerClient.g.cs",
+      "typeMappings": {
+        "System.IO.Stream": "System.IO.Stream",
+        "System.IO.FileStream": "System.IO.FileStream"
+        
+      }
     }
   }
 }
